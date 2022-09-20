@@ -16,5 +16,6 @@ int main(void) {
 
 	printf("algo1");
 	printf("algo2");
+	printf("algo3");
 	return EXIT_SUCCESS;
 }
