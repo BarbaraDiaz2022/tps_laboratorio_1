@@ -15,5 +15,6 @@ int main(void) {
 	setbuf(stdout,NULL);
 
 	printf("algo1");
+	printf("algo2");
 	return EXIT_SUCCESS;
 }
