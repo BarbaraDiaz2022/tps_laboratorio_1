@@ -32,7 +32,7 @@ float calcularMantenimiento(float costoDeTransporte, float costoDeComida, float 
     float costoTotal;
 
     costoTotal = costoDeTransporte + costoDeHospedaje + costoDeComida;
-    if(costoTotal != 0)
+    if(costoDeTransporte != 0 && costoDeHospedaje != 0 && costoDeComida != 0)
     {
         printf("Se calcul%c correctamente el costo de mantenimiento.\n",162);
     }

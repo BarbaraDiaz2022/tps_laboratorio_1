@@ -19,43 +19,24 @@ int main(void) {
 	setbuf(stdout,NULL);
 
     int opcion;
-    //variables para las opciones del case 1
+    //variables para las opciones del case 1 del menu principal
     int opcionCaseUno;
-    float costoDeHospedaje = 0;
-    float costoDeComida = 0;
-    float costoDeTransporte = 0;
-    int retornoHospedaje;
-    int retornoComida;
-    int retornoTransporte;
-    //variables para las opciones del case 2
+    float costoDeHospedaje = 0, costoDeComida = 0, costoDeTransporte = 0;
+    int retornoHospedaje, retornoComida, retornoTransporte;
+    //variables para las opciones del case 2 del menu principal
     int camiseta;
     int retornoCamiseta;
     char opcionCaseDos;
-    int cantidadArquero = 0;
-    int cantidadDefensor = 0;
-    int cantidadMediocampista = 0;
-    int cantidadDelantero = 0;
+    int cantidadArquero = 0, cantidadDefensor = 0, cantidadMediocampista = 0, cantidadDelantero = 0;
     int confederacion;
-    int contadorAFC = 0;
-    int contadorCAF = 0;
-    int contadorCONCACAF = 0;
-    int contadorCONMEBOL = 0;
-    int contadorUEFA = 0;
-    int contadorOFC = 0;
+    int contadorAFC = 0, contadorCAF = 0, contadorCONCACAF = 0, contadorCONMEBOL = 0, contadorUEFA = 0, contadorOFC = 0;
     char rta;
-    //variables para las opciones del case 3
+    //variables para las opciones del case 3 del menu principal
     int opcionCaseTres;
-    float promedioAFC;
-    float promedioCAF;
-    float promedioCONCACAF;
-    float promedioCONMEBOL;
-    float promedioUEFA;
-    float promedioOFC;
-    int flag = 0;
-    //variables para las opciones del case 2 del case 3
-    float costoTotal;
-    float costoConAumento;
-    float costoConAumentoTotal;
+    float promedioAFC, promedioCAF, promedioCONCACAF, promedioCONMEBOL, promedioUEFA, promedioOFC;
+    int flag = 0; //para validar que se realice al menos un calculo antes de mostrar los resultados
+    //variables para las opciones del case 4 del menu principal
+    float costoTotal, costoConAumento, costoConAumentoTotal;
 
 	do
 	{
@@ -241,5 +222,6 @@ int main(void) {
 				printf("ERROR. Opci%cn incorrecta. Ingrese nuevamente.\n",162);
 		}
 	}while(opcion != 5);
+
 	return EXIT_SUCCESS;
 }
