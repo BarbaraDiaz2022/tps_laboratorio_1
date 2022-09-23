@@ -1,6 +1,6 @@
 /*
  ============================================================================
- Name        : tp.c
+ Name        : tp_1.c
  Author      : Diaz Barbara
  Version     :
  Copyright   : Your copyright notice
@@ -10,6 +10,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "biblioteca_inputs.h"
 #include "biblioteca_calcular.h"
 #define MAX 22
@@ -24,8 +25,7 @@ int main(void) {
     float costoDeHospedaje = 0, costoDeComida = 0, costoDeTransporte = 0;
     int retornoHospedaje, retornoComida, retornoTransporte;
     //variables para las opciones del case 2 del menu principal
-    int camiseta;
-    int retornoCamiseta;
+    int camiseta, retornoCamiseta;
     char opcionCaseDos;
     int cantidadArquero = 0, cantidadDefensor = 0, cantidadMediocampista = 0, cantidadDelantero = 0;
     int confederacion;
@@ -90,9 +90,12 @@ int main(void) {
                     {
                     	printf("No se pudo ingresar el numero de camiseta. Reintentos agotados.\n");
                     }
+
                     printf("Seleccionar la opci%cn a ingresar\na. Arqueros -> %d\nb. Defensores -> %d\nc. Mediocampistas -> %d\nd. Delanteros -> %d\n",162, cantidadArquero,cantidadDefensor, cantidadMediocampista, cantidadDelantero);
                     fflush(stdin);
                     scanf("%c", &opcionCaseDos);
+                    opcionCaseDos= tolower(opcionCaseDos);
+
                     do
                     {
                     	switch (opcionCaseDos)
@@ -130,7 +133,7 @@ int main(void) {
                             	}
                             break;
                         	default:
-                        		printf("ERROR. Ingrese la opci%cn correcta.\n", 162);
+                        		printf("ERROR. Ingrese la letra pedida.\n");
                         		break;
                     	}
                     }while(opcionCaseDos < 'a' && opcionCaseDos > 'd');
