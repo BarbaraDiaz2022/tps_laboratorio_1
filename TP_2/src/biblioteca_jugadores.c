@@ -12,7 +12,7 @@
 #include "biblioteca_confederaciones.h"
 #include "biblioteca_jugadores.h"
 #include "biblioteca_output.h"
-#define CANTIDAD_JUGADORES 5 //tiene que ser 3000
+#define CANTIDAD_JUGADORES 3000
 #define CANTIDAD_CONFEDERACIONES 6
 #define VACIO 0
 #define OCUPADO 1
