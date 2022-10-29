@@ -65,7 +65,7 @@ int main(void) {
 					}
 					else
 					{
-						printf("No se encontro el jugador a eliminar\n");
+						printf("No se elimino el jugador\n");
 					}
 					printf("\n\n");
 
