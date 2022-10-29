@@ -111,8 +111,7 @@ static int getShort(short* pResultado)
 	int retorno =-1;
 	char buffer [4000];
 
-
-	if(myGets(buffer,sizeof(buffer))==0 &&   esNumerica(buffer))
+	if(myGets(buffer,sizeof(buffer))==0 && esNumerica(buffer))
 	{
 		retorno =0;
 		*pResultado = atoi(buffer);
@@ -245,48 +244,6 @@ int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float mini
 		}
 	}
 	return retorno;
-}
-
-int utn_getCaracter(char* pResultado,char* mensaje,char* mensajeError,char minimo,char maximo,int reintentos)
-{
-	char bufferChar;//lo que lea scanf se guarda aca (area de intercambio)
-	int retorno=0;
-
-	if(pResultado != NULL && mensaje!= NULL && mensajeError != NULL && minimo <= maximo && reintentos >= 0)
-	{
-		do
-		{
-			printf("%s",mensaje);
-			fflush(stdin);
-			scanf("%c",&bufferChar);
-
-			if(bufferChar>=minimo && bufferChar<=maximo)
-			{
-				*pResultado = bufferChar;
-				retorno =1;//salio bien
-				break; //si salio bien hago un break para q deje de reintentar
-			}
-			else
-			{
-				printf("%s",mensajeError);
-				reintentos--; //la decremento en 1
-			}
-
-			switch(reintentos)
-			{
-				case 0:
-					printf("Queda 1 intento\n");
-				break;
-				case 1:
-					printf("Quedan 2 intentos\n");
-				break;
-				case 2:
-					printf("Quedan 3 intentos\n");
-				break;
-			}
-		}while(reintentos>=0);//pregunto si quedan reintentos para hacer
-	}
-		return retorno;
 }
 
 int pedirCadena(char cadena[],int largo,char mensaje[])

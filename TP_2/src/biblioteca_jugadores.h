@@ -46,8 +46,6 @@ float calcularPromedio(float acumuladorImporte, int contador, eJugador jugadores
 
 int buscarJugadoresSuperiorPromedio(float promedio, eJugador jugadores[], int tam);
 
-int buscarConfederacion(eConfederacion confederaciones[],int idABuscar,int tam);
-
 int acumularAnios(eJugador jugadores[], int tam);
 
 int acumularJugadores(eJugador jugadores[], int tam);

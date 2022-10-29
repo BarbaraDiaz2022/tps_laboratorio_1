@@ -26,10 +26,9 @@ int main(void) {
     eConfederacion confederaciones[CANTIDAD_CONFEDERACIONES];
     int idJugadoresAutoincremental = 1;
     int contador = 0;
-    int auxConfirmacion, confirmacion;
-    int opcion,opcionModificar, opcionListar;
+    int opcion, opcionModificar, opcionListar,auxConfirmacion, confirmacion;
     float totalSalario, promedio;
-    int cantidadSalariosQueSuperenPromedio,retornoAnios,retornoJugadores,retornoRegiones;
+    int cantidadSalariosQueSuperenPromedio, retornoAnios, retornoJugadores, retornoRegiones;
     //llamado a funciones
     inicializarArray(jugadores,CANTIDAD_JUGADORES);
     hardcodearConfederacion(confederaciones,CANTIDAD_CONFEDERACIONES);

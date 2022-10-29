@@ -341,24 +341,6 @@ int modificarAnio(eJugador jugadores[],int tam)
 	return retorno;
 }
 
-int buscarConfederacion(eConfederacion confederaciones[],int idABuscar,int tam)
-{
-	int indice,i;
-
-	indice = -1;//si no encuentra al id
-
-	for(i = 0; i < tam; i++)
-	{
-	   if(confederaciones[i].isEmpty == OCUPADO && confederaciones[i].id == idABuscar)
-	   {
-		   indice = i;
-		   break;
-	   }
-	}
-
-	return indice;
-}
-
 float sumarSalarios(eJugador jugadores[], int tam)
 {
     float acumuladorSalarios = 0;
