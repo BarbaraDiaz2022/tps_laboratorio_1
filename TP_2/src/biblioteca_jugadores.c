@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "biblioteca_input.h"
 #include "biblioteca_confederaciones.h"
 #include "biblioteca_jugadores.h"
@@ -49,8 +50,9 @@ int altaJugador(eJugador jugadores[], int tam, int idJugadoresAutoincremental)
 	short opcionCamiseta, auxCamiseta;
 	int opcionConfederacion, auxConfederacion;
 	float opcionSalario;
-	int auxSalario;
+	int auxSalario, auxRetornoNombre;
 	short retornoAnios, opcionAnio;
+	char auxNombre[50];
 
 	retorno = 0;//si la lista esta llena y no se puede dar de alta
 
@@ -59,10 +61,16 @@ int altaJugador(eJugador jugadores[], int tam, int idJugadoresAutoincremental)
 	if(indice > -1)
 	{
 		jugadores[indice].id = idJugadoresAutoincremental;
-		setbuf(stdin,NULL);
-	    pedirCadena(jugadores[indice].nombre,50,"Ingrese el nombre del jugador:\n");
 
-	    auxPosicion = utnGetNumero(&opcionPosicion, "Ingrese la posicion del jugador:\n1.Delantero\n2.Defensor\n3.Arquero\n4.Mediocampista\n","Error, ingrese una opcion valida:\n",1,4,3);
+		auxRetornoNombre = pedirNombreYApellido(50,25,25,auxNombre);
+		if(auxRetornoNombre == 1)
+		{
+			strcpy(jugadores[indice].nombre, auxNombre);
+		}
+
+
+
+	    auxPosicion = utnGetNumero(&opcionPosicion, "Ingrese la posicion del jugador:\n1.Delantero\n2.Defensor\n3.Arquero\n4.Mediocampista\n","Error, ingrese una opcion valida\n",1,4,3);
         if(auxPosicion == 0)
         {
 			switch(opcionPosicion)
@@ -82,7 +90,7 @@ int altaJugador(eJugador jugadores[], int tam, int idJugadoresAutoincremental)
 			}
         }
 
-        auxCamiseta = getNumeroShort(&opcionCamiseta,"Ingrese el numero de camiseta:\n","Error, ingrese un numero de camiseta valido:\n",1,99,3);
+        auxCamiseta = getNumeroShort(&opcionCamiseta,"Ingrese el numero de camiseta:\n","Error, ingrese un numero de camiseta valido\n",1,99,3);
         if(auxCamiseta == 0)
         {
         	jugadores[indice].numeroCamiseta = opcionCamiseta;
@@ -94,7 +102,7 @@ int altaJugador(eJugador jugadores[], int tam, int idJugadoresAutoincremental)
         	jugadores[indice].idConfederacion = opcionConfederacion;
         }
 
-        auxSalario = utnGetFloat(&opcionSalario, "Ingrese el salario:\n","Error, ingrese un salario valido:\n",1000,150000000,3);
+        auxSalario = utnGetFloat(&opcionSalario, "Ingrese el salario (entre 1000 y 150000000):\n","Error, ingrese un salario dentro del rango (entre 1000 y 150000000)\n",1000,150000000,3);
         if(auxSalario == 0)
         {
         	jugadores[indice].salario = opcionSalario;
@@ -394,27 +402,30 @@ int acumularAnios(eJugador jugadores[], int tam)
 	{
 	    for(i = 0; i < tam; i++)
 	    {
-	        switch(jugadores[i].idConfederacion)
-	        {
-	        	case 1:
-	        		aniosConmebol = aniosConmebol + jugadores[i].aniosContrato;
-	        	break;
-	        	case 2:
-	        		aniosUefa = aniosUefa+ jugadores[i].aniosContrato;
-	        	break;
-	        	case 3:
-	        		aniosAfc = aniosAfc + jugadores[i].aniosContrato;
-	        	break;
-	        	case 4:
-	        		aniosCaf = aniosCaf + jugadores[i].aniosContrato;
-	        	break;
-	        	case 5:
-	        		aniosConcacaf = aniosConcacaf + jugadores[i].aniosContrato;
-	        	break;
-	        	case 6:
-	        		aniosOfc = aniosOfc + jugadores[i].aniosContrato;
-	        	break;
-	        }
+	    	if(jugadores[i].isEmpty == OCUPADO)
+	    	{
+				switch(jugadores[i].idConfederacion)
+				{
+					case 1:
+						aniosConmebol = aniosConmebol + jugadores[i].aniosContrato;
+					break;
+					case 2:
+						aniosUefa = aniosUefa+ jugadores[i].aniosContrato;
+					break;
+					case 3:
+						aniosAfc = aniosAfc + jugadores[i].aniosContrato;
+					break;
+					case 4:
+						aniosCaf = aniosCaf + jugadores[i].aniosContrato;
+					break;
+					case 5:
+						aniosConcacaf = aniosConcacaf + jugadores[i].aniosContrato;
+					break;
+					case 6:
+						aniosOfc = aniosOfc + jugadores[i].aniosContrato;
+					break;
+				}
+	    	}
 	    }
 
 	    mostrarConfederacionConMasContrato(aniosConmebol,aniosUefa,aniosAfc,aniosCaf,aniosConcacaf,aniosOfc);
@@ -423,8 +434,6 @@ int acumularAnios(eJugador jugadores[], int tam)
 
 	return retorno;
 }
-
-
 
 int acumularJugadores(eJugador jugadores[], int tam)
 {
@@ -436,31 +445,34 @@ int acumularJugadores(eJugador jugadores[], int tam)
 	{
 		for(i = 0; i < tam; i++)
 		{
-			switch(jugadores[i].idConfederacion)
+			if(jugadores[i].isEmpty == OCUPADO)
 			{
-				case 1:
-					 jugadoresConmebol++;
-				break;
-				case 2:
-					jugadoresUefa++;
+				switch(jugadores[i].idConfederacion)
+				{
+					case 1:
+						 jugadoresConmebol++;
+					break;
+					case 2:
+						jugadoresUefa++;
 
-				break;
-				case 3:
-					jugadoresAfc++;
+					break;
+					case 3:
+						jugadoresAfc++;
 
-				break;
-				case 4:
-					jugadoresCaf++;
+					break;
+					case 4:
+						jugadoresCaf++;
 
-				break;
-				case 5:
-					jugadoresConcacaf++;
+					break;
+					case 5:
+						jugadoresConcacaf++;
 
-				break;
-				case 6:
-					jugadoresOfc++;
+					break;
+					case 6:
+						jugadoresOfc++;
 
-				break;
+					break;
+				}
 			}
 		}
 
@@ -501,26 +513,29 @@ int acumularRegiones(eJugador jugadores[], int tam, eConfederacion confederacion
 	{
 		for(i = 0; i < tam; i++)
 		{
-			switch(jugadores[i].idConfederacion)
+			if(jugadores[i].isEmpty == OCUPADO)
 			{
-				case 1:
-					region1++;
-				break;
-				case 2:
-					region2++;
-				break;
-				case 3:
-					region3++;
-				break;
-				case 4:
-					region4++;
-				break;
-				case 5:
-					region5++;
-				break;
-				case 6:
-					region6++;
-				break;
+				switch(jugadores[i].idConfederacion)
+				{
+					case 1:
+						region1++;
+					break;
+					case 2:
+						region2++;
+					break;
+					case 3:
+						region3++;
+					break;
+					case 4:
+						region4++;
+					break;
+					case 5:
+						region5++;
+					break;
+					case 6:
+						region6++;
+					break;
+				}
 			}
 		}
 

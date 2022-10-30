@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "biblioteca_input.h"
 #include "biblioteca_confederaciones.h"
 #include "biblioteca_jugadores.h"
@@ -15,6 +16,49 @@
 #define CANTIDAD_CONFEDERACIONES 6
 #define VACIO 0
 #define OCUPADO 1
+
+int pedirNombreYApellido(int largo, int largoNombre, int largoApellido, char *nombreApellido)
+{
+	int retorno;
+	char nombre[largoNombre];
+	char apellido[largoApellido];
+	//char nombreApellido[largo];
+
+	retorno = -1; //si no toma el nombre
+
+	if(largo > 0 && largoNombre > 0 && largoApellido > 0)
+	{
+		printf("Ingrese nombre:\n");	//pedido de nombre
+		fflush(stdin);
+		scanf("%[^\n]",nombre);
+
+		printf("Ingrese apellido:\n"); //pedido del apellido
+		fflush(stdin);
+		scanf("%[^\n]",apellido);
+
+		strlwr(nombre);		//convierto a min los dos arrays
+		strlwr(apellido);
+
+		nombre[0] = toupper(nombre[0]);
+		apellido[0] = toupper(nombre[0]);
+		for(int i = 0; i<strlen(nombre);i++)
+		{
+			if(nombre[i] == ' ')
+			{
+				nombre[i+1] = toupper(nombre[i+1]);	 //transformo en mayuscula 1 letra y la guardo en la misma posicion
+				apellido[0] = toupper(apellido[0]);
+			}
+		}
+
+		strcpy(nombreApellido,nombre);	//copio en un auxiliar los datos para no modificar el original
+		strcat(nombreApellido,", ");		//concateno
+		strcat(nombreApellido,apellido);
+
+		retorno = 1;
+	}
+
+	return retorno;
+}
 
 int esNumerica(char* cadena)
 {

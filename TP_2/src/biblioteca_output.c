@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "biblioteca_input.h"
 #include "biblioteca_confederaciones.h"
 #include "biblioteca_jugadores.h"
@@ -110,7 +111,7 @@ void listarConfederacionYJugador(eJugador jugadores[], int tamJugador, eConfeder
     {
        for(j = 0;j < tamConfederacion; j++)
        {
-           if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].nombre,"CONMEBOL") == 0)
+           if(jugadores[i].isEmpty == OCUPADO && (stricmp(confederaciones[j].nombre,"CONMEBOL") == 0) && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 6)
 		        {
 			        printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 			        printf("\n-----------------------------------------------------------------------------------------\n");
@@ -129,7 +130,7 @@ void listarConfederacionYJugador(eJugador jugadores[], int tamJugador, eConfeder
     {
        for(j = 0;j < tamConfederacion; j++)
        {
-           if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].nombre,"UEFA") == 0)
+           if(jugadores[i].isEmpty == OCUPADO && (stricmp(confederaciones[j].nombre,"UEFA") == 0) && jugadores[i].idConfederacion != 1 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 6)
 		        {
 			        printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 			        printf("\n-----------------------------------------------------------------------------------------\n");
@@ -147,7 +148,7 @@ void listarConfederacionYJugador(eJugador jugadores[], int tamJugador, eConfeder
     {
        for(j = 0;j < tamConfederacion; j++)
        {
-           if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].nombre,"AFC") == 0)
+           if(jugadores[i].isEmpty == OCUPADO && (stricmp(confederaciones[j].nombre,"AFC") == 0) && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 1 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 6)
 		        {
 			        printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 			        printf("\n-----------------------------------------------------------------------------------------\n");
@@ -165,7 +166,7 @@ void listarConfederacionYJugador(eJugador jugadores[], int tamJugador, eConfeder
     {
        for(j = 0;j < tamConfederacion; j++)
        {
-           if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].nombre,"CAF") == 0)
+           if(jugadores[i].isEmpty == OCUPADO && (stricmp(confederaciones[j].nombre,"CAF") == 0) && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 1 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 6)
 		        {
 			        printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 			        printf("\n-----------------------------------------------------------------------------------------\n");
@@ -183,7 +184,7 @@ void listarConfederacionYJugador(eJugador jugadores[], int tamJugador, eConfeder
     {
        for(j = 0;j < tamConfederacion; j++)
        {
-           if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].nombre,"CONCACAF") == 0)
+           if(jugadores[i].isEmpty == OCUPADO && (stricmp(confederaciones[j].nombre,"CONCACAF") == 0) && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 1 && jugadores[i].idConfederacion != 6)
 		        {
 			        printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 			        printf("\n-----------------------------------------------------------------------------------------\n");
@@ -201,7 +202,7 @@ void listarConfederacionYJugador(eJugador jugadores[], int tamJugador, eConfeder
     {
        for(j = 0;j < tamConfederacion; j++)
        {
-           if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].nombre,"OFC") == 0)
+           if(jugadores[i].isEmpty == OCUPADO && (stricmp(confederaciones[j].nombre,"OFC") == 0) && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 1)
 		        {
 			        printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 			        printf("\n-----------------------------------------------------------------------------------------\n");
@@ -279,7 +280,7 @@ void regionConMasJugadores(int region1, int region2, int region3, int region4, i
 	    {
 	       for(j = 0;j < tamConfederacion; j++)
 	       {
-	           if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"SUDAMERICA") == 0)
+	           if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"SUDAMERICA") == 0 && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 6)
 			        {
 				        printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 				        printf("\n-----------------------------------------------------------------------------------------\n");
@@ -304,7 +305,7 @@ void regionConMasJugadores(int region1, int region2, int region3, int region4, i
 	        {
 	           for(j = 0;j < tamConfederacion; j++)
 	           {
-	               if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"EUROPA") == 0)
+	               if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"EUROPA") == 0 && jugadores[i].idConfederacion != 1 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 6)
 	    		   {
 	    			   printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 	    			   printf("\n-----------------------------------------------------------------------------------------\n");
@@ -327,7 +328,7 @@ void regionConMasJugadores(int region1, int region2, int region3, int region4, i
 					{
 					   for(j = 0;j < tamConfederacion; j++)
 					   {
-						   if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"ASIA") == 0)
+						   if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"ASIA") == 0 && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 1 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 6)
 								{
 									printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 									printf("\n-----------------------------------------------------------------------------------------\n");
@@ -351,7 +352,7 @@ void regionConMasJugadores(int region1, int region2, int region3, int region4, i
 						{
 						   for(j = 0;j < tamConfederacion; j++)
 						   {
-							   if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"AFRICA") == 0)
+							   if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"AFRICA") == 0 && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 1 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 6)
 							   {
 								  printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 								  printf("\n-----------------------------------------------------------------------------------------\n");
@@ -374,7 +375,7 @@ void regionConMasJugadores(int region1, int region2, int region3, int region4, i
 							{
 								for(j = 0;j < tamConfederacion; j++)
 								{
-									if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"NORTE Y CENTRO DE AMERICA") == 0)
+									if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"NORTE Y CENTRO DE AMERICA") == 0 && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 1 && jugadores[i].idConfederacion != 6)
 									{
 										printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 										printf("\n-----------------------------------------------------------------------------------------\n");
@@ -385,7 +386,7 @@ void regionConMasJugadores(int region1, int region2, int region3, int region4, i
 						}
 						else
 						{
-							printf("\nLa region con mayor años es OCEANIA con %d jugadores.\n\n",region5);
+							printf("\nLa region con mayor años es OCEANIA con %d jugadores.\n\n",region6);
 							printf("\n----------------------------------------OCEANIA------------------------------------------\n");
 							printf("\n=========================================================================================\n");
 	        		    	printf("  ID |    NOMBRE    |   POSICION   |  N °CAMISETA  |   SUELDO   |  CONFEDERACION  | AÑOS\n");
@@ -395,7 +396,7 @@ void regionConMasJugadores(int region1, int region2, int region3, int region4, i
 	        		    	{
 	        		    		for(j = 0;j < tamConfederacion; j++)
 	        		    		{
-	        		    			if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"OCEANIA") == 0)
+	        		    			if(jugadores[i].isEmpty == OCUPADO && stricmp(confederaciones[j].region,"OCEANIA") == 0 && jugadores[i].idConfederacion != 2 && jugadores[i].idConfederacion != 3 && jugadores[i].idConfederacion != 4 && jugadores[i].idConfederacion != 5 && jugadores[i].idConfederacion != 1)
 	        		    			{
 	        		    				printf("%4d | %-12s | %-10s   |   %10hd  | %10.2f | %-10s      | %2hd\n", jugadores[i].id,jugadores[i].nombre,jugadores[i].posicion,jugadores[i].numeroCamiseta,jugadores[i].salario,confederaciones[j].nombre,jugadores[i].aniosContrato);
 	        		    				printf("\n-----------------------------------------------------------------------------------------\n");

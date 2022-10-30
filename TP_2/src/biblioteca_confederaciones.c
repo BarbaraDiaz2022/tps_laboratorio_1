@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "biblioteca_input.h"
 #include "biblioteca_confederaciones.h"
 #include "biblioteca_jugadores.h"

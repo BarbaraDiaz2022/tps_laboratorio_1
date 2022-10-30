@@ -89,6 +89,18 @@ int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float mini
 int pedirCadena(char cadena[],int largo,char mensaje[]);
 
 /***
+ * @fn int pedirNombreYApellido(int, int, int, char*)
+ * @brief funcion que pide nombre y apellido al usuario y los acomoda
+ *
+ * @param largo largo de la cadena total
+ * @param largoNombre largo maximo del nombre
+ * @param largoApellido largo maximo del apellido
+ * @param nombreApellido puntero que concatena el nombre y el apellido
+ * @return retorna 1 si sale todo bien y -1 si no puede concatenar
+ */
+int pedirNombreYApellido(int largo, int largoNombre, int largoApellido, char *nombreApellido);
+
+/***
  * @fn int menuPrincipal()
  * @brief funcion que muestra por pantalla el menu y toma la opcion por teclado
  *
