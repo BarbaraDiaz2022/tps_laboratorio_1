@@ -7,6 +7,9 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+#include "biblioteca_inputs.h"
 #include "biblioteca_calcular.h"
 #define MAX 22
 #define AUMENTO 35
@@ -51,7 +54,7 @@ void validarPromedio(float promedio, char* confederacion)
     }
     else
     {
-        printf("C%clculos realizados correctamente(en %s).\n",160, confederacion);
+        printf("Claculos realizados correctamente(en %s).\n",confederacion);
     }
 }
 
