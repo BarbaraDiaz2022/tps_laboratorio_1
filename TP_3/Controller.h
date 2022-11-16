@@ -117,6 +117,13 @@ int guardarComoTexto(FILE* pArchivo, LinkedList* pArrayListJugador);
  */
 int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion);
 
+/***
+ * @fn int controller_editarSeleccion(LinkedList*)
+ * @brief
+ *
+ * @param pArrayListSeleccion
+ * @return
+ */
 int controller_editarSeleccion(LinkedList* pArrayListSeleccion);
 
 /** \brief Listar selecciones lista las selecciones de la linkedlist que recibe por parametro

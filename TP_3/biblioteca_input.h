@@ -77,17 +77,49 @@ int getFloat(float* pResultado);
  */
 int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float minimo, float maximo, int reintentos);
 
-
+/***
+ * @fn int utn_GetString(char*, int, char*, char*, int)
+ * @brief toma una cadena de texto validando que tenga solo letras y espacios con cierta cantidad de intentos
+ *
+ * @param pResultado puntero a espacio en memoria donde se guardara la cadena
+ * @param tamanio tamaño del array
+ * @param mensaje mensaje para ingresar el dato
+ * @param mensajeError mensaje de error que le damos si hubo un mal ingreso
+ * @param intentos cantidad de reintentos
+ * @return retorna -1 si no pudo tomar el dato y 0 si pudo
+ */
 int utn_GetString(char* pResultado, int tamanio,char* mensaje, char* mensajeError, int intentos);
 
+/***
+ * @fn int tomarIntComoTexto(char*, char[], char[], int, int, int)
+ * @brief toma un dato por teclado como texto
+ *
+ * @param pResultado puntero a espacio de memoria donde se guarda la cadena
+ * @param mensaje mensaje que le mostramos para tomar el texto
+ * @param mensajeError mensaje de error si hubo un mal ingreso
+ * @param minimo valor minimo que puede tomar el numero
+ * @param maximo valor maximo que puede tomar el numero
+ * @param intentos cantidad de reintentos
+ * @return retorna -1 su no pudo tomar el dato y 0 si pudo
+ */
 int tomarIntComoTexto (char *pResultado, char mensaje[], char mensajeError[], int minimo, int maximo, int intentos);
 
+/***
+ * @fn int esNombre(char*, int)
+ * @brief verifica que la cadena ingresada sea una cadena de caracteres
+ *
+ * @param cadena cadena a analizar
+ * @param longitud longitud de la cadena
+ * @return retorna 1 si la cadena respeta los parametros o 0 si no es valido
+ */
 int esNombre(char* cadena,int longitud);
 
-
-
-
-short confirmarRta(void);
+/***
+ * @fn short confirmarRta(void)
+ * @brief toma un caracter por teclado y solo permite "S" o "N" como respuesta
+ *
+ */
+short confirmarRta();
 
 /***
  * @fn int menuPrincipal()
@@ -97,16 +129,51 @@ short confirmarRta(void);
  */
 int menuPrincipal();
 
+/***
+ * @fn int submenuModificar()
+ * @brief funcion que muestra por pantalla el sub menu para la modificion y toma la opcion por teclado
+ *
+ * @return retorna la opcion del teclado despues de ser validada
+ */
 int submenuModificar();
 
+/**
+ * @fn int submenuListar()
+ * @brief funcion que muestra por pantalla el sub menu para listar y toma la opcion por teclado
+ *
+ * @return retorna la opcion del teclado despues de ser validada
+ */
 int submenuListar();
 
-int submenuOrdenar(void);
+/***
+ * @fn int submenuOrdenar()
+ * @brief funcion que muestra por pantalla el sub menu para ordenar y toma la opcion por teclado
+ *
+ * @return retorna la opcion del teclado despues de ser validada
+ */
+int submenuOrdenar();
 
-int submenuConvocar(void);
+/***
+ * @fn int submenuConvocar()
+ * @brief funcion que muestra por pantalla el sub menu para convocar y toma la opcion por teclado
+ *
+ * @return retorna la opcion del teclado despues de ser validada
+ */
+int submenuConvocar();
 
-int submenuFiltrar(void);
+/***
+ * @fn int submenuFiltrar()
+ * @brief funcion que muestra por pantalla el sub menu para filtrar y toma la opcion por teclado
+ *
+ * @return retorna la opcion del teclado despues de ser validada
+ */
+int submenuFiltrar();
 
-short confirmarSalida(void);
+/***
+ * @fn short confirmarSalida()
+ * @brief  funcion que confirma la salida del programa mostrango el mensaje, toma un caracter por teclado y solo permite "S" o "N" como respuesta
+ *
+ */
+short confirmarSalida();
 
 #endif /* BIBLIOTECA_INPUT_H_ */
