@@ -143,12 +143,7 @@ int selec_listar(Seleccion* unaSeleccion)
 	return retorno;
 }
 
-/**
- * Compara dos selecciones por su confederacion
- * @param seleccionUno puntero a void
- * @param seleccionDos puntero a void
- * @return retorna el resutado de la comparacion.
- */
+
 int selec_compararConfederacion(void* seleccionUno, void* seleccionDos)
 {
 	int resultadoComparacion = 0;

@@ -302,7 +302,7 @@ int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJuga
  */
 int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador)
 {
-	int retorno;
+	int retorno = 1;
 
     return retorno;
 }

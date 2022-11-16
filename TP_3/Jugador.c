@@ -76,11 +76,7 @@ Jugador* crearJugador(char* idActualizado)
 	return nuevoJugador;
 }
 
-/**
- * Imprime de una forma que sirve para listar todos los jugadores cuando el controller la llame.
- * @param unJugador jugador del que se imprimiran los datos.
- * @return retorna -1 si no se pudo imprimir o 0 si se pudo.
- */
+
 int jug_listar(Jugador* unJugador)
 {
 	int retorno = -1;
@@ -102,12 +98,7 @@ int jug_listar(Jugador* unJugador)
 	return retorno;
 }
 
-/**
- * Busca un jugador en la LinkedList a partir de su id
- * @param pArrayListJugador Recibe la linked list.
- * @param idAEncontrar recibe el id a buscar.
- * @return	devuelve -1 si no se pudo encontrar o 0 si se pudo.
- */
+
 int buscarIdJugador(LinkedList* pArrayListJugador, int idAEncontrar)
 {
 	Jugador* pJugador;
@@ -133,12 +124,6 @@ int buscarIdJugador(LinkedList* pArrayListJugador, int idAEncontrar)
 	return retorno;
 }
 
-
-/**
- * Imprime un solo un jugador
- * @param unJugador jugador a imprimir
- * @return retorna -1 si no se pudo imprimir o 0 si se pudo.
- */
 int jug_MostrarUno(Jugador* unJugador)
 {
 	int id;
@@ -160,12 +145,6 @@ int jug_MostrarUno(Jugador* unJugador)
 	return retorno;
 }
 
-/**
- * Copia un jugador en otro.
- * @param pJugadorDestino jugador donde se copiara el jugador.
- * @param pJugadorOrigen jugador que sera copiado.
- * @return devuelve 0 si se pudo realizar la copia, sino -1.
- */
 int jug_copiar(Jugador* pJugadorDestino, Jugador* pJugadorOrigen)
 {
 	int retorno = -1;
@@ -229,11 +208,7 @@ int jug_convocar(Jugador* pJugadorAConvocar, Seleccion* pSeleccionAConvocar, int
 	return retorno;
 }
 
-/**
- * Permite editar los datos de un jugador
- * @param pJugadorAModificar Recibe el jugador a modificar
- * @return retorna -1 si no se pudo realizar la modificacion, caso contrario retorna 0
- */
+
 int jug_editarCampos(Jugador* pJugadorAModificar)
 {
 	int retorno = -1;
@@ -342,11 +317,7 @@ int jug_setAll(Jugador* this, int id, char* nombre,int edad,char* posicion,char*
 
 	return retorno;
 }
-/// @brief --> Esta funcion setea el id
-///
-/// @param --> this Toma el jugador y lo retorna por referencia
-/// @param --> id Recibe el id
-/// @return --> Esta funcion retorna 0 si se seteo correctamente o -1 si no fue asi
+
 int jug_setId(Jugador* this,int id)
 {
 	int retorno = -1;
@@ -361,11 +332,6 @@ int jug_setId(Jugador* this,int id)
 }
 
 
-/// @brief --> Esta funcion obtiene el id
-///
-/// @param --> this Toma el jugador y lo retorna por referencia
-/// @param --> id Retorna el id por referencia
-/// @return --> Esta funcion retorna 0 si se obtuvo correctamente o -1 si no fue asi
 int jug_getId(Jugador* this,int* id)
 {
 	int retorno = -1;
@@ -499,12 +465,7 @@ int jug_getIdSeleccion(Jugador* this,int* idSeleccion)
 	return retorno;
 }
 
-/**
- * Compara dos jugadores por su nacionalidad
- * @param jugadorUno puntero a void
- * @param jugadorDos puntero a void
- * @return retorna el resutado de la comparacion.
- */
+
 int jug_compararNacioanlidad(void* jugadorUno, void* jugadorDos)
 {
 	int resultadoComparacion = 0;
@@ -527,12 +488,7 @@ int jug_compararNacioanlidad(void* jugadorUno, void* jugadorDos)
 
 	return resultadoComparacion;
 }
-/**
- * Compara dos jugadores por su nacionalidad
- * @param jugadorUno puntero a void
- * @param jugadorDos puntero a void
- * @return retorna el resutado de la comparacion.
- */
+
 int jug_compararNombre(void* jugadorUno, void* jugadorDos)
 {
 	int resultadoComparacion = 0;
@@ -554,12 +510,7 @@ int jug_compararNombre(void* jugadorUno, void* jugadorDos)
 
 	return resultadoComparacion;
 }
-/**
- * Compara dos jugadores mediate el tipo de jugador que sean.
- * @param jugadorUno puntero a void
- * @param jugadorDos puntero a void
- * @return retorna el resutado de la comparacion.
- */
+
 int jug_compararEdad(void* jugadorUno, void* jugadorDos)
 {
 	int resultadoComparacion = 0;
@@ -590,12 +541,7 @@ int jug_compararEdad(void* jugadorUno, void* jugadorDos)
 	}
 	return resultadoComparacion;
 }
-/**
- * Ordena los jugadores por diferentes criterios.
- * @param pArrayListJugador recibe la linkedList
- * @param opcion recibe la opcion de orden que elija el usuario.
- * @return devuelve 0 si la lista fue ordenada, sino 0.
- */
+
 int jug_ordenar(LinkedList* pArrayListJugador,int opcion)
 {
 	int retorno = -1;
