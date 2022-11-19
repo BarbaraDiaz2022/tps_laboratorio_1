@@ -12,49 +12,6 @@
 #include "biblioteca_inputs.h"
 #include "biblioteca_calcular.h"
 
-int pedirNombreYApellido(int largo, int largoNombre, int largoApellido, char *nombreApellido)
-{
-	int retorno;
-	char nombre[largoNombre];
-	char apellido[largoApellido];
-	//char nombreApellido[largo];
-
-	retorno = -1; //si no toma el nombre
-
-	if(largo > 0 && largoNombre > 0 && largoApellido > 0)
-	{
-		printf("Ingrese nombre:\n");	//pedido de nombre
-		fflush(stdin);
-		scanf("%[^\n]",nombre);
-
-		printf("Ingrese apellido:\n"); //pedido del apellido
-		fflush(stdin);
-		scanf("%[^\n]",apellido);
-
-		strlwr(nombre);		//convierto a min los dos arrays
-		strlwr(apellido);
-
-		nombre[0] = toupper(nombre[0]);
-		apellido[0] = toupper(nombre[0]);
-		for(int i = 0; i<strlen(nombre);i++)
-		{
-			if(nombre[i] == ' ')
-			{
-				nombre[i+1] = toupper(nombre[i+1]);	 //transformo en mayuscula 1 letra y la guardo en la misma posicion
-				apellido[0] = toupper(apellido[0]);
-			}
-		}
-
-		strcpy(nombreApellido,nombre);	//copio en un auxiliar los datos para no modificar el original
-		strcat(nombreApellido,", ");		//concateno
-		strcat(nombreApellido,apellido);
-
-		retorno = 1;
-	}
-
-	return retorno;
-}
-
 int esNumerica(char* cadena)
 {
 	int retorno =1;
@@ -143,7 +100,6 @@ int utnGetNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo,
 	}
 	return retorno;
 }
-
 
 static int getShort(short* pResultado)
 {
@@ -253,7 +209,7 @@ int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float mini
 {
 	float bufferFloat;
 	int retorno = -1;
-	while(reintentos >= 0)
+	while(reintentos>=0)
 	{
 		reintentos--;
 		printf("%s",mensaje);
@@ -270,6 +226,7 @@ int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float mini
 
 		switch(reintentos)
 		{
+
 			case 0:
 				printf("Queda 1 intento\n");
 			break;
@@ -284,28 +241,117 @@ int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float mini
 	return retorno;
 }
 
-int pedirCadena(char cadena[],int largo,char mensaje[])
+int tomarIntComoTexto (char *pResultado, char mensaje[], char mensajeError[], int minimo, int maximo, int intentos)
 {
-	int retorno,largoCadena;
-	char buffer[1024];
+	int retorno = -1;
+	int num;
 
-	retorno = -1;//Si el len de la cadena es 0 o menos
+	while(intentos > 0)
+	{
+		intentos--;
 
-    	if(largo > 0)
+		printf("%s", mensaje);
+		if(getInt(&num) == 0)
+		{
+			if(num >= minimo && num <= maximo)
+			{
+				itoa(num, pResultado, 10); //Convierte un valor numérico en una cadena de texto
+				retorno = 0;
+				break;
+			}
+		}
+		printf("%s", mensajeError);
+		if(intentos == 0)
+		{
+			printf("\nSe agotaron los reintentos...\n");
+		}
+	}
+
+	return retorno;
+}
+
+static int getString(char* cadena, int len)
+{
+	int retorno=-1;
+	char bufferString[4096];
+
+	if(cadena != NULL && len > 0)
+	{
+		fflush(stdin);
+		if(fgets(bufferString,sizeof(bufferString),stdin) != NULL)
+		{
+			if(bufferString[strnlen(bufferString,sizeof(bufferString))-1] == '\n')
+			{
+				bufferString[strnlen(bufferString,sizeof(bufferString))-1] = '\0';
+			}
+			if(strnlen(bufferString,sizeof(bufferString)) <= len)
+			{
+				strncpy(cadena,bufferString,len);
+				retorno=0;
+			}
+		}
+	}
+	return retorno;
+}
+
+int esNombre(char* cadena,int longitud)
+{
+	int i=0;
+	int retorno = 1;
+
+	if(cadena != NULL && longitud > 0)
+	{
+		for(i=0 ; cadena[i] != '\0' && i < longitud; i++)
+		{
+			if((cadena[i] < 'A' || cadena[i] > 'Z' ) && (cadena[i] < 'a' || cadena[i] > 'z' ) && (cadena[i] != ' '))
+			{
+				retorno = 0;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
+
+
+static int getNombre(char* pResultado, int longitud)
+{
+    int retorno=-1;
+    char buffer[4096];
+
+    if(pResultado != NULL)
+    {
+    	if(getString(buffer,sizeof(buffer))==0 && esNombre(buffer,sizeof(buffer)) && strnlen(buffer,sizeof(buffer))<longitud)
     	{
-    		printf("%s",mensaje);
-    		fflush(stdin);
-    		scanf("%[^\n]", buffer);
+    		strncpy(pResultado,buffer,longitud);
+			retorno = 0;
+		}
+    }
+    return retorno;
+}
 
-    		largoCadena = strlen(buffer);
-    		retorno = 0;
+int utn_GetString(char* pResultado, int tamanio,char* mensaje, char* mensajeError, int intentos)
+{
+	char bufferString[4096];
+	int retorno = -1;
+	while(intentos>0)
+	{
+		intentos--;
+		printf("%s",mensaje);
+		if(getNombre(bufferString,sizeof(bufferString)) == 0 && strnlen(bufferString,sizeof(bufferString)) < tamanio )
+		{
+			strncpy(pResultado,bufferString,tamanio);
+			retorno = 0;
+			break;
+		}
+			printf("%s",mensajeError);
 
-    		if(largo > largoCadena)
-    		{
-    			strcpy(cadena,buffer);
-    			retorno = 1;
-    		}
-    	}
+		if(intentos == 0)
+		{
+			printf("\nSe agotaron los reintentos...\n");
+		}
+
+	}
 	return retorno;
 }
 
@@ -313,13 +359,13 @@ int menuPrincipal(float costoDeHospedaje, float costoDeComida, float costoDeTran
 {
     int opcion, auxRetorno;
 
-    printf("----------MENU PRINCIPAL----------\n\n");
+    printf("**********MENU PRINCIPAL**********\n\n");
     printf("1.Ingreso de los costos de Mantenimiento\n Costo de hospedaje -> $ %.2f\n Costo de comida -> $ %.2f\n Costo de transporte -> $ %.2f\n2.Carga de jugadores\n Arqueros -> %d\n Defensores -> %d\n Mediocampistas -> %d\n Delanteros -> %d\n3.Realizar todos los calculos\n4.Informar todos los resultados\n5.Salir\n",costoDeHospedaje, costoDeComida,costoDeTransporte,cantidadArquero,cantidadDefensor,cantidadMediocampista,cantidadDelantero);
     auxRetorno = utnGetNumero(&opcion,"Su opcion:\n","Error, la opcion debe ser del 1 al 5\n",1,5,3);
 
     if(auxRetorno == -1)
     {
-        printf("No se pudo ingresar una opcion\n\n");
+        printf("\nNo se pudo ingresar una opcion.Intente nuevamente.\n\n");
     }
 
     return opcion;
@@ -330,11 +376,11 @@ int subMenuIngresarCosto()
     int opcionMenuIngresar, auxOpcion;
 
     printf("Elija lo que desea ingresar:\n\n");
-    auxOpcion = utnGetNumero(&opcionMenuIngresar,"1.Costo de hospedaje\n2.Costo de comida\n3.Costo de transporte\n4.Volver al menu principal\nSu opcion:\n","Error, la opcion debe ser del 1 al 4:\n",1,4,3);
+    auxOpcion = utnGetNumero(&opcionMenuIngresar,"1.Costo de hospedaje\n2.Costo de comida\n3.Costo de transporte\n4.Volver al menu principal\nSu opcion:\n","Error, la opcion debe ser del 1 al 4\n",1,4,3);
 
     if(auxOpcion == -1)
     {
-        printf("No se pudo ingresar una opcion\n");
+        printf("\nNo se pudo ingresar una opcion.Intente nuevamente.\n\n");
     }
 
     return opcionMenuIngresar;
@@ -349,8 +395,35 @@ int ingresarPosiciones(int cantidadArquero,int cantidadDefensor,int cantidadMedi
 
 	if(auxPosicion == -1)
 	{
-		printf("Hubo un error. Intente nuevamente\n\n");
+		printf("\nHubo un error. Intente nuevamente\n\n");
 	}
 
 	return posicion;
+}
+
+int ingresarConfederacion(int contadorAFC, int contadorCAF, int contadorCONCACAF, int contadorCONMEBOL, int contadorUEFA, int contadorOFC)
+{
+	int confederacion, auxConfederacion;
+
+	auxConfederacion = utnGetNumero(&confederacion,"Ingrese confederacion en la que esta jugando\n1. AFC\n2. CAF\n3. CONCACAF\n4. CONMEBOL\n5. UEFA\n6. OFC\n", "Error. Ingrese una confederacion existente\n",1,6,3);
+
+	if(auxConfederacion == -1)
+	{
+		printf("\nHubo un error. Intente nuevamente\n\n");
+	}
+
+	return confederacion;
+}
+
+int confirmarRespuesta()
+{
+	int retorno,rta,auxRta;
+
+	auxRta = utnGetNumero(&rta, "Desea seguir cargando jugadores?Indique [1.Si|2.No]\n", "Error, indique[1.Si|2.No]\n",1,2,3);
+
+	if(auxRta != -1)
+	{
+		retorno = rta;
+	}
+	return retorno;
 }

@@ -35,30 +35,16 @@ float calcularMantenimiento(float costoDeTransporte, float costoDeComida, float 
     float costoTotal;
 
     costoTotal = costoDeTransporte + costoDeHospedaje + costoDeComida;
-    if(costoDeTransporte != 0 && costoDeHospedaje != 0 && costoDeComida != 0)
-    {
-        printf("Se calcul%c correctamente el costo de mantenimiento.\n",162);
-    }
-    else
+    if(costoDeTransporte == 0 && costoDeHospedaje == 0 && costoDeComida == 0)
     {
         printf("No se pudo calcular el costo (faltan datos).\n");
     }
+
     return costoTotal;
 }
 
-void validarPromedio(float promedio, char* confederacion)
-{
-    if(promedio == 0)
-    {
-        printf("No se pudo sacar el promedio(faltan datos en %s).\n", confederacion);
-    }
-    else
-    {
-        printf("Claculos realizados correctamente(en %s).\n",confederacion);
-    }
-}
 
-float calcularPromedio(int contador, int total, char* confederacion)
+float calcularPromedio(int contador, int total)
 {
     float promedio;
 
@@ -71,7 +57,25 @@ float calcularPromedio(int contador, int total, char* confederacion)
         promedio = 0;	//si el contador de alguna de las confederaciones no se modifico entonces no hay jugadores de esa confederacion y por ende no se puede sacar promedio(no se divide por 0)
     }
 
-    validarPromedio(promedio, confederacion);
-
     return promedio;
+}
+
+void mostrarCalculos(float costoTotal,float costoConAumento,float costoConAumentoTotal)
+{
+	if(costoConAumentoTotal == 0)
+	{
+		printf("\n***El costo de mantenimiento es de $ %.2f***\n\n", costoTotal);
+	}
+	else
+	{
+		printf("***El costo de mantenimiento era de $ %.2f y recibio un aumento de $ %.2f, su nuevo valor es de: $%.2f***\n\n", costoTotal,costoConAumento,costoConAumentoTotal);
+	}
+}
+
+void mostrarPromedios(float promedioAFC,float promedioCAF,float promedioOFC,float promedioUEFA,float promedioCONMEBOL,float promedioCONCACAF)
+{
+	printf("*********INFORMAR LOS RESULTADOS*********\n");
+	printf("============================================\n");
+	printf("Promedio UEFA %.2f\nPromedio CONMEBOL %.2f\nPromedio CONCACAF %.2f\nPromedio AFC %.2f\nPromedio OFC %.2f\nPromedio CAF %.2f\n", promedioUEFA,promedioCONMEBOL,promedioCONCACAF,promedioAFC,promedioOFC, promedioCAF);
+	printf("============================================\n");
 }

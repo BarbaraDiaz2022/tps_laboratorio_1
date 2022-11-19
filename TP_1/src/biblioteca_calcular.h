@@ -18,16 +18,8 @@
  * @param confederacion puntero a variable donde se escribirá la confederación para imprimirla por pantalla
  * @return 0 en caso de no haber podido realizar la operación y el promedio calculado si todo salió bien
  */
-float calcularPromedio(int contador, int total, char* confederacion);
+float calcularPromedio(int contador, int total);
 
-/**
- * @fn void validarPromedio(float, char*)
- * @brief función que valida e informa si se pudo sacar el promedio
- *
- * @param promedio valor de tipo flotante que representa el promedio calculado
- * @param confederacion puntero a variable donde se escribirá la confederación para imprimirla por pantalla en caso de que se pueda realizar el cálculo
- */
-void validarPromedio(float promedio, char* confederacion);
 
 /**
  * @fn float calcularMantenimiento(float, float, float)
@@ -55,5 +47,28 @@ float calcularMantenimiento(float costoDeTransporte, float costoDeComida, float 
  * @return retorna 0 en caso de no cumplir con la condicion para aplicar el aumento y costo final en caso de haberlo calculado correctamente
  */
 float calcularMantenimientoConAumento(float* costoConAumento, float costoTotal, int contadorAFC, int contadorCAF, int contadorCONCACAF,int contadorCONMEBOL, int contadorUEFA, int contadorOFC);
+
+/***
+ * @fn void mostrarCalculos(float, float, float)
+ * @brief funcion que imprime los resultados del calculo de los costos
+ *
+ * @param costoTotal valor que recibe del costo total de los gastos
+ * @param costoConAumento valor que recibe del costo con el aumento aplicado
+ * @param costoConAumentoTotal valor que recibe si hay mayoria de jugadores de uefa
+ */
+void mostrarCalculos(float costoTotal,float costoConAumento,float costoConAumentoTotal);
+
+/***
+ * @fn void mostrarPromedios(float, float, float, float, float, float)
+ * @brief funcion que muestra los promedios calculados de los jugadores en cada confederacion
+ *
+ * @param promedioAFC promedio que recibe de jugadores en la confederacion afc
+ * @param promedioCAF promedio que recibe de jugadores en la confederacion caf
+ * @param promedioOFC promedio que recibe de jugadores en la confederacion ofc
+ * @param promedioUEFA promedio que recibe de jugadores en la confederacion uefa
+ * @param promedioCONMEBOL promedio que recibe de jugadores en la confederacion conmebol
+ * @param promedioCONCACAF promedio que recibe de jugadores en la confederacion concacaf
+ */
+void mostrarPromedios(float promedioAFC,float promedioCAF,float promedioOFC,float promedioUEFA,float promedioCONMEBOL,float promedioCONCACAF);
 
 #endif /* BIBLIOTECA_CALCULAR_H_ */
