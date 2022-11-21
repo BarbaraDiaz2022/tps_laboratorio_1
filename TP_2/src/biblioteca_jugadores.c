@@ -50,7 +50,7 @@ int altaJugador(eJugador jugadores[], int tam, int idJugadoresAutoincremental)
 	short opcionCamiseta, auxCamiseta;
 	int opcionConfederacion, auxConfederacion;
 	float opcionSalario;
-	int auxSalario, auxRetornoNombre;
+	int auxSalario;
 	short retornoAnios, opcionAnio;
 	char auxNombre[50];
 
@@ -62,13 +62,8 @@ int altaJugador(eJugador jugadores[], int tam, int idJugadoresAutoincremental)
 	{
 		jugadores[indice].id = idJugadoresAutoincremental;
 
-		auxRetornoNombre = pedirNombreYApellido(50,25,25,auxNombre);
-		if(auxRetornoNombre == 1)
-		{
-			strcpy(jugadores[indice].nombre, auxNombre);
-		}
-
-
+		utn_GetString(auxNombre,50,"Ingrese el nombre del jugador:\n","Error. Ingrese un nombre valido:\n",3);
+		strcpy(jugadores[indice].nombre, auxNombre);
 
 	    auxPosicion = utnGetNumero(&opcionPosicion, "Ingrese la posicion del jugador:\n1.Delantero\n2.Defensor\n3.Arquero\n4.Mediocampista\n","Error, ingrese una opcion valida\n",1,4,3);
         if(auxPosicion == 0)
@@ -96,7 +91,7 @@ int altaJugador(eJugador jugadores[], int tam, int idJugadoresAutoincremental)
         	jugadores[indice].numeroCamiseta = opcionCamiseta;
         }
 
-        auxConfederacion = utnGetNumero(&opcionConfederacion,"Ingrese la confederacion:\n1.CONMEBOL\n2.UEFA\n3.AFC\n4.CAF\n5.CONCACAF\n6.OFC\n","Error, ingrese una confederacion existente:\n1.CONMEBOL\n2.UEFA\n3.AFC\n4.CAF\n5.CONCACAF\n6.OFC",1,6,3);
+        auxConfederacion = utnGetNumero(&opcionConfederacion,"Ingrese la confederacion:\n100.CONMEBOL\n101.UEFA\n102.AFC\n103.CAF\n104.CONCACAF\n105.OFC\n","Error, ingrese una confederacion valida:\n100.CONMEBOL\n101.UEFA\n102.AFC\n103.CAF\n104.CONCACAF\n105.OFC",100,105,3);
         if(auxConfederacion == 0)
         {
         	jugadores[indice].idConfederacion = opcionConfederacion;
@@ -183,7 +178,7 @@ int modificarNombre(eJugador jugadores[],int tam)
 	   auxConfirmacion = utnGetNumero(&confirmacion,"Jugador encontrado. ¿Desea modificarlo?\n1-Si\t2-No\n","Error, ingrese una opcion valida",1,2,3);
 
 	   setbuf(stdin,NULL);
-	   pedirCadena(nombreModificado,50,"Ingrese el nuevo nombre:\n");
+	   utn_GetString(nombreModificado,50,"Ingrese el nuevo nombre:\n","Error.Ingrese un nombre valido:\n",3);
 
 	   if(auxConfirmacion == 0)
 	   {
@@ -191,7 +186,6 @@ int modificarNombre(eJugador jugadores[],int tam)
 		   retorno = 1;//Salio todo bien
 	   }
 	}
-
 	return retorno;
 }
 
@@ -392,13 +386,20 @@ int buscarJugadoresSuperiorPromedio(float promedio, eJugador jugadores[], int ta
     return contadorSalariosAltos;
 }
 
-int acumularAnios(eJugador jugadores[], int tam)
+
+int acumularAnios(eJugador jugadores[], int tam,int* aniosConmebol, int* aniosUefa, int* aniosAfc, int* aniosCaf, int* aniosConcacaf, int* aniosOfc)
 {
     int i;
-	int aniosConmebol = 0, aniosUefa = 0, aniosAfc = 0, aniosCaf = 0, aniosConcacaf = 0, aniosOfc = 0;
 	int retorno = -1;
 
-	if(jugadores != NULL && tam > 0)
+	aniosConmebol = 0;
+	aniosUefa = 0;
+	aniosAfc = 0;
+	aniosCaf = 0;
+	aniosConcacaf = 0;
+	aniosOfc = 0;
+
+	if(tam > 0)
 	{
 	    for(i = 0; i < tam; i++)
 	    {
@@ -406,142 +407,423 @@ int acumularAnios(eJugador jugadores[], int tam)
 	    	{
 				switch(jugadores[i].idConfederacion)
 				{
-					case 1:
+					case 100:
 						aniosConmebol = aniosConmebol + jugadores[i].aniosContrato;
 					break;
-					case 2:
+
+					case 101:
 						aniosUefa = aniosUefa+ jugadores[i].aniosContrato;
 					break;
-					case 3:
+
+					case 102:
 						aniosAfc = aniosAfc + jugadores[i].aniosContrato;
 					break;
-					case 4:
+
+					case 103:
 						aniosCaf = aniosCaf + jugadores[i].aniosContrato;
 					break;
-					case 5:
+
+					case 104:
 						aniosConcacaf = aniosConcacaf + jugadores[i].aniosContrato;
 					break;
-					case 6:
+
+					case 105:
 						aniosOfc = aniosOfc + jugadores[i].aniosContrato;
 					break;
 				}
 	    	}
 	    }
-
-	    mostrarConfederacionConMasContrato(aniosConmebol,aniosUefa,aniosAfc,aniosCaf,aniosConcacaf,aniosOfc);
-		retorno = 1;
+		retorno = 0;
 	}
-
 	return retorno;
 }
 
-int acumularJugadores(eJugador jugadores[], int tam)
+int calcularContratosConfederacion(eJugador jugadores[], int tam)
 {
-    int i, retorno = -1;
-	int jugadoresConmebol = 0, jugadoresUefa = 0, jugadoresAfc = 0, jugadoresCaf = 0, jugadoresConcacaf = 0, jugadoresOfc = 0,cantidadTotal;
-	float porcentaje1,porcentaje2,porcentaje3,porcentaje4,porcentaje5,porcentaje6;
+	int contratoAFC;
+	int contratoCAF;
+	int contratoCONCACAF;
+	int contratoCONMEBOL;
+	int contratoOFC;
+	int contratoUEFA;
+	int confederacionConMasAnios;
 
-	if(jugadores != NULL && tam > 0)
+	if(tam > 0)
+	{
+		acumularAnios(jugadores,tam,&contratoCONMEBOL,&contratoUEFA,&contratoAFC,&contratoCAF,&contratoCONCACAF,&contratoOFC);
+
+		if(contratoCONMEBOL > contratoUEFA && contratoCONMEBOL > contratoAFC && contratoCONMEBOL > contratoCAF && contratoCONMEBOL > contratoCONCACAF && contratoCONMEBOL > contratoOFC)
+		{
+			confederacionConMasAnios = 100;
+		}
+		else
+		{
+			if(contratoUEFA > contratoAFC && contratoUEFA > contratoCAF && contratoUEFA > contratoCONCACAF && contratoUEFA > contratoOFC)
+			{
+				confederacionConMasAnios = 101;
+			}
+			else
+			{
+				if(contratoAFC > contratoCAF && contratoAFC > contratoCONCACAF && contratoAFC > contratoOFC)
+				{
+					confederacionConMasAnios = 102;
+				}
+				else
+				{
+					if(contratoCAF > contratoCONCACAF && contratoCAF > contratoOFC)
+					{
+						confederacionConMasAnios = 103;
+					}
+					else
+					{
+						if(contratoCONCACAF > contratoOFC)
+						{
+							confederacionConMasAnios = 104;
+						}
+						else
+						{
+							confederacionConMasAnios = 105;
+						}
+					}
+				}
+			}
+		}
+	}
+	return confederacionConMasAnios;
+}
+
+
+float calcularPorcentaje(int cantJugadores, int total)
+{
+	float porcentaje;
+	porcentaje = (float)(cantJugadores * 100) / total;
+
+	return porcentaje;
+}
+
+int calcularTotalJugadores(eJugador jugadores[], int tam, int* total)
+{
+	int retorno = -1;
+	int i;
+
+	*total = 0;
+
+	if(tam > 0)
 	{
 		for(i = 0; i < tam; i++)
 		{
 			if(jugadores[i].isEmpty == OCUPADO)
 			{
-				switch(jugadores[i].idConfederacion)
-				{
-					case 1:
-						 jugadoresConmebol++;
-					break;
-					case 2:
-						jugadoresUefa++;
-
-					break;
-					case 3:
-						jugadoresAfc++;
-
-					break;
-					case 4:
-						jugadoresCaf++;
-
-					break;
-					case 5:
-						jugadoresConcacaf++;
-
-					break;
-					case 6:
-						jugadoresOfc++;
-
-					break;
-				}
+				(*total)++;
+				retorno = 0;
 			}
 		}
-
-	    cantidadTotal = jugadoresConmebol + jugadoresUefa + jugadoresAfc + jugadoresCaf + jugadoresConcacaf + jugadoresOfc;
-
-	    porcentaje1 = (float)jugadoresConmebol / cantidadTotal;
-	    porcentaje1 = porcentaje1 * 100;
-
-	    porcentaje2 = (float)jugadoresUefa / cantidadTotal;
-	    porcentaje2 = porcentaje2 * 100;
-
-	    porcentaje3 = (float)jugadoresAfc / cantidadTotal;
-	    porcentaje3 = porcentaje3 * 100;
-
-	    porcentaje4 = (float)jugadoresCaf / cantidadTotal;
-	    porcentaje4 = porcentaje4 * 100;
-
-	    porcentaje5 = (float)jugadoresConcacaf / cantidadTotal;
-	    porcentaje5 = porcentaje5 * 100;
-
-	    porcentaje6 = (float)jugadoresOfc / cantidadTotal;
-	    porcentaje6 = porcentaje6 * 100;
-
-	    mostrarPorcentajes(porcentaje1,porcentaje2,porcentaje3, porcentaje4,porcentaje5,porcentaje6);
-
-		retorno = 1;
 	}
 
 	return retorno;
 }
 
-int acumularRegiones(eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamConfederacion)
+int acumularJugadoresPorConfederacion(eJugador jugadores[], int tam, int* jugadoresAFC, int* jugadoresCAF, int* jugadoresCONCACAF, int* jugadoresCONMEBOL, int* jugadoresOFC, int* jugadoresUEFA)
 {
-    int i, retorno = -1;
-	int region1 = 0, region2 = 0, region3 = 0, region4 = 0, region5 = 0, region6 = 0;
+	int retorno = -1;
+	int i;
 
-	if(jugadores != NULL && tam > 0)
+	*jugadoresAFC = 0;
+	*jugadoresCAF = 0;
+	*jugadoresCONCACAF = 0;
+	*jugadoresCONMEBOL = 0;
+	*jugadoresOFC = 0;
+	*jugadoresUEFA = 0;
+
+	if (tam > 0)
 	{
 		for(i = 0; i < tam; i++)
 		{
-			if(jugadores[i].isEmpty == OCUPADO)
+			if (jugadores[i].isEmpty == OCUPADO)
 			{
-				switch(jugadores[i].idConfederacion)
+				switch (jugadores[i].idConfederacion)
 				{
-					case 1:
-						region1++;
+					case 100:
+						(*jugadoresCONMEBOL)++;
+						retorno = 0;
 					break;
-					case 2:
-						region2++;
+
+					case 101:
+						(*jugadoresUEFA)++;
+						retorno = 0;
 					break;
-					case 3:
-						region3++;
+
+					case 102:
+						(*jugadoresAFC)++;
+						retorno = 0;
 					break;
-					case 4:
-						region4++;
+
+					case 103:
+						(*jugadoresCAF)++;
+						retorno = 0;
 					break;
-					case 5:
-						region5++;
+
+					case 104:
+						(*jugadoresCONCACAF) ++;
+						retorno = 0;
 					break;
-					case 6:
-						region6++;
+
+					case 105:
+						(*jugadoresOFC) ++;
+						retorno = 0;
 					break;
 				}
 			}
 		}
+	}
+	return retorno;
+}
 
-		regionConMasJugadores(region1,region2,region3, region4, region5,region6,jugadores,tam,confederaciones,tamConfederacion);
-		retorno = 1;
+int reunirPorcentaje(eJugador jugadores[], int tam, float* porcentajeCONMEBOL, float* porcentajeUEFA, float* porcentajeAFC, float* porcentajeCAF, float* porcentajeCONCACAF, float* porcentajeOFC)
+{
+	int retorno = -1;
+	int totalJugadores;
+	int jugadoresAFC;
+	int	jugadoresCAF;
+	int	jugadoresCONCACAF;
+	int	jugadoresCONMEBOL;
+	int	jugadoresOFC;
+	int	jugadoresUEFA;
+
+	if (tam > 0)
+	{
+		acumularJugadoresPorConfederacion(jugadores, tam, &jugadoresAFC, &jugadoresCAF, &jugadoresCONCACAF, &jugadoresCONMEBOL, &jugadoresOFC, &jugadoresUEFA);
+		calcularTotalJugadores(jugadores,tam, &totalJugadores);
+
+		*porcentajeCONMEBOL = calcularPorcentaje(jugadoresCONMEBOL, totalJugadores);
+		*porcentajeUEFA = calcularPorcentaje(jugadoresUEFA, totalJugadores);
+		*porcentajeAFC = calcularPorcentaje(jugadoresAFC, totalJugadores);
+		*porcentajeCAF = calcularPorcentaje(jugadoresCAF, totalJugadores);
+		*porcentajeCONCACAF = calcularPorcentaje(jugadoresCONCACAF, totalJugadores);
+		*porcentajeOFC = calcularPorcentaje(jugadoresOFC, totalJugadores);
+		retorno = 0;
 	}
 
 	return retorno;
+}
+
+int calcularJugadoresPorConfederacion(eJugador jugadores[], int tam, int* jugadoresAFC, int* jugadoresCAF, int* jugadoresCONCACAF, int* jugadoresCONMEBOL, int* jugadoresOFC, int* jugadoresUEFA)
+{
+	int retorno = -1;
+	int i;
+
+	*jugadoresAFC = 0;
+	*jugadoresCAF = 0;
+	*jugadoresCONCACAF = 0;
+	*jugadoresCONMEBOL = 0;
+	*jugadoresOFC = 0;
+	*jugadoresUEFA = 0;
+
+	if (tam > 0)
+	{
+		for (i = 0; i < tam; i++)
+		{
+			if (jugadores[i].isEmpty == OCUPADO)
+			{
+				switch (jugadores[i].idConfederacion)
+				{
+					case 100:
+						(*jugadoresCONMEBOL)++;
+						retorno = 0;
+					break;
+
+					case 101:
+						(*jugadoresUEFA)++;
+						retorno = 0;
+					break;
+
+					case 102:
+						(*jugadoresAFC)++;
+						retorno = 0;
+					break;
+
+					case 103:
+						(*jugadoresCAF)++;
+						retorno = 0;
+					break;
+
+					case 104:
+						(*jugadoresCONCACAF)++;
+						retorno = 0;
+					break;
+
+					case 105:
+						(*jugadoresOFC) ++;
+						retorno = 0;
+					break;
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+
+int verificarConfederacionConMasJugador(eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamConfederacion)
+{
+	int idConfederacionConMasJugadores;
+	int jugadoresAFC;
+	int jugadoresCAF;
+	int jugadoresCONCACAF;
+	int jugadoresCONMEBOL;
+	int jugadoresOFC;
+	int jugadoresUEFA;
+
+	if(tam > 0)
+	{
+		calcularJugadoresPorConfederacion(jugadores,tam, &jugadoresAFC, &jugadoresCAF, &jugadoresCONCACAF, &jugadoresCONMEBOL, &jugadoresOFC, &jugadoresUEFA);
+
+		if(jugadoresCONMEBOL >= jugadoresUEFA && jugadoresCONMEBOL >= jugadoresAFC && jugadoresCONMEBOL >= jugadoresCAF && jugadoresCONMEBOL >= jugadoresCONCACAF && jugadoresCONMEBOL >= jugadoresOFC)
+		{
+			idConfederacionConMasJugadores = 100;
+		}
+		else
+		{
+			if(jugadoresUEFA >= jugadoresAFC && jugadoresUEFA >= jugadoresCAF && jugadoresUEFA >= jugadoresCONCACAF && jugadoresUEFA >= jugadoresOFC)
+			{
+				idConfederacionConMasJugadores = 101;
+			}
+			else
+			{
+				if(jugadoresAFC >= jugadoresCAF && jugadoresAFC >= jugadoresCONCACAF && jugadoresAFC >= jugadoresOFC)
+				{
+					idConfederacionConMasJugadores = 102;
+				}
+				else
+				{
+					if(jugadoresCAF >= jugadoresCONCACAF && jugadoresCAF >= jugadoresOFC)
+					{
+						idConfederacionConMasJugadores = 103;
+					}
+					else
+					{
+						if(jugadoresCONCACAF >= jugadoresOFC)
+						{
+							idConfederacionConMasJugadores = 104;
+						}
+						else
+						{
+							idConfederacionConMasJugadores = 105;
+						}
+					}
+				}
+			}
+		}
+	}
+	return idConfederacionConMasJugadores;
+}
+
+int switchearModificacion(int opcionModificar, eJugador jugadores[], int cantidad)
+{
+	int retorno = -1;
+
+    switch(opcionModificar)
+    {
+        case 1:
+            switch(modificarNombre(jugadores,cantidad))
+			{
+				case -1:
+					printf("El jugador no existe (no se puede modificar)\n\n");
+				break;
+				case 2:
+					printf("Operacion cancelada correctamente\n\n");
+				break;
+				case 1:
+					printf("El jugador se modifico con exito\n\n");
+				break;
+			}
+            retorno = 0;
+        break;
+
+        case 2:
+            switch(modificarPosicion(jugadores,cantidad))
+			{
+				case -1:
+					printf("El jugador no existe (no se puede modificar)\n\n");
+				break;
+				case 2:
+					printf("Operacion cancelada correctamente\n\n");
+				break;
+				case 1:
+					printf("El jugador se modifico con exito\n\n");
+				break;
+			}
+            retorno = 0;
+        break;
+
+        case 3:
+            switch(modificarNumeroCamiseta(jugadores,cantidad))
+			{
+				case -1:
+					printf("El jugador no existe (no se puede modificar)\n\n");
+				break;
+				case 2:
+					printf("Operacion cancelada correctamente\n\n");
+				break;
+				case 1:
+					printf("El jugador se modifico con exito\n\n");
+				break;
+			}
+            retorno = 0;
+        break;
+
+        case 4:
+            switch(modificarConfederacion(jugadores,cantidad))
+			{
+				case -1:
+					printf("El jugador no existe (no se puede modificar)\n\n");
+				break;
+				case 2:
+					printf("Operacion cancelada correctamente\n\n");
+				break;
+				case 1:
+					printf("El jugador se modifico con exito\n\n");
+				break;
+			}
+            retorno = 0;
+        break;
+
+        case 5:
+            switch(modificarSalario(jugadores,cantidad))
+			{
+				case -1:
+					printf("El jugador no existe (no se puede modificar)\n\n");
+				break;
+				case 2:
+					printf("Operacion cancelada correctamente\n\n");
+				break;
+				case 1:
+					printf("El jugador se modifico con exito\n\n");
+				break;
+			}
+            retorno = 0;
+        break;
+
+        case 6:
+            switch(modificarAnio(jugadores,cantidad))
+			{
+				case -1:
+					printf("El jugador no existe (no se puede modificar)\n\n");
+				break;
+				case 2:
+					printf("Operacion cancelada correctamente\n\n");
+				break;
+				case 1:
+					printf("El jugador se modifico con exito\n\n");
+				break;
+			}
+            retorno = 0;
+        break;
+
+        case 7:
+            printf("Ud. selecciono la opcion 'salir'.\n\n");
+            retorno = 0;
+        break;
+    }
+    return retorno;
 }

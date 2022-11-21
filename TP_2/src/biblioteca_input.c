@@ -9,56 +9,6 @@
 #include <string.h>
 #include <ctype.h>
 #include "biblioteca_input.h"
-#include "biblioteca_confederaciones.h"
-#include "biblioteca_jugadores.h"
-#include "biblioteca_output.h"
-#define CANTIDAD_JUGADORES 3000
-#define CANTIDAD_CONFEDERACIONES 6
-#define VACIO 0
-#define OCUPADO 1
-
-int pedirNombreYApellido(int largo, int largoNombre, int largoApellido, char *nombreApellido)
-{
-	int retorno;
-	char nombre[largoNombre];
-	char apellido[largoApellido];
-	//char nombreApellido[largo];
-
-	retorno = -1; //si no toma el nombre
-
-	if(largo > 0 && largoNombre > 0 && largoApellido > 0)
-	{
-		printf("Ingrese nombre:\n");	//pedido de nombre
-		fflush(stdin);
-		scanf("%[^\n]",nombre);
-
-		printf("Ingrese apellido:\n"); //pedido del apellido
-		fflush(stdin);
-		scanf("%[^\n]",apellido);
-
-		strlwr(nombre);		//convierto a min los dos arrays
-		strlwr(apellido);
-
-		nombre[0] = toupper(nombre[0]);
-		apellido[0] = toupper(nombre[0]);
-		for(int i = 0; i<strlen(nombre);i++)
-		{
-			if(nombre[i] == ' ')
-			{
-				nombre[i+1] = toupper(nombre[i+1]);	 //transformo en mayuscula 1 letra y la guardo en la misma posicion
-				apellido[0] = toupper(apellido[0]);
-			}
-		}
-
-		strcpy(nombreApellido,nombre);	//copio en un auxiliar los datos para no modificar el original
-		strcat(nombreApellido,", ");		//concateno
-		strcat(nombreApellido,apellido);
-
-		retorno = 1;
-	}
-
-	return retorno;
-}
 
 int esNumerica(char* cadena)
 {
@@ -98,7 +48,6 @@ static int getInt(int* pResultado)
 	int retorno =-1;
 	char buffer [4000];
 
-
 	if(myGets(buffer,sizeof(buffer))==0 && esNumerica(buffer))
 	{
 		retorno =0;
@@ -118,7 +67,7 @@ int utnGetNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo,
 		{
 			printf("%s",mensaje);
 
-			if(getInt(&bufferInt) ==0 && bufferInt >= minimo && bufferInt <= maximo)
+			if(getInt(&bufferInt) == 0 && bufferInt >= minimo && bufferInt <= maximo)
 			{
 				*pResultado = bufferInt;
 				retorno =0;
@@ -132,9 +81,8 @@ int utnGetNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo,
 
 			switch(reintentos)
 			{
-
 				case 0:
-					printf("Queda 1 intento\n");
+					printf("\nQueda 1 intento\n");
 				break;
 				case 1:
 					printf("Quedan 2 intentos\n");
@@ -149,13 +97,12 @@ int utnGetNumero(int* pResultado, char* mensaje, char* mensajeError, int minimo,
 	return retorno;
 }
 
-
 static int getShort(short* pResultado)
 {
 	int retorno =-1;
 	char buffer [4000];
 
-	if(myGets(buffer,sizeof(buffer))==0 && esNumerica(buffer))
+	if(myGets(buffer,sizeof(buffer)) == 0 && esNumerica(buffer))
 	{
 		retorno =0;
 		*pResultado = atoi(buffer);
@@ -193,7 +140,7 @@ int getNumeroShort(short* pResultado, char* mensaje, char* mensajeError, short m
 			{
 
 				case 0:
-					printf("Queda 1 intento\n");
+					printf("\nQueda 1 intento\n");
 				break;
 				case 1:
 					printf("Quedan 2 intentos\n");
@@ -277,7 +224,7 @@ int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float mini
 		{
 
 			case 0:
-				printf("Queda 1 intento\n");
+				printf("\nQueda 1 intento\n");
 			break;
 			case 1:
 				printf("Quedan 2 intentos\n");
@@ -290,30 +237,136 @@ int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float mini
 	return retorno;
 }
 
-int pedirCadena(char cadena[],int largo,char mensaje[])
+int tomarIntComoTexto (char *pResultado, char mensaje[], char mensajeError[], int minimo, int maximo, int intentos)
 {
-	int retorno,largoCadena;
-	char buffer[1024];
+	int retorno = -1;
+	int num;
 
-	retorno = -1;//Si el len de la cadena es 0 o menos
+	while(intentos > 0)
+	{
+		intentos--;
 
-    	if(largo > 0)
-    	{
-    		printf("%s",mensaje);
-    		fflush(stdin);
-    		scanf("%[^\n]", buffer);
+		printf("%s", mensaje);
+		if(getInt(&num) == 0)
+		{
+			if(num >= minimo && num <= maximo)
+			{
+				itoa(num, pResultado, 10); //Convierte un valor numérico en una cadena de texto
+				retorno = 0;
+				break;
+			}
+		}
+		printf("%s", mensajeError);
+		if(intentos == 0)
+		{
+			printf("\nSe agotaron los reintentos...\n");
+		}
+	}
 
-    		largoCadena = strlen(buffer);
-    		retorno = 0;
-
-    		if(largo > largoCadena)
-    		{
-    			strcpy(cadena,buffer);
-    			retorno = 1;
-    		}
-    	}
 	return retorno;
 }
+
+/***
+ * @fn int getString(char*, int)
+ * @brief busca el enter en una cadena y lo cambia por un "\0"
+ *
+ * @param cadena cadena a ser analizada
+ * @param len largo de la cadena
+ * @return retorna 0 si pudo y -1 si no
+ */
+static int getString(char* cadena, int len)
+{
+	int retorno=-1;
+	char bufferString[4096];
+
+	if(cadena != NULL && len > 0)
+	{
+		fflush(stdin);
+		if(fgets(bufferString,sizeof(bufferString),stdin) != NULL)
+		{
+			if(bufferString[strnlen(bufferString,sizeof(bufferString))-1] == '\n')
+			{
+				bufferString[strnlen(bufferString,sizeof(bufferString))-1] = '\0';
+			}
+			if(strnlen(bufferString,sizeof(bufferString)) <= len)
+			{
+				strncpy(cadena,bufferString,len);
+				retorno = 0;
+			}
+		}
+	}
+	return retorno;
+}
+
+int esNombre(char* cadena,int longitud)
+{
+	int i=0;
+	int retorno = 1;
+
+	if(cadena != NULL && longitud > 0)
+	{
+		for(i=0 ; cadena[i] != '\0' && i < longitud; i++)
+		{
+			if((cadena[i] < 'A' || cadena[i] > 'Z' ) && (cadena[i] < 'a' || cadena[i] > 'z' ) && (cadena[i] != ' ') && (cadena[i] != '\n'))
+			{
+				retorno = 0;
+				break;
+			}
+		}
+	}
+	return retorno;
+}
+
+/***
+ * @fn int getNombre(char*, int)
+ * @brief toma la cadena, la verifica y la copia en una variable
+ *
+ * @param pResultado puntero a espacio en memoria donde se guarda el nombre
+ * @param longitud largo de la cadena
+ * @return retorna 0 si se copio la cadena y -1 si no
+ */
+static int getNombre(char* pResultado, int longitud)
+{
+    int retorno=-1;
+    char buffer[4096];
+
+    if(pResultado != NULL)
+    {
+    	if(getString(buffer,sizeof(buffer)) == 0 && esNombre(buffer,sizeof(buffer)) && strnlen(buffer,sizeof(buffer))<longitud)
+    	{
+    		strncpy(pResultado,buffer,longitud);
+			retorno = 0;
+		}
+    }
+    return retorno;
+}
+
+int utn_GetString(char* pResultado, int tamanio,char* mensaje, char* mensajeError, int intentos)
+{
+	char bufferString[4096];
+	int retorno = -1;
+
+	while(intentos>0)
+	{
+		intentos--;
+		printf("%s",mensaje);
+		if(getNombre(bufferString,sizeof(bufferString)) == 0 && strnlen(bufferString,sizeof(bufferString)) < tamanio )
+		{
+			strncpy(pResultado,bufferString,tamanio);
+			retorno = 0;
+			break;
+		}
+			printf("%s",mensajeError);
+
+		if(intentos == 0)
+		{
+			printf("\nSe agotaron los reintentos...\n");
+		}
+
+	}
+	return retorno;
+}
+
 
 int menuPrincipal()
 {
@@ -357,7 +410,7 @@ int subMenuListar()
     int retorno;
 
     printf("Elija lo que desea listar:\n\n");
-    printf("1.Listado de los jugadores ordenados por nombre de confederacion y nombre de jugador.\n2.Listado de confederaciones con sus jugadores.\n3.Total y promedio de todos los salarios y cuántos jugadores cobran más del promedio.\n4.Confederación con mayor cantidad de años de contratos total.\n5.Porcentaje de jugadores cada confederación.\n6.Región con más jugadores y el listado de los mismos.\n7.Salir\n");
+    printf("1.Listado de los jugadores ordenados por nombre de confederacion y nombre de jugador.\n2.Listado de confederaciones con sus jugadores.\n3.Total y promedio de todos los salarios y cuántos jugadores cobran más del promedio.\n4.Confederación con mayor cantidad de años de contratos total.\n5.Porcentaje de jugadores en cada confederación.\n6.Región con más jugadores y el listado de los mismos.\n7.Salir\n");
 
     retorno = utnGetNumero(&opcionMenuListar,"Su opcion:\n","Error, la opcion debe ser del 1 al 7:\n",1,7,3);
 

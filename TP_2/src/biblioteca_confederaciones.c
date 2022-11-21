@@ -22,7 +22,7 @@
 void hardcodearConfederacion(eConfederacion confederaciones[], int tam)
 {
     int i;
-    int id[6] = {1,2,3,4,5,6};
+    int id[6] = {100,101,102,103,104,105};
     char nombre[][50] = {{"CONMEBOL"},{"UEFA"},{"AFC"},{"CAF"},{"CONCACAF"},{"OFC"}};
     char region[][50] = {{"SUDAMERICA"},{"EUROPA"},{"ASIA"},{"AFRICA"},{"NORTE Y CENTRO AMERICA"},{"OCEANIA"}};
     int anioCreacion[6] = {1916,1954,1954,1957,1961,1966};
@@ -64,11 +64,12 @@ int altaConfederacion(eConfederacion confederaciones[],int tam, int confederacio
 
 	if(indice > -1)
 	{
+
 		confederaciones[indice].id = confederacionesIdAutoincremental;
         setbuf(stdin,NULL);
-	    pedirCadena(confederaciones[indice].nombre,50,"Ingrese el nombre de la confederacion:\n");
+        utn_GetString(confederaciones[indice].nombre,50,"Ingrese el nombre de la confederacion:\n","Error.Ingrese un nombre valido:\n",3);
         setbuf(stdin,NULL);
-	    pedirCadena(confederaciones[indice].region,50,"Ingrese la region de la confederacion:\n");
+        utn_GetString(confederaciones[indice].region,50,"Ingrese la region de la confederacion:\n","Error.Ingrese una region existente:\n",3);
 
 	    auxAnioCreacion = utnGetNumero(&anioCreacion,"Ingrese el año de creacion de la confederacion:\n","Error, ingrese un numero valido:\n",1700,2022,3);
         if(auxAnioCreacion == 0)
@@ -124,7 +125,7 @@ int modificarNombreConfederacion(eConfederacion confederaciones[],int tam)
 		auxConfirmacion = utnGetNumero(&confirmacion,"Confederacion encontrada. ¿Desea modificar?\n1-Si\t2-No\n","Error, ingrese una opcion valida",1,2,3);
 		retorno = 2; //si el usuario quiere cancelar la operación
 		setbuf(stdin,NULL);
-		pedirCadena(nombreModificado,50,"Ingrese el nuevo nombre:\n");
+		utn_GetString(nombreModificado,50,"Ingrese el nuevo nombre:\n","Error.Ingrese un nombre valido:\n",3);
 
 	   if(confirmacion == 1 && auxConfirmacion == 0)
 	   {
@@ -152,7 +153,7 @@ int modificarRegionConfederacion(eConfederacion confederaciones[],int tam)
 		auxConfirmacion = utnGetNumero(&confirmacion,"Confederacion encontrada. ¿Desea modificar?\n1-Si\t2-No\n","Error, ingrese una opcion valida",1,2,3);
 		retorno = 2; //si el usuario quiere cancelar la operación
 		setbuf(stdin,NULL);
-		pedirCadena(regionModificado,50,"Ingrese la nueva region:\n");
+		utn_GetString(regionModificado,50,"Ingrese la nueva region:\n","Error.Ingrese una region valida:\n",3);
 
 	   if(confirmacion == 1 && auxConfirmacion == 0)
 	   {
@@ -208,4 +209,46 @@ int buscarConfederacion(eConfederacion confederaciones[],int idABuscar,int tam)
 	}
 
 	return indice;
+}
+
+int buscarNombreConfederaciones(eConfederacion confederaciones[], int tamConfederacion, int idConfederacion, char nombre[])
+{
+	int retorno = -1;
+	int i;
+
+	if(tamConfederacion > 0)
+	{
+		for(i = 0; i < tamConfederacion; i++)
+		{
+			if(confederaciones[i].id == idConfederacion)
+			{
+				strcpy(nombre, confederaciones[i].nombre);
+				retorno = 0;
+				break;
+			}
+		}
+	}
+
+	return retorno;
+}
+
+int buscarRegionConfederaciones(eConfederacion confederaciones[], int tamConfederacion, int idConfederacion, char region[])
+{
+	int retorno = -1;
+	int i;
+
+	if (tamConfederacion > 0)
+	{
+		for(i = 0; i < tamConfederacion; i++)
+		{
+			if (confederaciones[i].id == idConfederacion)
+			{
+				strcpy(region, confederaciones[i].region);
+				retorno = 0;
+				break;
+			}
+		}
+	}
+
+	return retorno;
 }

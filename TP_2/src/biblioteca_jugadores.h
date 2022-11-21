@@ -170,30 +170,109 @@ int buscarJugadoresSuperiorPromedio(float promedio, eJugador jugadores[], int ta
  *
  * @param jugadores array de la estructura que se recorre para acumuar sus anios
  * @param tam tamaño del array
- * @return 0 si no pudo acumular los anios y 1 si los acumulo
+ * @return -1 si no pudo acumular los anios y 0 si los acumulo
  */
-int acumularAnios(eJugador jugadores[], int tam);
+int acumularAnios(eJugador jugadores[], int tam,int* aniosConmebol, int* aniosUefa, int* aniosAfc, int* aniosCaf, int* aniosConcacaf, int* aniosOfc);
 
 /***
- * @fn int acumularJugadores(eJugador[], int)
- * @brief funcion que acumula la cantidad de jugadores y calcular el porcentaje por confederacion
+ * @fn int calcularContratosConfederacion(eJugador[], int)
+ * @brief funcion que evalua la confederacion que tengas mas años de contrato
  *
- * @param jugadores array de la estrucrua que se recorre para acumular los jugadores de cada confederacion
+ * @param jugadores array de la estructura que se recorre para acumuar sus anios
+ * @param tam  tamaño del array
+ * @return retorna el id de la confederacion que tenga mas años de contrato
+ */
+int calcularContratosConfederacion(eJugador jugadores[], int tam);
+
+/***
+ * @fn float calcularPorcentaje(int, int)
+ * @brief funcion que realiza el calculo matematico del porcentaje
+ *
+ * @param cantJugadores cantidad total de jugadores cargados hasta el momento
+ * @param total cantidad total de espacios ocupados
+ * @return retorna el resultado de la cuenta
+ */
+float calcularPorcentaje(int cantJugadores, int total);
+
+/***
+ * @fn int calcularTotalJugadores(eJugador[], int, int*)
+ * @brief calcula el total de jugadores cargados hasta el momento
+ *
+ * @param jugadores array de tipo struct
  * @param tam tamaño del array
- * @return 0 si no pudo acumular los jugadores y 1 si los acumulo y calculo el promedio
+ * @param total puntero al resultado de la suma
+ * @return retorna -1 si no pudo realizar la operacion y 0 si pudo
  */
-int acumularJugadores(eJugador jugadores[], int tam);
+int calcularTotalJugadores(eJugador jugadores[], int tam, int* total);
 
 /***
- * @fn int acumularRegiones(eJugador[], int, eConfederacion[], int)
- * @brief funcion que acumula la cantidad de jugadores por cada region
+ * @fn int acumularJugadoresPorConfederacion(eJugador[], int, int*, int*, int*, int*, int*, int*)
+ * @brief funcion que acumula los jugadores por cada confederacion disponible
  *
- * @param jugadores array de la estrctura que se recorre para acceder a los jugadores
- * @param tam tamaño del array jugadores
- * @param confederaciones array de la segunda estructura que se recorre para acceder a las regiones
- * @param tamConfederacion tamaño del array de confederaciones
+ * @param jugadores array de tipo struct
+ * @param tam tamaño del array
+ * @param jugadoresAFC puntero que carga la cantidad de jugadores en afc
+ * @param jugadoresCAF puntero que carga la cantidad de jugadores en caf
+ * @param jugadoresCONCACAF puntero que carga la cantidad de jugadores en concacaf
+ * @param jugadoresCONMEBOL puntero que carga la cantidad de jugadores en conmebol
+ * @param jugadoresOFC puntero que carga la cantidad de jugadores en ofc
+ * @param jugadoresUEFA puntero que carga la cantidad de jugadores en uefa
+ * @return retorna -1 en caso de no poder acumular los jugadores y 0 si puede
+ */
+int acumularJugadoresPorConfederacion(eJugador jugadores[], int tam, int* jugadoresAFC, int* jugadoresCAF, int* jugadoresCONCACAF, int* jugadoresCONMEBOL, int* jugadoresOFC, int* jugadoresUEFA);
+
+/***
+ * @fn int compararPorcentaje(eJugador[], int, float*, float*, float*, float*, float*, float*)
+ * @brief funcion que reune y calcula todos los porcentajes
+ *
+ * @param jugadores array de tipo struct
+ * @param tam tamaño del array
+ * @param porcentajeCONMEBOL puntero al porcentaje de conmebol
+ * @param porcentajeUEFA puntero al porcentaje de uefa
+ * @param porcentajeAFC puntero al porcentaje de afc
+ * @param porcentajeCAF puntero al porcentaje de caf
+ * @param porcentajeCONCACAF puntero al porcentaje de concacaf
+ * @param porcentajeOFC puntero al porcentaje de ofc
+ * @return retorna -1 si pudo calcular los porcentajes y 0 si no
+ */
+int reunirPorcentaje(eJugador jugadores[], int tam, float* porcentajeCONMEBOL, float* porcentajeUEFA, float* porcentajeAFC, float* porcentajeCAF, float* porcentajeCONCACAF, float* porcentajeOFC);
+
+/***
+ * @fn int calcularJugadoresPorConfederacion(eJugador[], int, int*, int*, int*, int*, int*, int*)
+ * @brief funcion que acumula los jugadores de cada confederacion
+ *
+ * @param jugadores aray de tipo struct
+ * @param tam tamaño del array
+ * @param jugadoresAFC puntero de la cantidad de jugadores afc
+ * @param jugadoresCAF puntero a la cantidad de jugadores caf
+ * @param jugadoresCONCACAF puntero a la cantidad de jugadores concacaf
+ * @param jugadoresCONMEBOL puntero a la cantidad de jugadores conmebol
+ * @param jugadoresOFC puntero a la cantidad de jugadores ofc
+ * @param jugadoresUEFA puntero a la cantidad de jugadores uefa
+ * @return retorna -1 si no pudo acumular los jugadores y 0 si pudo
+ */
+int calcularJugadoresPorConfederacion(eJugador jugadores[], int tam, int* jugadoresAFC, int* jugadoresCAF, int* jugadoresCONCACAF, int* jugadoresCONMEBOL, int* jugadoresOFC, int* jugadoresUEFA);
+
+/***
+ * @fn int verificarConfederacionConMasJugador(eJugador[], int, eConfederacion[], int)
+ * @brief funcion que verifica que confederacion tiene mas jugadores
+ *
+ * @param jugadores array de tipo struct
+ * @param tam tamaño del array
+ * @param confederaciones array de tipo struct
+ * @param tamConfederacion tamaño del array
+ * @return retorna el id de la confederacion con mas jugadores
+ */
+int verificarConfederacionConMasJugador(eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamConfederacion);
+
+/***
+ * @fn int switchearModificacion(int, eJugador[], int)
+ * @brief funcion que switchea las opciones de modificacion
+ *
+ * @param opcionModificar opcion recibida por parametro
+ * @param jugadores array de tipo struct
+ * @param cantidad tamaño del array
  * @return
  */
-int acumularRegiones(eJugador jugadores[], int tam, eConfederacion confederaciones[], int tamConfederacion);
-
+int switchearModificacion(int opcionModificar, eJugador jugadores[], int cantidad);
 #endif /* BIBLIOTECA_JUGADORES_H_ */

@@ -98,4 +98,29 @@ int modificarAnioConfederacion(eConfederacion confederaciones[],int tam);
  * @return retorna el indice en caso de encontrarlo y -1 en caso de no encontrarlo
  */
 int buscarConfederacion(eConfederacion confederaciones[],int idABuscar,int tam);
+
+/***
+ * @fn int buscarNombreConfederaciones(eConfederacion[], int, int, char[])
+ * @brief funcion que busca el nombre de una confederacion por su id
+ *
+ * @param confederaciones array de tipo struct
+ * @param tamConfederacion tamaño del array
+ * @param idConfederacion id de la confederacion a buscar
+ * @param nombre array de tipo char en donde se guarda el nombre encontrado
+ * @return retorna -1 si no pudo encontrar el nombre y 0 si pudo
+ */
+int buscarNombreConfederaciones(eConfederacion confederaciones[], int tamConfederacion, int idConfederacion, char nombre[]);
+
+/***
+ * @fn int buscarRegionConfederaciones(eConfederacion[], int, int, char[])
+ * @brief funcion que busca la region de una confederacion por su id
+ *
+ * @param confederaciones array de tipo struct
+ * @param tam tamaño del array
+ * @param idConfederacion id de la confederacion a buscar
+ * @param region array de tipo char en donde se guarda el nombre encontrado
+ * @return retorna -1 si no pudo encontrar el nombre y 0 si pudo
+ */
+int buscarRegionConfederaciones(eConfederacion confederaciones[], int tamConfederacion, int idConfederacion, char region[]);
+
 #endif /* BIBLIOTECA_CONFEDERACIONES_H_ */

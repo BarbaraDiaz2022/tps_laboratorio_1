@@ -27,9 +27,19 @@ int main(void) {
     eConfederacion confederaciones[CANTIDAD_CONFEDERACIONES];
     int idJugadoresAutoincremental = 1;
     int contador = 0;
-    int opcion, opcionModificar, opcionListar,auxConfirmacion, confirmacion;
+    int opcion, opcionModificar, opcionListar,confirmacion;
     float totalSalario, promedio;
-    int cantidadSalariosQueSuperenPromedio, retornoAnios, retornoJugadores, retornoRegiones;
+    int cantidadSalariosQueSuperenPromedio,idConfederacionMayorContrato;
+    char nombreConfederacion[50];
+    float porcentajeCONMEBOL;
+    float porcentajeUEFA;
+    float porcentajeAFC;
+    float porcentajeCAF;
+    float porcentajeCONCACAF;
+    float porcentajeOFC;
+    char region[50];
+    int idConfederacionMayorJugador;
+
     //llamado a funciones
     inicializarArray(jugadores,CANTIDAD_JUGADORES);
     hardcodearConfederacion(confederaciones,CANTIDAD_CONFEDERACIONES);
@@ -41,7 +51,7 @@ int main(void) {
         switch(opcion)
         {
             case 1:
-                printf("--------ALTA DE JUGADOR--------\n\n");
+        		printf("*****************ALTA DE JUGADOR*****************\n\n");
                 if(altaJugador(jugadores,CANTIDAD_JUGADORES,idJugadoresAutoincremental) == 1)
 		        {
 			        printf("Se dio de alta correctamente\n\n");
@@ -84,105 +94,8 @@ int main(void) {
                     do
                     {
                         opcionModificar = subMenuModificar();
-
-                        switch(opcionModificar)
-                        {
-                            case 1:
-                                switch(modificarNombre(jugadores,CANTIDAD_JUGADORES))
-								{
-									case -1:
-										printf("El jugador no existe (no se puede modificar)\n\n");
-									break;
-									case 2:
-										printf("Operacion cancelada correctamente\n\n");
-									break;
-									case 1:
-										printf("El jugador se modifico con exito\n\n");
-									break;
-								}
-                            break;
-
-                            case 2:
-                                switch(modificarPosicion(jugadores,CANTIDAD_JUGADORES))
-								{
-									case -1:
-										printf("El jugador no existe (no se puede modificar)\n\n");
-									break;
-									case 2:
-										printf("Operacion cancelada correctamente\n\n");
-									break;
-									case 1:
-										printf("El jugador se modifico con exito\n\n");
-									break;
-								}
-                            break;
-
-                            case 3:
-                                switch(modificarNumeroCamiseta(jugadores,CANTIDAD_JUGADORES))
-								{
-									case -1:
-										printf("El jugador no existe (no se puede modificar)\n\n");
-									break;
-									case 2:
-										printf("Operacion cancelada correctamente\n\n");
-									break;
-									case 1:
-										printf("El jugador se modifico con exito\n\n");
-									break;
-								}
-                            break;
-
-                            case 4:
-                                switch(modificarConfederacion(jugadores,CANTIDAD_JUGADORES))
-								{
-									case -1:
-										printf("El jugador no existe (no se puede modificar)\n\n");
-									break;
-									case 2:
-										printf("Operacion cancelada correctamente\n\n");
-									break;
-									case 1:
-										printf("El jugador se modifico con exito\n\n");
-									break;
-								}
-                            break;
-
-                            case 5:
-                                switch(modificarSalario(jugadores,CANTIDAD_JUGADORES))
-								{
-									case -1:
-										printf("El jugador no existe (no se puede modificar)\n\n");
-									break;
-									case 2:
-										printf("Operacion cancelada correctamente\n\n");
-									break;
-									case 1:
-										printf("El jugador se modifico con exito\n\n");
-									break;
-								}
-                            break;
-
-                            case 6:
-                                switch(modificarAnio(jugadores,CANTIDAD_JUGADORES))
-								{
-									case -1:
-										printf("El jugador no existe (no se puede modificar)\n\n");
-									break;
-									case 2:
-										printf("Operacion cancelada correctamente\n\n");
-									break;
-									case 1:
-										printf("El jugador se modifico con exito\n\n");
-									break;
-								}
-                            break;
-
-                            case 7:
-                                printf("Ud. selecciono la opcion 'salir'.\n\n");
-                            break;
-                        }
+                        switchearModificacion(opcionModificar,jugadores,CANTIDAD_JUGADORES);
                     }while(opcionModificar != 7);
-
                 }
                 else
                 {
@@ -193,18 +106,24 @@ int main(void) {
             case 4:
                 if(contador > 0)
                 {
-                    printf("--------LISTAR--------\n\n");
-
+                    printf("*****************LISTAR*****************\n\n");
                     opcionListar = subMenuListar();
 
                     switch(opcionListar)
                     {
                             case 1:
-                            	 ordenarAlfabeticamenteConfJug(confederaciones,CANTIDAD_CONFEDERACIONES,jugadores,CANTIDAD_JUGADORES);
+                            	if(ordenarConfederacionYNombre(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES) == 0)
+                            	{
+                                	mostrar(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES);
+                            	}
+                            	else
+                            	{
+                            		printf("\nHubo un error al ordenar.\n\n");
+                            	}
                             break;
 
                             case 2:
-                                listarConfederacionYJugador(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES);
+                            	mostrarConfederacionesYJugadores(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES);
                             break;
 
                             case 3:
@@ -212,50 +131,40 @@ int main(void) {
                                 promedio = calcularPromedio(totalSalario,contador,jugadores,CANTIDAD_JUGADORES);
                                 cantidadSalariosQueSuperenPromedio = buscarJugadoresSuperiorPromedio(promedio,jugadores,CANTIDAD_JUGADORES);
 
-                                printf("\nEl importe total de los salarios es $ %.2f\nEl promedio es $ %.2f\nCantidad de jugadores que superan el salario promedio: %d\n\n", totalSalario, promedio,cantidadSalariosQueSuperenPromedio);
+                                mostrarSalarios(totalSalario,promedio, cantidadSalariosQueSuperenPromedio);
                             break;
 
                             case 4:
-                            	retornoAnios = acumularAnios(jugadores, CANTIDAD_JUGADORES);
-                            	if(retornoAnios == -1)
-                            	{
-                            		printf("Hubo un error, intente nuevamente.\n");
-                            	}
+                            	idConfederacionMayorContrato = calcularContratosConfederacion(jugadores,CANTIDAD_JUGADORES);
+                            	buscarNombreConfederaciones(confederaciones,CANTIDAD_CONFEDERACIONES,idConfederacionMayorContrato,nombreConfederacion);
+                            	printf("\nLa confederacion con mayor cantidad de años de contrato es: %s \n", nombreConfederacion);
                             break;
 
                             case 5:
-                            	retornoJugadores = acumularJugadores(jugadores,CANTIDAD_JUGADORES);
-                            	if(retornoJugadores == -1)
-                            	{
-                            		printf("Hubo un error, intente nuevamente.\n");
-                            	}
+                            	reunirPorcentaje(jugadores,CANTIDAD_JUGADORES, &porcentajeCONMEBOL, &porcentajeUEFA, &porcentajeAFC, &porcentajeCAF, &porcentajeCONCACAF, &porcentajeOFC);
+                            	mostrarPorcentajes(porcentajeCONMEBOL,porcentajeUEFA, porcentajeAFC,porcentajeCAF,porcentajeCONCACAF,porcentajeOFC);
                             break;
 
                             case 6:
-                            	retornoRegiones = acumularRegiones(jugadores,CANTIDAD_JUGADORES, confederaciones, CANTIDAD_CONFEDERACIONES);
-                            	if(retornoRegiones == -1)
-                            	{
-                            		printf("Hubo un error, intente nuevamente.\n");
-                            	}
+                            	idConfederacionMayorJugador = verificarConfederacionConMasJugador(jugadores, CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES);
+                            	buscarRegionConfederaciones(confederaciones,CANTIDAD_CONFEDERACIONES,idConfederacionMayorJugador,region);
+                            	printf("\nLa region con mas jugadores es %s \n", region);
+                            	mostrarJugadoresDeUnaConfederacion(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES,idConfederacionMayorJugador);
                             break;
 
                             case 7:
-                                printf("Ud. seleccion%c la opci%cn 'salir'.\n\n",162,162);
+                                printf("Ud. selecciono la opcion 'salir'.\n\n");
                             break;
                     }
                 }
                 else
                 {
-                    printf("Debe ingresar por lo menos 1 jugador para utilizar esta opci%cn.\n\n", 162);
+                    printf("Debe ingresar por lo menos 1 jugador para utilizar esta opcion.\n\n");
                 }
             break;
 
             case 5:
-            	auxConfirmacion = utnGetNumero(&confirmacion, "Ud. selecciono la opcion 5. ¿Desea salir?\n1-Si\t2-No\n","Error.Ingrese\n1-Si\n2-No\n",1,2,3);
-                if(auxConfirmacion != 0)
-                {
-                	printf("Error, intente nuevamente\n\n");
-                }
+            	utnGetNumero(&confirmacion, "Ud. selecciono la opcion 5. ¿Desea salir del programa?\n[1-Si|2-No]\n","Error.Ingrese\n[1-Si|2-No]\n",1,2,3);
                 printf("\n");
             break;
         }

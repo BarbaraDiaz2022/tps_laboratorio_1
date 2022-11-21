@@ -8,6 +8,7 @@
 #ifndef BIBLIOTECA_INPUT_H_
 #define BIBLIOTECA_INPUT_H_
 
+
 /***
  * @fn int esNumerica(char*)
  * @brief verifica si la cadena ingresada es numerica
@@ -78,27 +79,41 @@ int getFloat(float* pResultado);
 int utnGetFloat(float* pResultado, char* mensaje, char* mensajeError, float minimo, float maximo, int reintentos);
 
 /***
- * @fn int pedirCadena(char[], int, char[])
- * @brief pide al usuario un texto por teclado y valida que no supere el largo permitido
+ * @fn int utn_GetString(char*, int, char*, char*, int)
+ * @brief toma una cadena de texto validando que tenga solo letras y espacios con cierta cantidad de intentos
  *
- * @param cadena cadena a evaluar
- * @param largo largo del mensaje permitido
- * @param mensaje mensaje que se imprime para pedir datos
- * @return devuelve -1 si el largo de la cadena es incorrecto y 1 si es correcto
+ * @param pResultado puntero a espacio en memoria donde se guardara la cadena
+ * @param tamanio tamaño del array
+ * @param mensaje mensaje para ingresar el dato
+ * @param mensajeError mensaje de error que le damos si hubo un mal ingreso
+ * @param intentos cantidad de reintentos
+ * @return retorna -1 si no pudo tomar el dato y 0 si pudo
  */
-int pedirCadena(char cadena[],int largo,char mensaje[]);
+int utn_GetString(char* pResultado, int tamanio,char* mensaje, char* mensajeError, int intentos);
 
 /***
- * @fn int pedirNombreYApellido(int, int, int, char*)
- * @brief funcion que pide nombre y apellido al usuario y los acomoda
+ * @fn int tomarIntComoTexto(char*, char[], char[], int, int, int)
+ * @brief toma un dato por teclado como texto
  *
- * @param largo largo de la cadena total
- * @param largoNombre largo maximo del nombre
- * @param largoApellido largo maximo del apellido
- * @param nombreApellido puntero que concatena el nombre y el apellido
- * @return retorna 1 si sale todo bien y -1 si no puede concatenar
+ * @param pResultado puntero a espacio de memoria donde se guarda la cadena
+ * @param mensaje mensaje que le mostramos para tomar el texto
+ * @param mensajeError mensaje de error si hubo un mal ingreso
+ * @param minimo valor minimo que puede tomar el numero
+ * @param maximo valor maximo que puede tomar el numero
+ * @param intentos cantidad de reintentos
+ * @return retorna -1 su no pudo tomar el dato y 0 si pudo
  */
-int pedirNombreYApellido(int largo, int largoNombre, int largoApellido, char *nombreApellido);
+int tomarIntComoTexto (char *pResultado, char mensaje[], char mensajeError[], int minimo, int maximo, int intentos);
+
+/***
+ * @fn int esNombre(char*, int)
+ * @brief verifica que la cadena ingresada sea una cadena de caracteres
+ *
+ * @param cadena cadena a analizar
+ * @param longitud longitud de la cadena
+ * @return retorna 1 si la cadena respeta los parametros o 0 si no es valido
+ */
+int esNombre(char* cadena,int longitud);
 
 /***
  * @fn int menuPrincipal()
