@@ -22,19 +22,16 @@ int parser_JugadorFromText(FILE* pFile , LinkedList* pArrayListJugador)
 	{
 		fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", idAux,nombreCompletoAux,edadAux,posicionAux,nacionalidadAux,idSeleccionAux); //falsa lectura
 
-		while(feof(pFile) == 0)	//itero hasta el final del archivo
+		while(!(feof(pFile)))	//itero hasta el final del archivo
 		{
 			retornoScanf = fscanf(pFile,"%[^,],%[^,],%[^,],%[^,],%[^,],%[^\n]\n", idAux,nombreCompletoAux,edadAux,posicionAux,nacionalidadAux,idSeleccionAux);
 
-			if(retornoScanf == 6 && esNumerica(idAux) && esNombre(nombreCompletoAux, strlen(nombreCompletoAux)) && esNumerica(edadAux) && esNombre(posicionAux, strlen(posicionAux))&& esNombre(nacionalidadAux, strlen(nacionalidadAux)) && esNumerica(idSeleccionAux))
+			if(retornoScanf == 6)
 			{
 				jugador = jug_newParametros(idAux,nombreCompletoAux,edadAux,posicionAux,nacionalidadAux,idSeleccionAux); //creo al jugador
 
-				if(jugador != NULL)
-				{
-					ll_add(pArrayListJugador, jugador);//agrego el elemento a la lista
-					retorno = 1;
-				}
+				ll_add(pArrayListJugador, jugador);//agrego el elemento a la lista
+				retorno = 1;
 			}
 		}
 	}

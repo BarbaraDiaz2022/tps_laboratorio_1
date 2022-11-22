@@ -536,46 +536,6 @@ LinkedList* ll_clone(LinkedList* this)
     return cloneArray;
 }
 
-//la funcion criterio del tp 3 ordenada por nacionaldiad
-//0 si los criterios son iguales
-//1 si el primer criterio es mayor
-//-1 si el segundo criterio es mayor
-//
-//int ordenarPorCriterio(void* jugadorUno, void* jugadorDos)
-//{
-//	int resultadoComparacion = 0;
-//	Jugador* pJugadorUno;
-//	Jugador* pJugadorDos;
-//	char nacionalidadDelJugUno[100];
-//	char nacionalidadDelJugDos[100];
-//
-//	if(pJugadorUno != NULL && pJugadorDos != NULL)
-//	{
-//		pJugadorUno = (Jugador*) jugadorUno;	//casteo lo que recibo en void para guardarlo en el puntero del tipo de dato estructura
-//		pJugadorDos = (Jugador*) jugadorDos;
-//
-//		jug_getNacionalidad(pJugadorUno, nacionalidadDelJugUno);	//obtengo la nacionalidad
-//		jug_getNacionalidad(pJugadorDos, nacionalidadDelJugDos);
-//
-//		resultadoComparacion = strcmp(nacionalidadDelJugUno, nacionalidadDelJugDos);	//comparo y guardo el retorno
-//
-//		//si fuera con enteros, por ejemplo edad se compara normalmente despues de guardar lo que devuelve el getter
-//		if(edadJugadorUno > edadJugadorDos)
-//		{
-//			resultadoComparacion = 1;
-//		}
-//		else
-//		{
-//			if(edadJugadorUno < edadJugadorDos)
-//			{
-//				resultadoComaparacion = -1;
-//			}
-//		}
-//	}
-//
-//	return resultadoComparacion;
-//}
-
 /** \brief Ordena los elementos de la lista utilizando la funcion criterio recibida como parametro
  * \param pList LinkedList* Puntero a la lista
  * \param pFunc (*pFunc) Puntero a la funcion criterio
@@ -585,7 +545,7 @@ LinkedList* ll_clone(LinkedList* this)
  */
 int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 {
-    int returnAux =-1;
+    int returnAux = -1;
     int flagOrdenado; //para romper el ordenamiento si ya esta ordenado
     int len;
     void* auxElementoUno;
@@ -613,7 +573,9 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
     			}
     		}
     	}while(flagOrdenado == 0);
+
     	returnAux = 0;
     }
+
     return returnAux;
 }

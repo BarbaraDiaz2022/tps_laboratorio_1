@@ -33,8 +33,7 @@ Jugador* jug_newParametros(char* idStr,char* nombreCompletoStr,char* edadStr, ch
 		edad = atoi(edadStr);
 		idSeleccion = atoi(idSelccionStr);
 
-		if((!jug_setId(pNuevoJugador,id) && !jug_setNombreCompleto(pNuevoJugador,nombreCompletoStr) && !jug_setPosicion(pNuevoJugador,posicionStr) && !jug_setNacionalidad(pNuevoJugador,nacionalidadStr)
-		 && !jug_setEdad(pNuevoJugador,edad) && !jug_setIdSeleccion(pNuevoJugador,idSeleccion)))
+		if(!(jug_setAll(pNuevoJugador, id,nombreCompletoStr,edad,posicionStr,nacionalidadStr,idSeleccion)))
 		{
 			jug_delete(pNuevoJugador);
 		}
@@ -504,7 +503,7 @@ int jug_compararNombre(void* jugadorUno, void* jugadorDos)
 
 		jug_getNombreCompleto(pJugadorUno, nombreDelJugUno);
 		jug_getNombreCompleto(pJugadorDos, nombreDelJugDos);
-
+		//si quisiera comparar por 2 criterios de char, en el getter paso Nacionalidad por ej
 		resultadoComparacion = strcmp(nombreDelJugUno, nombreDelJugDos);	//comparo y guardo el retorno
 	}
 

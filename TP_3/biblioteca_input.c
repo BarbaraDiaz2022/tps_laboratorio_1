@@ -319,7 +319,7 @@ static int getNombre(char* pResultado, int longitud)
 
     if(pResultado != NULL)
     {
-    	if(getString(buffer,sizeof(buffer))==0 && esNombre(buffer,sizeof(buffer)) && strnlen(buffer,sizeof(buffer))<longitud)
+    	if(getString(buffer,sizeof(buffer)) == 0 && esNombre(buffer,sizeof(buffer)) && strnlen(buffer,sizeof(buffer))<longitud)
     	{
     		strncpy(pResultado,buffer,longitud);
 			retorno = 0;
