@@ -17,9 +17,9 @@ LinkedList* ll_newLinkedList(void)
 {
     LinkedList* this= NULL;
 
-    this = (LinkedList*)malloc(sizeof(LinkedList));//reservo espacio de memoria para el tipo de dato y le da un valor por defecto a sus campos
+    this = (LinkedList*)malloc(sizeof(LinkedList));
 
-    if(this != NULL)		//esta validacion me da la pauta de que se creo la lista en primer lugar
+    if(this != NULL)		//validacion importante
     {
     	this->size = 0;		//inicializo el tamaño de la lista
     }
@@ -101,14 +101,14 @@ static int addNode(LinkedList* this,int nodeIndex,void* pElement)
 
     pNode = (Node*)malloc(sizeof(Node*));
 
-    if(pNode != NULL && this != NULL && nodeIndex >= 0 && nodeIndex <= ll_len(this) )
+    if(pNode != NULL && this != NULL && nodeIndex >= 0 && nodeIndex <= ll_len(this))
     {
     	pNode->pElement = pElement;	//guardo en mi nuevo nodo el elemento que me llega
 
-    	if(nodeIndex == 0)	//si quisiera agregar el elemento al primero nodo modifico la linkedlist
+    	if(nodeIndex == 0)	//si quisiera agregar el elemento al primero nodo se modifica la linkedlist
     	{
-    		pNode->pNextNode = this->pFirstNode;	//el next node de mi nuevo nodo va a ser el primer nodo de la linkedlist ahora entonces se lo asigno
-    		this->pFirstNode = pNode;				//marco al nodo auxiliar como primer nodo de la linkedlist
+    		pNode->pNextNode = this->pFirstNode;	//el siguiente nodo de mi nuevo nodo va a ser el primero de la linkedlist ahora entonces se lo asigno
+    		this->pFirstNode = pNode;				//marco al nodo auxiliar como primero de la linkedlist
     		pNode->pElement = pElement;				//guardo en el elemento del nodo el elemento q recibo por parametro
     		this->size++;							//incremento el tamaño de la linkedlist
     		//returnAux = 0;
@@ -119,7 +119,7 @@ static int addNode(LinkedList* this,int nodeIndex,void* pElement)
 
     		if(pNodeAnterior != NULL)
     		{
-    			pNode->pNextNode = pNodeAnterior->pNextNode;	//al nexNode que voy a agregar, le asigno el nodo anterior para referenciarlo
+    			pNode->pNextNode = pNodeAnterior->pNextNode;	//al nextNode que voy a agregar, le asigno el nodo anterior para referenciarlo
     			pNodeAnterior->pNextNode = pNode;				//engancho la lista,lo que le sigue al anterior es el nuevo en cualquier posicion que este
     			pNode->pElement = pElement;
     			this->size++;
@@ -232,7 +232,7 @@ int ll_remove(LinkedList* this,int index)
 {
     int returnAux = -1;
     Node* pNode = NULL;	//creo el auxiliar para guardar el nodo a borrar
-    Node* pNodeAux = NULL; //creo otro auxiliar para guardar el previo
+    Node* pNodeAnterior = NULL; //creo otro auxiliar para guardar el previo
 
     if(this != NULL && index >=0 && index < ll_len(this))
     {
@@ -248,11 +248,11 @@ int ll_remove(LinkedList* this,int index)
 			}
 			else
 			{
-				pNodeAux = getNode(this,index-1);
+				pNodeAnterior = getNode(this,index-1);
 
-				if(pNodeAux != NULL)
+				if(pNodeAnterior != NULL)
 				{
-					pNodeAux->pNextNode = pNode->pNextNode;//al previo le asigno la direccion del que tenia el pNode(el nodo que estoy eliminando)
+					pNodeAnterior->pNextNode = pNode->pNextNode;//al previo le asigno la direccion del que tenia el pNode(el nodo que estoy eliminando)
 					free(pNode);							//uno el eslabon que estaba atras con el de adelante por sacar el del medio
 					this->size--;
 				}
@@ -286,7 +286,7 @@ int ll_clear(LinkedList* this)
     	{
     		for(int i = 0; i < len; i++)
 			{
-				ll_remove(this, 0);	//le paso 0 para no depender de la longitud de la linkedlist que va variando sino que arranco a remover desde el principio
+				ll_remove(this, 0);	//le paso 0 para no depender de la i q va variando sino que arranco a remover desde el principio en todas las iteraciones
 			}
 
     		returnAux = 0;
@@ -335,7 +335,7 @@ int ll_indexOf(LinkedList* this, void* pElement)
     	len = ll_len(this);
 
     	for(int i = 0; i < len; i++)
-    	{	 //Retorna un elemento del nodo en el indice que recibe
+    	{	 //para retornar un elemento del nodo en el indice que recibe
     		if(ll_get(this, i) == pElement)	//comparo y en caso de ser iguales es porque el elemento existe
     		{
     			returnAux = i;
@@ -468,6 +468,7 @@ int ll_containsAll(LinkedList* this, LinkedList* this2)
     if(this != NULL && this != NULL)
     {
 		lenThis2 = ll_len(this2); //obtengo el tamaño de la lista 2 para recorrerla y evaluar si algun elemento de la lista 1 no esta contenido
+
 		returnAux = 1; //contiene los elementos
 
 		for(int i = 0; i < lenThis2; i++)
@@ -579,3 +580,137 @@ int ll_sort(LinkedList* this, int (*pFunc)(void* ,void*), int order)
 
     return returnAux;
 }
+
+/*
+ * brief recibe una lista y llama a la funcion criterio para determinar si un elemento sera agregado a la nueva lista
+ * \param pList LinkedList* Puntero a la lista
+ * \param pFunc (*pFunc) Puntero a la funcion criterio
+ * \return retorna la linkedlist con los items correspondientes
+ * LinkedList* ll_filter(LinkedList* this, int(*pFun)(void* element))
+{
+	int len;
+	void* auxElemento;
+	LinkedList* newLinkedList = NULL; //la nueva lista que va a ser retornada
+
+	newLinkedList = ll_newLinkedList(); //la creo de forma dinamica
+
+	if(this != NULL && pFun != NULL)
+	{
+		len = ll_len(this);
+
+		for(int i = 0; i < len; i++)
+		{
+			auxElemento = ll_get(this, i);
+
+			if(pFun(auxElemento) == 0)
+			{
+				ll_add(newLinkedList, auxElemento);
+			}
+		}
+	}
+
+	return newLinkedList;
+}
+
+ * brief recibe una lista y llama a la funcion criterio para determinar si un elemento sera agregado a la nueva lista
+ * \param pList LinkedList* Puntero a la lista
+ * \param pFunc (*pFunc) Puntero a la funcion criterio
+ * \return retorna la linkedlist con los campos promedios correspondientes agregados a la nueva lista
+LinkedList* ll_map(LinkedList* this, void*(*pFun)(void* element))
+{
+	int len;
+	LinkedList* newLinkedList = ll_newLinkedList();
+	Jugador* auxElement;
+
+	if(this != NULL && pFun != NULL)
+	{
+		len = ll_len(this);
+
+		for(int i = 0; i < len; i++)
+		{
+			auxElement = ll_get(this, i);
+
+			pFun(auxElement); //le paso el elemento y calcula el campo promedio
+
+			ll_add(newLinkedList, auxElement);
+		}
+	}
+
+	return newLinkedList;
+}*/
+
+/*case dondeusellsort:
+	if(ll_isEmpty(lista)==0)
+	{
+		listaPrimeraClase = ll_filter(lista, primeraClase);
+		if(controller_saveAsPassengersFirstClass("PPrimeraClase.csv", listaPrimeraClase)==0)
+		{
+			printf("\nSe han cargado correctamente los pasajeros de primera clase\n");
+		}
+	}
+	else
+	{
+		printf("\nNo hay pasajeros cargados\n");
+	}
+	break;
+case dondeusellmap:
+	if(ll_isEmpty(lista)==0)
+	{
+		listaConMillas = ll_map(lista, calcular);
+		controller_ListPassengerWithMillas(listaConMillas);
+	}
+	else
+	{
+		printf("\nNo hay pasajeros cargados para filtrar\n");
+	}
+	break;
+
+int primeraClase(void* element)
+{
+	int retorno = -1;
+	int auxTipoDePasajero;
+
+	if(element != NULL)
+	{
+		Passenger_getTipoPasajero((Passenger*)element, &auxTipoDePasajero);
+		if(auxTipoDePasajero == 1) //si el getter me traia 1 era porque el pasajero era de primera clase entonces retorno que si pertenece
+		{
+			retorno = 0;
+		}
+
+	}
+
+	return retorno;
+}
+
+
+
+void calcular(void* element)
+{
+//	Passenger* auxPassenger;
+	float auxPrecio;
+	int auxTipoDePasajero;
+	float millas;
+
+	if(element != NULL)
+	{
+		Passenger_getPrecio((Passenger*)element, &auxPrecio);
+		Passenger_getTipoPasajero((Passenger*)element, &auxTipoDePasajero);
+
+		millas = auxPrecio / 100;
+
+		if(auxTipoDePasajero == 1)
+		{
+			millas = millas * 2;
+		}
+		else if(auxTipoDePasajero == 2)
+		{
+			millas = millas * 3;
+		}
+
+		Passenger_setMillas((Passenger*)element, millas);
+	}
+}
+
+ *
+ * */
