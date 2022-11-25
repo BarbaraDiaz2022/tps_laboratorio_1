@@ -28,11 +28,36 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
     return retorno;
 }
 
-int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador)
+int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador,LinkedList* pArrayListSeleccion)
 {
-	int retorno = 1;
+	int retorno = -1;
+	FILE *pArchivo;
+	LinkedList* auxConvocados;
 
-    return retorno;
+	if (pArrayListJugador != NULL)
+	{
+		auxConvocados = ll_clone(pArrayListJugador);
+
+		ll_clear(auxConvocados);
+
+		if (path != NULL && auxConvocados != NULL)
+		{
+			pArchivo = fopen(path, "rb");
+
+			if(pArchivo != NULL)
+			{
+				if(parser_JugadorFromBinary(pArchivo, auxConvocados))
+				{
+					controller_ordenarJugadores(auxConvocados);
+					retorno = 0;
+				}
+			}
+
+			fclose(pArchivo);
+		}
+	}
+
+	return retorno;
 }
 
 int encontrarUltimoId(char* path, char* id)
@@ -288,10 +313,44 @@ int guardarComoTexto(FILE* pArchivo, LinkedList* pArrayListJugador)
 int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJugador)
 {
 	int retorno = -1;
+	FILE* pArchivo;
+
+	if(pArrayListJugador != NULL && path != NULL)
+	{
+		pArchivo = fopen(path, "w");
+		if(pArchivo != NULL)
+		{
+			retorno = guardarComoTexto(pArchivo, pArrayListJugador);
+			fclose(pArchivo);
+		}
+	}
+
 
     return retorno;
 }
 
+int pedirConfederacion(char confederacion[])
+{
+	int retorno = 0;
+	int opcion;
+	char arrayConfederaciones[5][50] = {"AFC", "CAF", "CONCACAF", "CONMEBOL", "UEFA"};
+
+
+
+	if (utnGetNumero(&opcion, "Ingrese confederacion:\n0.AFC\n1.CAF\n2.CONCACAF\n3.CONMEBOL\n4.UEFA\nSu opcion:\n", "\nError.Ingrese una confederacion valida(entre 0 y 4).\n",0,4,3))
+	{
+		for (int i = 0; i < 5; i++)
+		{
+			if (i == opcion)
+			{
+				strcpy(confederacion, arrayConfederaciones[i]);
+				retorno = 1;
+			}
+		}
+	}
+
+	return retorno;
+}
 
 /** \brief Guarda los datos de los jugadores en el archivo binario.
  *
@@ -300,11 +359,62 @@ int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJuga
  * \return int
  *
  */
-int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador)
+int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion)
 {
-	int retorno = 1;
+	int retorno = -1;
+	int tamJugadores;
+	int indice;
+	int idSeleccionJugador;
+	FILE *pArchivo;
+	Jugador *pJugador = NULL;
+	Seleccion* pSeleccion = NULL;
+	char confederacionJugador[50];
+	char confederacionSeleccion[50];
 
-    return retorno;
+	if (path != NULL && pArrayListJugador != NULL && pArrayListSeleccion != NULL)
+	{
+		pedirConfederacion(confederacionJugador); // elije la confederacion que quiere
+		pArchivo = fopen(path, "wb"); // abro el archivo en modo escritura
+
+		if (pArchivo != NULL)
+		{
+			tamJugadores = ll_len(pArrayListJugador);
+			if (tamJugadores > 0)
+			{
+				for (int i = 0; i < tamJugadores; i++)
+				{
+					pJugador = (Jugador*) ll_get(pArrayListJugador, i);
+					if (pJugador != NULL)
+					{
+						jug_getIdSeleccion(pJugador, &idSeleccionJugador);
+						if (idSeleccionJugador != 0)
+						{
+							indice = buscarIdSeleccion(pArrayListSeleccion, idSeleccionJugador);
+							if(indice > 0)
+							{
+								pSeleccion = (Seleccion*) ll_get(pArrayListSeleccion, indice);
+
+								if(pSeleccion != NULL)
+								{
+									selec_getConfederacion(pSeleccion, confederacionSeleccion);
+									if(strcmp(confederacionSeleccion, confederacionJugador) == 0)
+									{
+										if(fwrite(pJugador, sizeof(Jugador), 1, pArchivo) == 1)
+										{
+											retorno = 0;
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		fclose(pArchivo);
+	}
+
+	return retorno;
 }
 
 int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion)

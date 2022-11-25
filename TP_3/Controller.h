@@ -13,7 +13,7 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
  * \param pArrayListJugador LinkedList*
  * \return int
  */
-int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador);
+int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
 
 /***
  * @fn int encontrarUltimoId(char*, char*)
@@ -223,3 +223,6 @@ int controller_convocarSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pAr
  * @return retorna -1 si ocurrio algun error y 0 si pudo quitar de la seleccion
  */
 int controller_ordenar(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
+
+
+int pedirConfederacion(char confederacion[]);
