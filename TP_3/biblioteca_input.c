@@ -403,7 +403,7 @@ int menuPrincipal()
 {
     int opcion, retorno;
 
-    printf("-------MENU PRINCIPAL-------\n");
+    printf("*****************MENU PRINCIPAL*****************\n");
     printf("Ingrese una opcion:\n1-CARGA DE ARCHIVOS\n2-ALTA DE JUGADOR"
     		"\n3-MODIFICACION DE JUGADOR\n4-BAJA DE JUGADOR\n5-LISTADO\n6-CONVOCAR JUGADORES\n"
     		"7-ORDENAR Y LISTAR\n8-GENERAR ARCHIVO BINARIO\n9-CARGAR ARCHIVO BINARIO\n"
@@ -437,7 +437,6 @@ int submenuModificar()
     return opcionSubMenu;
 }
 
-//int submenuListar();
 int submenuListar()
 {
     int opcionSubMenu, retorno;

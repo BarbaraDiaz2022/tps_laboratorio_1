@@ -28,35 +28,25 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
     return retorno;
 }
 
-int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador,LinkedList* pArrayListSeleccion)
+int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador)
 {
 	int retorno = -1;
-	FILE *pArchivo;
-	LinkedList* auxConvocados;
+	FILE* pArchivo;
 
-	if (pArrayListJugador != NULL)
+	if(pArrayListJugador != NULL)
 	{
-		auxConvocados = ll_clone(pArrayListJugador);
-
-		ll_clear(auxConvocados);
-
-		if (path != NULL && auxConvocados != NULL)
+		if(path != NULL && pArrayListJugador != NULL)
 		{
 			pArchivo = fopen(path, "rb");
 
 			if(pArchivo != NULL)
 			{
-				if(parser_JugadorFromBinary(pArchivo, auxConvocados))
-				{
-					controller_ordenarJugadores(auxConvocados);
-					retorno = 0;
-				}
+				parser_JugadorFromBinary(pArchivo, pArrayListJugador);
+				retorno = 0;
 			}
-
 			fclose(pArchivo);
 		}
 	}
-
 	return retorno;
 }
 
@@ -229,6 +219,7 @@ int controller_listarConvocados(LinkedList* pArrayListJugador)
 			if(auxJugador -> idSeleccion > 0)
 			{
 				jug_listar(auxJugador);
+
 			}
 		}
 		printf("\n");
@@ -260,22 +251,6 @@ int controller_listarJugadores(LinkedList* pArrayListJugador)
 		printf("========================================================================================================================\n\n");
 
 		retorno = 0;
-	}
-    return retorno;
-}
-
-int controller_ordenarJugadores(LinkedList* pArrayListJugador)
-{
-	int retorno = -1;
-	int opcion;
-
-	if(pArrayListJugador != NULL)
-	{
-		opcion = submenuOrdenar();
-
-		retorno = jug_ordenar(pArrayListJugador,opcion);
-
-		controller_listarJugadores(pArrayListJugador);
 	}
     return retorno;
 }
@@ -325,30 +300,32 @@ int controller_guardarJugadoresModoTexto(char* path , LinkedList* pArrayListJuga
 		}
 	}
 
-
     return retorno;
 }
 
-int pedirConfederacion(char confederacion[])
+int controller_juntarConvocados(LinkedList* pArrayListJugador, LinkedList* pArrayListConvocados)
 {
-	int retorno = 0;
-	int opcion;
-	char arrayConfederaciones[5][50] = {"AFC", "CAF", "CONCACAF", "CONMEBOL", "UEFA"};
+	int retorno = -1;
+	int tamanio;
+	Jugador* jugadorAux = NULL;
 
+	tamanio = ll_len(pArrayListJugador);
 
-
-	if (utnGetNumero(&opcion, "Ingrese confederacion:\n0.AFC\n1.CAF\n2.CONCACAF\n3.CONMEBOL\n4.UEFA\nSu opcion:\n", "\nError.Ingrese una confederacion valida(entre 0 y 4).\n",0,4,3))
+	if(pArrayListConvocados != NULL && pArrayListJugador != NULL)
 	{
-		for (int i = 0; i < 5; i++)
+		for(int i = 0; i < tamanio; i++)
 		{
-			if (i == opcion)
+			jugadorAux = (Jugador*)ll_get(pArrayListJugador, i);
+
+			if(jugadorAux->idSeleccion > 0)
 			{
-				strcpy(confederacion, arrayConfederaciones[i]);
-				retorno = 1;
+				jugadorAux = ll_get(pArrayListJugador, i);
+
+				ll_add(pArrayListConvocados, jugadorAux);
 			}
 		}
+		retorno = 0;
 	}
-
 	return retorno;
 }
 
@@ -359,63 +336,28 @@ int pedirConfederacion(char confederacion[])
  * \return int
  *
  */
-int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion)
+int controller_guardarJugadoresModoBinario(char* path ,LinkedList* pArrayListJugador)
 {
 	int retorno = -1;
-	int tamJugadores;
-	int indice;
-	int idSeleccionJugador;
-	FILE *pArchivo;
-	Jugador *pJugador = NULL;
-	Seleccion* pSeleccion = NULL;
-	char confederacionJugador[50];
-	char confederacionSeleccion[50];
+	FILE* pArchivo = NULL;
+	Jugador* jugadorAux = NULL;
 
-	if (path != NULL && pArrayListJugador != NULL && pArrayListSeleccion != NULL)
+	pArchivo = fopen(path, "wb");
+
+	if(pArchivo != NULL)
 	{
-		pedirConfederacion(confederacionJugador); // elije la confederacion que quiere
-		pArchivo = fopen(path, "wb"); // abro el archivo en modo escritura
-
-		if (pArchivo != NULL)
+		for(int i = 0; i < ll_len(pArrayListJugador); i++)
 		{
-			tamJugadores = ll_len(pArrayListJugador);
-			if (tamJugadores > 0)
-			{
-				for (int i = 0; i < tamJugadores; i++)
-				{
-					pJugador = (Jugador*) ll_get(pArrayListJugador, i);
-					if (pJugador != NULL)
-					{
-						jug_getIdSeleccion(pJugador, &idSeleccionJugador);
-						if (idSeleccionJugador != 0)
-						{
-							indice = buscarIdSeleccion(pArrayListSeleccion, idSeleccionJugador);
-							if(indice > 0)
-							{
-								pSeleccion = (Seleccion*) ll_get(pArrayListSeleccion, indice);
-
-								if(pSeleccion != NULL)
-								{
-									selec_getConfederacion(pSeleccion, confederacionSeleccion);
-									if(strcmp(confederacionSeleccion, confederacionJugador) == 0)
-									{
-										if(fwrite(pJugador, sizeof(Jugador), 1, pArchivo) == 1)
-										{
-											retorno = 0;
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			}
+			jugadorAux = ll_get(pArrayListJugador,i);
+			fwrite(jugadorAux,sizeof(Jugador),1,pArchivo);
 		}
+
+		retorno = 0;
 		fclose(pArchivo);
 	}
-
-	return retorno;
+    return retorno;
 }
+
 
 int controller_cargarSeleccionesDesdeTexto(char* path , LinkedList* pArrayListSeleccion)
 {
@@ -511,26 +453,6 @@ int controller_listarOpcion(LinkedList* pArrayListJugador, LinkedList* pArrayLis
 
 	return retorno;
 }
-
-
-int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion)
-{
-	int retorno = -1;
-	int opcion;
-
-	if(pArrayListSeleccion != NULL)
-	{
-		opcion = submenuOrdenar();
-
-		retorno = selec_ordenar(pArrayListSeleccion, opcion);
-
-		controller_listarSelecciones(pArrayListSeleccion);
-		retorno = 0;
-	}
-
-    return retorno;
-}
-
 
 int guardarComoTextoSeleccion(FILE* pArchivo, LinkedList* pArrayListSeleccion)
 {
@@ -644,6 +566,7 @@ int controller_quitarDeSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pAr
 			}
 		}
 	}
+
 	return retorno;
 }
 
@@ -687,11 +610,11 @@ int controller_convocarSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pAr
 	return retorno;
 }
 
-
 int controller_ordenar(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion)
 {
 	int retorno = -1;
 	int opcionOrdenar;
+	int ordenamientoSeleccion;
 
 	do
 	{
@@ -700,47 +623,26 @@ int controller_ordenar(LinkedList* pArrayListJugador, LinkedList* pArrayListSele
 		switch(opcionOrdenar)
 		{
 			case 1:
-				if(controller_ordenarJugadores(pArrayListJugador) == -1)
-				{
-					printf("\nNo hay nada para ordenar aun\n\n");
-				}
-				else
-				{
-					retorno = 0;
-				}
+				jug_ordenar(pArrayListJugador,opcionOrdenar);
+				retorno = 0;
 			break;
 
 			case 2:
-				if(selec_ordenar(pArrayListSeleccion, opcionOrdenar) == -1)
-				{
-					printf("\nNo hay nada para ordenar aun\n\n");
-				}
-				else
-				{
-					retorno = 0;
-				}
+				utnGetNumero(&ordenamientoSeleccion,"Indique el ordenamiento:\n[0.Descendente | 1.Ascendente]\nSu opcion:\n", "ERROR.\n[0.Descendente | 1.Ascendente]\nSu opcion:\n",0,1,3);
+				ll_sort(pArrayListSeleccion,selec_compararConfederacion, ordenamientoSeleccion);
+				printf("\n****LISTA DE SELECCIONES ORDENADA POR CONFEDERACION ****\n");
+				controller_listarSelecciones(pArrayListSeleccion);
+				retorno = 0;
 			break;
 
 			case 3:
-				if(controller_ordenarSelecciones(pArrayListSeleccion) == -1)
-				{
-					printf("\nNo hay nada para ordenar aun\n\n");
-				}
-				else
-				{
-					retorno = 0;
-				}
+				jug_ordenar(pArrayListJugador,opcionOrdenar);
+				retorno = 0;
 			break;
 
 			case 4:
-				if(controller_ordenarSelecciones(pArrayListSeleccion) == -1)
-				{
-					printf("\nNo hay nada para ordenar aun\n\n");
-				}
-				else
-				{
-					retorno = 0;
-				}
+				jug_ordenar(pArrayListJugador,opcionOrdenar);
+				retorno = 0;
 			break;
 		}
 	}while(opcionOrdenar != 5);

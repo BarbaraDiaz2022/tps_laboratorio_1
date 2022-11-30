@@ -13,7 +13,7 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
  * \param pArrayListJugador LinkedList*
  * \return int
  */
-int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
+int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador);
 
 /***
  * @fn int encontrarUltimoId(char*, char*)
@@ -134,14 +134,6 @@ int controller_editarSeleccion(LinkedList* pArrayListSeleccion);
  */
 int controller_listarSelecciones(LinkedList* pArrayListSeleccion);
 
-/***
- * @fn int controller_ordenarSelecciones(LinkedList*)
- * @brief llama al menu para mostrar la lista de lo que desea ordenar en las selecciones
- *
- * @param pArrayListSeleccion recibe la linkedlist por referencia
- * @return retorna -1 si no pudo ordenar la lista y 0 si pudo
- */
-int controller_ordenarSelecciones(LinkedList* pArrayListSeleccion);
 
 /***
  * @fn int controller_listarConvocados(LinkedList*)
@@ -171,8 +163,6 @@ int controller_guardarSeleccionesModoTexto(char* path , LinkedList* pArrayListSe
  * @return retorna -1 si no se pudo guardar, y 0 si pudo
  */
 int guardarComoTextoSeleccion(FILE* pArchivo, LinkedList* pArrayListSeleccion);
-
-int controller_filtrarConfederacion(LinkedList* pArrayListJugador);
 
 /***
  * @fn int controller_listarOpcion(LinkedList*, LinkedList*)
@@ -224,5 +214,22 @@ int controller_convocarSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pAr
  */
 int controller_ordenar(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion);
 
+/***
+ * @fn int controller_guardarJugadoresModoBinario(char*, LinkedList*)
+ * @brief
+ *
+ * @param path
+ * @param pArrayListJugador
+ * @return
+ */
+int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJugador);
 
-int pedirConfederacion(char confederacion[]);
+/***
+ * @fn int controller_juntarConvocados(LinkedList*, LinkedList*)
+ * @brief
+ *
+ * @param pArrayListJugador
+ * @param pArrayListConvocados
+ * @return
+ */
+int controller_juntarConvocados(LinkedList* pArrayListJugador, LinkedList* pArrayListConvocados);

@@ -6,27 +6,6 @@
  Copyright   : Your copyright notice
  Description : Hello World in C, Ansi-style. Comision: 1°K
 
-Menu:
-1.Carga de archivos
-2.Alta de jugador
-3.Modificacion de jugador
-4.Baja de jugador
-5.Listado:
-	A.Todos los jugadores	/ya esta hecho
-	B.Todas las selecciones
-	C.Jugadores convocados (unicamente)
-6.Convocar jugadores:
-	A.Convocar
-	B.Quitar de la seleccion
-7.Ordenar y listar.
-	A.Jugadores por nacionalidad
-	B.Selecciones por confederaciones
-	C.Jugadores por edad
-	D.Jugadores por nombre
-8.Generar archivo binario
-9.Cargar archivo binario
-10.Guardar archivos .csv
-11.Salir
  ============================================================================
  */
 #include <stdio.h>
@@ -44,6 +23,7 @@ int main()
 
     LinkedList* listaJugadores = ll_newLinkedList();	//creo la lista de jugadores forma dinamica
     LinkedList* listaSelecciones = ll_newLinkedList(); //creo la lista de selecciones de forma dinamica
+    LinkedList* listaConvocados = ll_newLinkedList();
 
     do
     {
@@ -105,7 +85,7 @@ int main()
             	}
             	else
             	{
-            		printf("\nNo se pudo eliminar el jugador.\n\n");
+            		printf("\nDebe cargar los datos o dar de alta algun jugador antes.\n\n");
             	}
             break;
 
@@ -119,14 +99,21 @@ int main()
             	}
             	else
             	{
-            		printf("\nNo se pudo eliminar el jugador.\n\n");
+            		printf("\nDebe cargar los datos o dar de alta algun jugador antes.\n\n");
             	}
 			break;
 
             case 6:
-            	if(controller_mostrarOpcion(listaSelecciones,listaJugadores) == -1)
+            	if(flagCarga == 1 || flagAlta == 1)
             	{
-            		printf("\nOcurrio un error al convocar.\n\n");
+            		if(controller_mostrarOpcion(listaSelecciones,listaJugadores) == -1)
+            		{
+            			printf("\nOcurrio un error al convocar.\n\n");
+            		}
+            	}
+            	else
+            	{
+            		printf("\nDebe cargar los datos o dar de alta algun jugador antes.\n\n");
             	}
             break;
 
@@ -135,15 +122,21 @@ int main()
             	{
             		if(controller_ordenar(listaJugadores,listaSelecciones) == -1)
             		{
-            			printf("\nOcurrio un error al listar.\n\n");
+            			printf("\nOcurrio un error al ordenar.\n\n");
             		}
+            	}
+            	else
+            	{
+            		printf("\nDebe cargar los datos o dar de alta algun jugador antes.\n\n");
             	}
             break;
 
             case 8:
-            	if(flagCarga == 1)
+            	if(flagCarga == 1 || flagAlta == 1)
             	{
-            		if(controller_guardarJugadoresModoBinario("convocados.bin", listaJugadores, listaSelecciones))
+            		controller_juntarConvocados(listaJugadores, listaConvocados);
+
+            		if(controller_guardarJugadoresModoBinario("convocados.bin", listaConvocados) == 0)
             		{
             			printf("\nEl archivo binario se generó correctamente\n");
             			flagBinario = 1;
@@ -151,27 +144,22 @@ int main()
             	}
             	else
             	{
-            		printf("\nNo puede guardar sin haber realizado una carga de archivos.\n\n");
-
+            		printf("\nDebe cargar los datos o dar de alta algun jugador antes.\n\n");
             	}
             break;
 
             case 9:
             	if(flagBinario == 1)
             	{
-            		if(controller_cargarJugadoresDesdeBinario("convocados.bin", listaJugadores, listaSelecciones))
+            		if(controller_cargarJugadoresDesdeBinario("convocados.bin", listaConvocados) == 0)
             		{
-            			printf("\nSe leyó el archivo binario de los jugadores correctamente.\n\n");
-            		}
-            		else
-            		{
-  						printf("\nNo se pudo cargar el archivo binario de los jugadores.\n\n");
-            		}
+            			printf("\nSe leyo el archivo binario de los jugadores correctamente.\n\n");
+      				}
             	}
             	else
             	{
-            		printf("\nNo puede guardar sin haber realizado una carga de archivos.\n\n");
-            	}
+            		printf("\nDebe generar un archivo binario antes.\n\n");
+             	}
             break;
 
             case 10:
@@ -206,8 +194,6 @@ int main()
             	{
             		printf("\nDebe guardar antes de salir\n\n");
             		option = -1;
-            		system("pause");
-
             	}
                 break;
             break;

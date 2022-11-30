@@ -101,13 +101,12 @@ int selec_getConvocados(Seleccion* this,int* convocados);
 int selec_getAll(Seleccion* this, int* id, char* pais, char* confederacion,int* convocados);
 
 /***
- * @fn int selec_listar(Seleccion*)
+ * @fn void selec_listar(Seleccion*)
  * @brief funcion que lista las selecciones
  *
  * @param unaSeleccion recibe la estructura de donde se traen los datos a listar
- * @return retorna -1 si no se pudieron listar los datos y 0 si pudo
  */
-int selec_listar(Seleccion* unaSeleccion);
+void selec_listar(Seleccion* unaSeleccion);
 
 /***
  * @fn int selec_compararConfederacion(void*, void*)

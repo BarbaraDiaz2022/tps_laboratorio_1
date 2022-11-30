@@ -1,4 +1,4 @@
-id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
+id,nombreCompleto,edad,posicion,nacionalidad,idSelecion
 1,Emiliano Martinez,28,Portero,Argentino,0
 2,Juan Musso,27,Portero,Argentino,0
 3,Agustin Marchesin,33,Portero,Argentino,0
@@ -18,10 +18,10 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 17,Nicolas Tagliafico,28,Lateral izquierdo,Argentino,0
 18,Marcos Acuna,29,Lateral izquierdo,Argentino,0
 19,Gonzalo Montiel,24,Lateral derecho,Argentino,0
-20,Juan Foyth ,23,Lateral derecho,Argentino,0
+20,Juan Foyth,23,Lateral derecho,Argentino,0
 21,Nahuel Molina,23,Lateral derecho,Argentino,0
 22,Guido Rodriguez,27,Pivote,Argentino,0
-23,Leandro Paredes ,27,Pivote,Argentino,0
+23,Leandro Paredes,27,Pivote,Argentino,0
 24,Rodrigo de Paul,27,Mediocentro,Argentino,0
 25,Giovani Lo Celso,25,Mediocentro,Argentino,0
 26,Exequiel Palacios,22,Mediocentro,Argentino,0
@@ -29,15 +29,15 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 28,Alexis Mac Allister,22,Mediocentro,Argentino,0
 29,Manuel Lanzini,28,Mediocentro ofensivo,Argentino,0
 30,Lucas Ocampos,26,Extremo izquierdo,Argentino,0
-31,Nicolas Gonzalez ,23,Extremo izquierdo,Argentino,0
+31,Nicolas Gonzalez,23,Extremo izquierdo,Argentino,0
 32,Papu Gomez,33,Extremo izquierdo,Argentino,0
 33,angel Correa,26,Extremo derecho,Argentino,0
 34,Emiliano Buendia,24,Extremo derecho,Argentino,0
-35,angel Di Maria ,33,Extremo derecho,Argentino,0
+35,angel Di Maria,33,Extremo derecho,Argentino,0
 36,Eduardo Salvio,30,Extremo derecho,Argentino,0
 37,Maximiliano Meza,28,Extremo derecho,Argentino,0
 38,Lionel Messi,34,Mediapunta,Argentino,0
-39,Paulo Dybala ,27,Mediapunta,Argentino,0
+39,Paulo Dybala,27,Mediapunta,Argentino,0
 40,Joaquin Correa,26,Mediapunta,Argentino,0
 41,Lautaro Martinez,23,Delantero centro,Argentino,0
 42,Lucas Alario,28,Delantero centro,Argentino,0
@@ -50,12 +50,12 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 49,Weverton,34,Portero,Brasilero,0
 50,Marquinhos,28,Defensa central,Brasilero,0
 51,eder Militao,24,Defensa central,Brasilero,0
-52,Bremer ,25,Defensa central,Brasilero,0
+52,Bremer,25,Defensa central,Brasilero,0
 53,Roger Ibanez,23,Defensa central,Brasilero,0
 54,Thiago Silva,38,Defensa central,Brasilero,0
 55,Renan Lodi,24,Lateral izquierdo,Brasilero,0
 56,Alex Telles,29,Lateral izquierdo,Brasilero,0
-57,Danilo ,31,Lateral derecho,Brasilero,0
+57,Danilo,31,Lateral derecho,Brasilero,0
 58,Fabinho,29,Pivote,Brasilero,0
 59,Casemiro,30,Pivote,Brasilero,0
 60,Bruno Guimaraes,24,Pivote,Brasilero,0
@@ -63,18 +63,18 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 62,everton Ribeiro,33,Mediocentro,Brasilero,0
 63,Lucas Paqueta,25,Mediocentro ofensivo,Brasilero,0
 64,Vinicius Junior,22,Extremo izquierdo,Brasilero,0
-65,Neymar ,30,Extremo izquierdo,Brasilero,0
+65,Neymar,30,Extremo izquierdo,Brasilero,0
 66,Antony,22,Extremo derecho,Brasilero,0
 67,Rodrygo,21,Extremo derecho,Brasilero,0
 68,Raphinha,25,Extremo derecho,Brasilero,0
-69,Richarlison ,25,Delantero centro,Brasilero,0
+69,Richarlison,25,Delantero centro,Brasilero,0
 70,Roberto Firmino,31,Delantero centro,Brasilero,0
 71,Matheus Cunha,23,Delantero centro,Brasilero,0
 72,Pedro,25,Delantero centro,Brasilero,0
 73,Sergio Rochet,29,Portero,Uruguayo,0
 74,Fernando Muslera,36,Portero,Uruguayo,0
 75,Sebastian Sosa,36,Portero,Uruguayo,0
-76,Ronald Araujo ,23,Defensa central,Uruguayo,0
+76,Ronald Araujo,23,Defensa central,Uruguayo,0
 77,Agustin Rogel,25,Defensa central,Uruguayo,0
 78,Sebastian Caceres,23,Defensa central,Uruguayo,0
 79,Leandro Cabrera,31,Defensa central,Uruguayo,0
@@ -85,12 +85,12 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 84,Damian Suarez,34,Lateral derecho,Uruguayo,0
 85,Lucas Torreira,26,Pivote,Uruguayo,0
 86,Manuel Ugarte,21,Pivote,Uruguayo,0
-87,Federico Valverde ,24,Mediocentro,Uruguayo,0
+87,Federico Valverde,24,Mediocentro,Uruguayo,0
 88,Rodrigo Bentancur,25,Mediocentro,Uruguayo,0
-89,Nicolas de la Cruz ,25,Mediocentro,Uruguayo,0
+89,Nicolas de la Cruz,25,Mediocentro,Uruguayo,0
 90,Matias Vecino,31,Mediocentro,Uruguayo,0
 91,Giorgian de Arrascaeta,28,Mediocentro ofensivo,Uruguayo,0
-92,Diego Rossi ,24,Extremo izquierdo,Uruguayo,0
+92,Diego Rossi,24,Extremo izquierdo,Uruguayo,0
 93,Agustin Canobbio,24,Extremo derecho,Uruguayo,0
 94,Facundo Pellistri,20,Extremo derecho,Uruguayo,0
 95,Brian Ocampo,23,Extremo derecho,Uruguayo,0
@@ -172,18 +172,18 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 171,Tammy Abraham,25,Delantero centro,Ingles,0
 172,Ivan Toney,26,Delantero centro,Ingles,0
 173,Antonio Rudiger,29,Defensa central,Aleman,0
-174,Armel Bella Kotchap ,20,Defensa central,Aleman,0
+174,Armel Bella Kotchap,20,Defensa central,Aleman,0
 175,Benjamin Henrichs,25,Lateral derecho,Aleman,0
 176,David Raum,24,Lateral izquierdo,Aleman,0
 177,Florian Neuhaus,23,Mediocentro,Aleman,0
 178,Ilkay Gundogan,32,Mediocentro,Aleman,0
 179,Jamal Musiala,19,Mediocentro ofensivo,Aleman,0
-180,Jonas Hofmann ,30,Extremo derecho,Aleman,0
+180,Jonas Hofmann,30,Extremo derecho,Aleman,0
 181,Joshua Kimmich,27,Pivote,Aleman,0
 182,Kai Havertz,23,Mediocentro ofensivo,Aleman,0
 183,Kevin Trapp,32,Portero,Aleman,0
 184,Leon Goretzka,25,Mediocentro,Aleman,0
-185,Leroy Sane ,26,Extremo izquierdo,Aleman,0
+185,Leroy Sane,26,Extremo izquierdo,Aleman,0
 186,Lukas Nmecha,23,Delantero centro,Aleman,0
 187,Mahmoud Dahoud,24,Mediocentro,Aleman,0
 188,Marc Andre ter Stegen,30,Portero,Aleman,0
@@ -196,7 +196,7 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 195,Robin Gosens,28,Interior izquierdo,Aleman,0
 196,Serge Gnabry,27,Extremo derecho,Aleman,0
 197,Thilo Kehrer,26,Defensa central,Aleman,0
-198,Thomas Muller ,33,Mediapunta,Aleman,0
+198,Thomas Muller,33,Mediapunta,Aleman,0
 199,Timo Werner,26,Delantero centro,Aleman,0
 200,Toni Kroos,30,Mediocentro,Aleman,0
 201,Guillermo Ochoa,37,Portero,Mexicano,0
@@ -220,14 +220,14 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 219,Fernando Beltran,24,Mediocentro,Mexicano,0
 220,Orbelin Pineda,26,Mediocentro,Mexicano,0
 221,Hector Herrera,32,Mediocentro,Mexicano,0
-222,Andres Guardado ,36,Mediocentro,Mexicano,0
+222,Andres Guardado,36,Mediocentro,Mexicano,0
 223,Alexis Vega,24,Extremo izquierdo,Mexicano,0
 224,Hirving Lozano,27,Extremo derecho,Mexicano,0
-225,Tecatito ,29,Extremo derecho,Mexicano,0
+225,Tecatito,29,Extremo derecho,Mexicano,0
 226,Roberto Alvarado,24,Extremo derecho,Mexicano,0
 227,Uriel Antuna,25,Extremo derecho,Mexicano,0
 228,Diego Lainez,22,Extremo derecho,Mexicano,0
-229,Raul Jimenez ,31,Delantero centro,Mexicano,0
+229,Raul Jimenez,31,Delantero centro,Mexicano,0
 230,Henry Martin,29,Delantero centro,Mexicano,0
 231,Rogelio Funes Mori,31,Delantero centro,Mexicano,0
 232,Santiago Gimenez,21,Delantero centro,Mexicano,0
@@ -288,7 +288,7 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 287,Kalidou Koulibaly,31,Defensa central,Senegales,0
 288,Moussa Niakhate,26,Defensa central,Senegales,0
 289,Abdou Diallo,26,Defensa central,Senegales,0
-290,Pape Abou Cisse ,27,Defensa central,Senegales,0
+290,Pape Abou Cisse,27,Defensa central,Senegales,0
 291,Formose Mendy,21,Defensa central,Senegales,0
 292,Ismail Jakobs,23,Lateral izquierdo,Senegales,0
 293,Fode Ballo Toure,25,Lateral izquierdo,Senegales,0
@@ -307,7 +307,7 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 306,Nicolas Jackson,21,Extremo derecho,Senegales,0
 307,Demba Seck,21,Extremo derecho,Senegales,0
 308,Boulaye Dia,25,Delantero centro,Senegales,0
-309,Bamba Dieng ,22,Delantero centro,Senegales,0
+309,Bamba Dieng,22,Delantero centro,Senegales,0
 310,Mathew Ryan,30,Portero,Australiano,0
 311,Mitchell Langerak,34,Portero,Australiano,0
 312,Andrew Redmayne,33,Portero,Australiano,0
@@ -318,17 +318,17 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 317,Thomas Deng,25,Defensa central,Australiano,0
 318,Aziz Behich,31,Lateral izquierdo,Australiano,0
 319,Joel King,22,Lateral izquierdo,Australiano,0
-320,Nathaniel Atkinson ,23,Lateral derecho,Australiano,0
+320,Nathaniel Atkinson,23,Lateral derecho,Australiano,0
 321,Fran Karacic,26,Lateral derecho,Australiano,0
 322,Ryan Strain,25,Lateral derecho,Australiano,0
 323,Connor Metcalfe,22,Pivote,Australiano,0
 324,Keanu Baccus,24,Pivote,Australiano,0
-325,Cammy Devlin ,24,Pivote,Australiano,0
+325,Cammy Devlin,24,Pivote,Australiano,0
 326,Aaron Mooy,32,Mediocentro,Australiano,0
 327,Riley McGree,23,Mediocentro,Australiano,0
 328,Jackson Irvine,29,Mediocentro,Australiano,0
 329,Tyrese Francois,22,Mediocentro,Australiano,0
-330,Ajdin Hrustic ,26,Mediocentro ofensivo,Australiano,0
+330,Ajdin Hrustic,26,Mediocentro ofensivo,Australiano,0
 331,Denis Genreau,23,Mediocentro ofensivo,Australiano,0
 332,Awer Mabil,27,Extremo izquierdo,Australiano,0
 333,Mathew Leckie,31,Extremo izquierdo,Australiano,0
@@ -369,4 +369,3 @@ id,nombreCompleto,edad,posicion,nacionalidad,idSeleccion
 368,Almoez Ali,26,Delantero centro,Qatari,0
 369,Ahmed Alaaeldin,29,Delantero centro,Qatari,0
 370,Mohammed Muntari,28,Delantero centro,Qatari,0
-371,,,,,

@@ -47,23 +47,24 @@ int parser_JugadorFromBinary(FILE* pFile , LinkedList* pArrayListJugador)
 
 	if(pFile != NULL && pArrayListJugador != NULL)
 	{
-			while(!feof(pFile))
-			{
-				unJugador = jug_new();
+		while(!feof(pFile))
+		{
+			unJugador = jug_new();
 
-				if(unJugador != NULL && fread(unJugador, sizeof(Jugador), 1, pFile) == 1)
+			if(unJugador != NULL && fread(unJugador, sizeof(Jugador), 1, pFile) == 1)
+			{
+				if(ll_add(pArrayListJugador, unJugador) != -1)
 				{
-					if(ll_add(pArrayListJugador, unJugador) != -1)
-					{
-						retorno = 0;
-					}
-					else
-					{
-						jug_delete(unJugador);
-					}
+					retorno = 0;
+				}
+				else
+				{
+					jug_delete(unJugador);
 				}
 			}
+		}
 	}
+
     return retorno;
 }
 

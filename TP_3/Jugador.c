@@ -85,12 +85,21 @@ int jug_listar(Jugador* unJugador)
 	char posicion[100];
 	char nacionalidad[100];
 	int idSeleccion;
+	char estadoJugador[100];
 
 	if(unJugador != NULL)
 	{
 		if(jug_getAll(unJugador, &id, nombreCompleto, &edad, posicion, nacionalidad, &idSeleccion) == 0)
 		{
-			printf("|%4d |%35s |%4d |%20s |%30s |%2d\n",id, nombreCompleto,edad,posicion,nacionalidad,idSeleccion);
+			if(idSeleccion == 0)
+			{
+				strcpy(estadoJugador, "NO CONVOCADO");
+			}
+			else
+			{
+				strcpy(estadoJugador, "CONVOCADO");
+			}
+			printf("|%4d |%35s |%4d |%20s |%30s |%10s\n",id, nombreCompleto,edad,posicion,nacionalidad,estadoJugador);
 			retorno = 0;
 		}
 	}
@@ -162,7 +171,7 @@ int jug_copiar(Jugador* pJugadorDestino, Jugador* pJugadorOrigen)
 int jug_quitar(Jugador* pJugadorAConvocar, Seleccion* pSeleccionAConvocar)
 {
 	int retorno = -1;
-	int idSeleccion = 1;
+	int idSeleccion = 1; //tiene que ser 0 cuando arregle el setId
 	int convocados;
 
 	if(pJugadorAConvocar != NULL)
@@ -503,7 +512,7 @@ int jug_compararNombre(void* jugadorUno, void* jugadorDos)
 
 		jug_getNombreCompleto(pJugadorUno, nombreDelJugUno);
 		jug_getNombreCompleto(pJugadorDos, nombreDelJugDos);
-		//si quisiera comparar por 2 criterios de char, en el getter paso Nacionalidad por ej
+
 		resultadoComparacion = strcmp(nombreDelJugUno, nombreDelJugDos);	//comparo y guardo el retorno
 	}
 
