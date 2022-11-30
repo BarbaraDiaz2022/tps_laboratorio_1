@@ -461,29 +461,35 @@ int ll_contains(LinkedList* this, void* pElement)
 */
 int ll_containsAll(LinkedList* this, LinkedList* this2)
 {
-    int returnAux = -1;
+    int retorno = -1;
     int lenThis2;
-    void* pElementAux = NULL;
 
-    if(this != NULL && this != NULL)
+    if(this != NULL && this2!=NULL)
     {
-		lenThis2 = ll_len(this2); //obtengo el tamaño de la lista 2 para recorrerla y evaluar si algun elemento de la lista 1 no esta contenido
+    	lenThis2 = ll_len(this2);
 
-		returnAux = 1; //contiene los elementos
-
-		for(int i = 0; i < lenThis2; i++)
-		{
-			pElementAux = ll_get(this, i);
-
-			if(ll_contains(this, pElementAux) == 0) //si algun elemento de la lista 2 no estan contenidos en la lista 1
+    	if(lenThis2 == 0)
+    	{
+    		retorno = 0; //no estan contenidos
+    	}
+    	else
+    	{
+    		for(int i = 0; i < lenThis2; i++)
 			{
-				returnAux = 0;  //no contiene los elementos
-				break;
+				if(ll_contains(this,ll_get(this2, i)) == 0)
+				{
+					retorno = 0; //no estan contenidos
+					break;
+				}
+				else
+				{
+					retorno = 1; // si estan contenidos
+				}
 			}
-		}
+    	}
     }
 
-    return returnAux;
+    return retorno;
 }
 
 /** \brief Crea y retorna una nueva lista con los elementos indicados
