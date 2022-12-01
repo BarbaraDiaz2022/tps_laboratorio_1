@@ -33,7 +33,7 @@ Jugador* jug_newParametros(char* idStr,char* nombreCompletoStr,char* edadStr, ch
 		edad = atoi(edadStr);
 		idSeleccion = atoi(idSelccionStr);
 
-		if(!(jug_setAll(pNuevoJugador, id,nombreCompletoStr,edad,posicionStr,nacionalidadStr,idSeleccion)))
+		if(jug_setAll(pNuevoJugador, id,nombreCompletoStr,edad,posicionStr,nacionalidadStr,idSeleccion) == -1)
 		{
 			jug_delete(pNuevoJugador);
 		}
@@ -453,7 +453,7 @@ int jug_setIdSeleccion(Jugador* this,int idSeleccion)
 {
 	int retorno = -1;
 
-	if(this != NULL && idSeleccion > 0)
+	if(this != NULL && idSeleccion >= 0)
 	{
 		this->idSeleccion = idSeleccion;
 		retorno = 0;
