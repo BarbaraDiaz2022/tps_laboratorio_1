@@ -51,16 +51,15 @@ int main(void) {
         switch(opcion)
         {
             case 1:
-        		printf("*****************ALTA DE JUGADOR*****************\n\n");
                 if(altaJugador(jugadores,CANTIDAD_JUGADORES,idJugadoresAutoincremental) == 1)
 		        {
-			        printf("Se dio de alta correctamente\n\n");
+			        printf("\nSe dio de alta correctamente.\n\n");
 			        idJugadoresAutoincremental++;
 			        contador++;
 		        }
 			   else
 			   {
-				  printf("Lo siento la lista esta llena.\n\n");
+				  printf("\nLo siento la lista esta llena.\n\n");
 			   }
             break;
 
@@ -68,18 +67,16 @@ int main(void) {
                 if(contador > 0)
                 {
 					mostrar(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES);
-
 					if(darDeBaja(jugadores,CANTIDAD_JUGADORES) == 1)
 					{
-					   printf("El jugador se elimino correctamente");
+					   printf("\nEl jugador se elimino correctamente\n\n");
 					   contador--;
+					   mostrar(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES);
 					}
 					else
 					{
-						printf("No se elimino el jugador\n");
+						printf("\nNo se elimino el jugador.\n\n");
 					}
-					printf("\n\n");
-
                 }
                 else
                 {
@@ -96,17 +93,17 @@ int main(void) {
                         opcionModificar = subMenuModificar();
                         switchearModificacion(opcionModificar,jugadores,CANTIDAD_JUGADORES);
                     }while(opcionModificar != 7);
+                    mostrar(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES);
                 }
                 else
                 {
-                    printf("Debe ingresar por lo menos 1 jugador para utilizar esta opci%cn.\n\n", 162);
+                    printf("\nDebe ingresar por lo menos 1 jugador para utilizar esta opcion.\n\n");
                 }
             break;
 
             case 4:
                 if(contador > 0)
                 {
-                    printf("*****************LISTAR*****************\n\n");
                     opcionListar = subMenuListar();
 
                     switch(opcionListar)
@@ -137,7 +134,7 @@ int main(void) {
                             case 4:
                             	idConfederacionMayorContrato = calcularContratosConfederacion(jugadores,CANTIDAD_JUGADORES);
                             	buscarNombreConfederaciones(confederaciones,CANTIDAD_CONFEDERACIONES,idConfederacionMayorContrato,nombreConfederacion);
-                            	printf("\nLa confederacion con mayor cantidad de años de contrato es: %s \n", nombreConfederacion);
+                            	mostrarConfederacion(nombreConfederacion);
                             break;
 
                             case 5:
@@ -148,7 +145,7 @@ int main(void) {
                             case 6:
                             	idConfederacionMayorJugador = verificarConfederacionConMasJugador(jugadores, CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES);
                             	buscarRegionConfederaciones(confederaciones,CANTIDAD_CONFEDERACIONES,idConfederacionMayorJugador,region);
-                            	printf("\nLa region con mas jugadores es %s \n", region);
+                            	mostrarRegion(region);
                             	mostrarJugadoresDeUnaConfederacion(jugadores,CANTIDAD_JUGADORES,confederaciones,CANTIDAD_CONFEDERACIONES,idConfederacionMayorJugador);
                             break;
 

@@ -390,7 +390,7 @@ int subMenuModificar()
 {
     int opcionMenuModificar;
     int retorno;
-
+    printf("*****************MODIFICAR*****************\n\n");
     printf("Elija lo que desea modificar:\n\n");
     printf("1.Nombre\n2.Posicion\n3.Numero de camiseta\n4.Confederacion\n5.Salario\n6.Años de contrato\n7.Salir\n");
 
@@ -408,9 +408,11 @@ int subMenuListar()
 {
     int opcionMenuListar;
     int retorno;
-
+    printf("*****************LISTAR*****************\n\n");
     printf("Elija lo que desea listar:\n\n");
-    printf("1.Listado de los jugadores ordenados por nombre de confederacion y nombre de jugador.\n2.Listado de confederaciones con sus jugadores.\n3.Total y promedio de todos los salarios y cuántos jugadores cobran más del promedio.\n4.Confederación con mayor cantidad de años de contratos total.\n5.Porcentaje de jugadores en cada confederación.\n6.Región con más jugadores y el listado de los mismos.\n7.Salir\n");
+    printf("1.Listado de los jugadores ordenados por nombre de confederacion y nombre de jugador.\n2.Listado de confederaciones con sus jugadores.\n"
+    		"3.Total y promedio de todos los salarios y cuántos jugadores cobran más del promedio.\n4.Confederación con mayor cantidad de años de contratos total."
+    		"\n5.Porcentaje de jugadores en cada confederación.\n6.Región con más jugadores y el listado de los mismos.\n7.Salir\n");
 
     retorno = utnGetNumero(&opcionMenuListar,"Su opcion:\n","Error, la opcion debe ser del 1 al 7:\n",1,7,3);
 

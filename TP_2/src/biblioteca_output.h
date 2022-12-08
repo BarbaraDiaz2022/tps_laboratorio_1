@@ -101,4 +101,8 @@ void mostrarSalarios(float total, float promedio, int cantidad);
  * @param porcentajeOFC porcentaje de jugadores en ofc
  */
 void mostrarPorcentajes(float porcentajeCONMEBOL, float porcentajeUEFA,float porcentajeAFC,float porcentajeCAF, float porcentajeCONCACAF, float porcentajeOFC);
+
+void mostrarConfederacion(char nombre[]);
+
+void mostrarRegion(char nombre[]);
 #endif /* BIBLIOTECA_OUTPUT_H_ */

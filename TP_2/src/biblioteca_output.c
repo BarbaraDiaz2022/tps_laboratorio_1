@@ -43,7 +43,6 @@ void mostrar(eJugador jugadores[], int tam, eConfederacion confederaciones[], in
     printf("\n");
 }
 
-
 int ordenarConfederacionYNombre(eJugador jugadores[], int tamJugador, eConfederacion confederaciones[], int tamConfederacion)
 {
 	int retorno = -1;
@@ -85,24 +84,25 @@ void mostrarUnJugador(eJugador jugadores, eConfederacion confederaciones[], int 
 	printf("\n| %-4d | %-30s | %-10s  | %-5d  |%-10s   |%-10.2f   |%-4d  |\n", jugadores.id, jugadores.nombre, jugadores.posicion, jugadores.numeroCamiseta, nombreConfederacion, jugadores.salario, jugadores.aniosContrato);
 }
 
-int listarJugadoresDeUnaConfederacion(eJugador jugadores[], int tamJugador, eConfederacion confederaciones[], int tamConfederacion, int idConfederacion){
+int listarJugadoresDeUnaConfederacion(eJugador jugadores[], int tamJugador, eConfederacion confederaciones[], int tamConfederacion, int idConfederacion)
+{
 	int retorno = -1;
 	int flag = 0;
 	int i;
 
-	if (tamJugador > 0 && tamConfederacion > 0 && (idConfederacion >= 100 && idConfederacion <= 105))
+	if(idConfederacion >= 100 && idConfederacion <= 105)
 	{
 		for (i = 0; i < tamJugador; i++)
 		{
-			if (jugadores[i].isEmpty == OCUPADO && jugadores[i].idConfederacion == idConfederacion)
+			if(jugadores[i].isEmpty == OCUPADO && jugadores[i].idConfederacion == idConfederacion)
 			{
 				mostrarUnJugador(jugadores[i],confederaciones,tamConfederacion);
 				flag = 1;
 			}
 		}
-		if (flag == 0)
+		if(flag == 0)
 		{
-			printf("No se encontraron jugadores de esta confederacion\n");
+			printf("\nNo se encontraron jugadores de esta confederacion\n");
 		}
 		retorno = 0;
 	}
@@ -191,4 +191,18 @@ void mostrarPorcentajes(float porcentajeCONMEBOL, float porcentajeUEFA,float por
 	printf("\nEl porcentaje de jugadores en CONCACAF es: %.2f", porcentajeCONCACAF);
 	printf("\nEl porcentaje de jugadores en OFC es: %.2f", porcentajeOFC);
 	printf("\n***************************************************\n");
+}
+
+void mostrarConfederacion(char nombre[])
+{
+	printf("\n*****************************************************************\n");
+	printf("\nLa confederacion con mayor cantidad de años de contrato es: %s \n", nombre);
+	printf("\n*****************************************************************\n");
+}
+
+void mostrarRegion(char nombre[])
+{
+	printf("\n*******************************************************************\n");
+	printf("\nLa confederacion con mayor cantidad de años de contrato es: %s \n", nombre);
+	printf("\n*******************************************************************\n");
 }
