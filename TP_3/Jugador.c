@@ -171,7 +171,7 @@ int jug_copiar(Jugador* pJugadorDestino, Jugador* pJugadorOrigen)
 int jug_quitar(Jugador* pJugadorAConvocar, Seleccion* pSeleccionAConvocar)
 {
 	int retorno = -1;
-	int idSeleccion = 1; //tiene que ser 0 cuando arregle el setId
+	int idSeleccion = 0; //tiene que ser 0 cuando arregle el setId
 	int convocados;
 
 	if(pJugadorAConvocar != NULL)

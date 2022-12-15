@@ -241,7 +241,7 @@ int buscarRegionConfederaciones(eConfederacion confederaciones[], int tamConfede
 	{
 		for(i = 0; i < tamConfederacion; i++)
 		{
-			if (confederaciones[i].id == idConfederacion)
+			if(confederaciones[i].id == idConfederacion)
 			{
 				strcpy(region, confederaciones[i].region);
 				retorno = 0;

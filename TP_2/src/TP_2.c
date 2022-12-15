@@ -161,7 +161,7 @@ int main(void) {
             break;
 
             case 5:
-            	utnGetNumero(&confirmacion, "Ud. selecciono la opcion 5. ¿Desea salir del programa?\n[1-Si|2-No]\n","Error.Ingrese\n[1-Si|2-No]\n",1,2,3);
+            	confirmacion = confirmar();
                 printf("\n");
             break;
         }

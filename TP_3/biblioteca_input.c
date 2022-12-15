@@ -378,24 +378,13 @@ short confirmarRta(void)
 	return (letra == 'S');
 }
 
-short confirmarSalida(void)
+int confirmarSalida(void)
 {
-	char letra;
+	int opcionSalida;
 
-	printf("\nEsta seguro que desea salir del programa? Ingrese[s/n]:\n");
-	fflush(stdin);
-	scanf("%c", &letra);
-	letra = toupper(letra);
+	utnGetNumero(&opcionSalida,"\nEsta seguro que desea salir del programa? Ingrese[1.Si/2.No]:\n","Error, la opcion debe ser 1 o 2\n",1,2,3);
 
-	while (!((letra=='S')||(letra=='N')))
-	{
-		printf("\nOpcion no valida... ingrese solo[s/n]:\n");
-		fflush(stdin);
-		scanf("%c", &letra);
-		letra = toupper(letra);
-	}
-
-	return (letra == 'S');
+	return opcionSalida;
 }
 
 
@@ -490,4 +479,21 @@ int submenuFiltrar(void)
 	utnGetNumero(&opcion,"Su opcion:","Error.Opcion no valida. Ingrese nuevamente:\n",1,6,3);
 
 	return opcion;
+}
+
+void pedirConfederacion(char confederacion[])
+{
+	int opcion;
+	char confederaciones[5][50] = {"AFC","CAF","CONCACAF","CONMEBOL","UEFA"};
+
+	printf("0.AFC\n1.CAF\n2.CONCACAF\n3.CONMEBOL\n4.UEFA\n");
+	utnGetNumero(&opcion,"Ingrese confederacion:\n","Error. Opcion no valida.Ingrese nuevamente:\n", 0, 4, 3);
+
+	for(int i = 0; i < 5; i++)
+	{
+		if(i == opcion)
+		{
+			strcpy(confederacion, confederaciones[i]);
+		}
+	}
 }

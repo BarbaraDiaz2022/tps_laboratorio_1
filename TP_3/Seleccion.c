@@ -105,7 +105,7 @@ int selec_setConvocados(Seleccion* this,int convocados)
 {
 	int retorno = -1;
 
-	if(this != NULL && convocados > 0)
+	if(this != NULL && convocados >= 0)
 	{
 		this->convocados = convocados;
 		retorno = 0;

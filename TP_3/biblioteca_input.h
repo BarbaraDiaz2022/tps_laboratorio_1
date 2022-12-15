@@ -114,12 +114,7 @@ int tomarIntComoTexto (char *pResultado, char mensaje[], char mensajeError[], in
  */
 int esNombre(char* cadena,int longitud);
 
-/***
- * @fn short confirmarRta(void)
- * @brief toma un caracter por teclado y solo permite "S" o "N" como respuesta
- *
- */
-short confirmarRta();
+short confirmarRta(void);
 
 /***
  * @fn int menuPrincipal()
@@ -174,6 +169,6 @@ int submenuFiltrar();
  * @brief  funcion que confirma la salida del programa mostrango el mensaje, toma un caracter por teclado y solo permite "S" o "N" como respuesta
  *
  */
-short confirmarSalida();
+int confirmarSalida();
 
 #endif /* BIBLIOTECA_INPUT_H_ */

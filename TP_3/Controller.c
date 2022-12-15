@@ -341,7 +341,6 @@ int controller_guardarJugadoresModoBinario(char* path ,LinkedList* pArrayListJug
 	int retorno = -1;
 	FILE* pArchivo = NULL;
 	Jugador* jugadorAux = NULL;
-
 	pArchivo = fopen(path, "wb");
 
 	if(pArchivo != NULL)
@@ -517,11 +516,13 @@ int controller_mostrarOpcion(LinkedList* pArrayListSeleccion,LinkedList* pArrayL
 			case 1:
 				controller_convocarSeleccion(pArrayListSeleccion,pArrayListJugador);
 				retorno = 0;
+				printf("\nEl jugador fue convocado correctamente\n\n");
 			break;
 
 			case 2:
 				controller_quitarDeSeleccion(pArrayListSeleccion,pArrayListJugador);
 				retorno = 0;
+				printf("El jugador se quito correctamente\n\n");
 			break;
 		}
 	}while(opcion != 3);
@@ -544,7 +545,7 @@ int controller_quitarDeSeleccion(LinkedList* pArrayListSeleccion,LinkedList* pAr
 	{
 		controller_listarJugadores(pArrayListJugador);
 
-		if(!utnGetNumero(&idJugadorAux, "Ingrese el ID del jugador que desea dar de baja:\n", "ERROR.", 1,10000, 3))
+		if(!utnGetNumero(&idJugadorAux, "Ingrese el ID del jugador que desea quitar de la seleccion:\n", "ERROR.", 1,10000, 3))
 		{
 			indiceDelJugador = buscarIdJugador(pArrayListJugador, idJugadorAux);
 

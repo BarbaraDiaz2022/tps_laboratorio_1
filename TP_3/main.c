@@ -18,7 +18,7 @@
 int main()
 {
 	setbuf(stdout,NULL);
-    int option;
+    int option, optionExit;
     int flagCarga = 0, flagAlta = 0,flagGuardado = 0, flagBinario = 0;
 
     LinkedList* listaJugadores = ll_newLinkedList();	//creo la lista de jugadores forma dinamica
@@ -135,7 +135,6 @@ int main()
             	if(flagCarga == 1 || flagAlta == 1)
             	{
             		controller_juntarConvocados(listaJugadores, listaConvocados);
-
             		if(controller_guardarJugadoresModoBinario("convocados.bin", listaConvocados) == 0)
             		{
             			printf("\nEl archivo binario se generó correctamente\n");
@@ -153,7 +152,7 @@ int main()
             	{
             		if(controller_cargarJugadoresDesdeBinario("convocados.bin", listaConvocados) == 0)
             		{
-            			printf("\nSe leyo el archivo binario de los jugadores correctamente.\n\n");
+            			controller_listarConvocados(listaConvocados);
       				}
             	}
             	else
@@ -180,7 +179,9 @@ int main()
             case 11:
             	if((flagCarga == 0 && flagAlta == 0) || flagGuardado == 1)
 				{
-					if(!confirmarSalida())
+            		optionExit = confirmarSalida();
+
+					if(optionExit == 2)
 					{
 						option = -1;
 					}

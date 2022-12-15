@@ -139,4 +139,6 @@ int subMenuModificar();
  */
 int subMenuListar();
 
+int confirmar(void);
+
 #endif /* BIBLIOTECA_INPUT_H_ */
