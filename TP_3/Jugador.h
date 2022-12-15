@@ -93,13 +93,13 @@ int jug_setAll(Jugador* this, int id, char* nombre,int edad,char* posicion,char*
 int buscarIdJugador(LinkedList* pArrayListJugador, int idAEncontrar);
 
 /***
- * @fn int jug_MostrarUno(Jugador*)
+ * @fn int jug_mostrarUno(Jugador*)
  * @brief imprime un solo jugador
  *
  * @param unJugador jugador a imprimir por referencia
  * @return retorna -1 si no se pudo imprimir y 0 si pudo
  */
-int jug_MostrarUno(Jugador* unJugador);
+int jug_mostrarUno(Jugador* unJugador);
 
 /***
  * @fn int jug_editarCampos(Jugador*)
@@ -251,26 +251,26 @@ int jug_setIdSeleccion(Jugador* this,int idSeleccion);
  */
 int jug_getIdSeleccion(Jugador* this,int* idSeleccion);
 
-/***
- * @fn int jug_quitar(Jugador*, Seleccion*)
- * @brief funcion que quita de la lista de selecciones y disminuye su convocado en 1
- *
- * @param pJugadorAConvocar jugador a convocar por referencia
- * @param pSeleccionAConvocar seleccion a convocar por referencia
- * @return retorna 0 si pudo quitarlo de la seleccion y -1 si no
- */
-int jug_quitar(Jugador* pJugadorAConvocar, Seleccion* pSeleccionAConvocar);
-
-/***
- * @fn int jug_convocar(Jugador*, Seleccion*, int)
- * @brief
- *
- * @param pJugadorAConvocar jugador a convocar por referencia
- * @param pSeleccionAConvocar seleccion a convocar por referencia
- * @param idSeleccionAModificar id de la seleccion a modificar
- * @return retorna 0 si pudo quitarlo de la seleccion y -1 si no
- */
-int jug_convocar(Jugador* pJugadorAConvocar,Seleccion* pSeleccionAConvocar, int idSeleccionAModificar);
+///***
+// * @fn int jug_quitar(Jugador*, Seleccion*)
+// * @brief funcion que quita de la lista de selecciones y disminuye su convocado en 1
+// *
+// * @param pJugadorAConvocar jugador a convocar por referencia
+// * @param pSeleccionAConvocar seleccion a convocar por referencia
+// * @return retorna 0 si pudo quitarlo de la seleccion y -1 si no
+// */
+//int jug_quitar(Jugador* pJugadorAConvocar, Seleccion* pSeleccionAConvocar);
+//
+///***
+// * @fn int jug_convocar(Jugador*, Seleccion*, int)
+// * @brief
+// *
+// * @param pJugadorAConvocar jugador a convocar por referencia
+// * @param pSeleccionAConvocar seleccion a convocar por referencia
+// * @param idSeleccionAModificar id de la seleccion a modificar
+// * @return retorna 0 si pudo quitarlo de la seleccion y -1 si no
+// */
+//int jug_convocar(Jugador* pJugadorAConvocar,Seleccion* pSeleccionAConvocar, int idSeleccionAModificar);
 
 /***
  * @fn int jug_compararNacioanlidad(void*, void*)

@@ -19,7 +19,7 @@ Seleccion* selec_new()
 Seleccion* selec_newParametros(char* idStr,char* paisStr,char* confederacionStr, char* convocadosStr)
 {
 	//creo las variables que necesito para cargar la estructura
-	Seleccion* pNuevaSeleccion;
+	Seleccion* pNuevaSeleccion = NULL;
 	int id;
 	int convocados;
 
@@ -139,11 +139,69 @@ void selec_listar(Seleccion* unaSeleccion)
 	}
 }
 
+int selec_incrementarConvocados(LinkedList* pArrayListSeleccion, int idSeleccion)
+{
+	int retorno = -1;
+	int indice;
+	Seleccion* pSeleccion = NULL;
+	int convocados;
+
+	if(pArrayListSeleccion != NULL && idSeleccion > 0)
+	{
+		indice = buscarIdSeleccion(pArrayListSeleccion, idSeleccion);
+		if(indice > 0)
+		{
+			pSeleccion = (Seleccion*)ll_get(pArrayListSeleccion,indice);
+			if(pSeleccion != NULL)
+			{
+				selec_getConvocados(pSeleccion,&convocados);
+				convocados++;
+
+				if(convocados >= 0 && convocados <= 22)
+				{
+					selec_setConvocados(pSeleccion, convocados);
+					retorno = 0;
+				}
+			}
+		}
+	}
+	return retorno;
+}
+
+int selec_decrementarConvocados(LinkedList* pArrayListSeleccion, int idSeleccion)
+{
+	int retorno = -1;
+	int indice;
+	Seleccion* pSeleccion = NULL;
+	int convocados;
+
+	if(pArrayListSeleccion != NULL && idSeleccion > 0)
+	{
+		indice = buscarIdSeleccion(pArrayListSeleccion, idSeleccion);
+		if(indice > 0)
+		{
+			pSeleccion = (Seleccion*) ll_get(pArrayListSeleccion, indice);
+			if(pSeleccion != NULL)
+			{
+				selec_getConvocados(pSeleccion,&convocados);
+				convocados--;
+				if(convocados >= 0)
+				{
+					selec_setConvocados(pSeleccion, convocados);
+					retorno = 0;
+				}
+			}
+		}
+	}
+
+	return retorno;
+}
+
 int selec_compararConfederacion(void* seleccionUno, void* seleccionDos)
 {
 	int resultadoComparacion = 0;
-	Seleccion* pSeleccionUno;
-	Seleccion* pSeleccionDos;
+	Seleccion* pSeleccionUno = NULL;
+	Seleccion* pSeleccionDos = NULL;
 	char confederacionSelecUno[100];
 	char confederacionSelecDos[100];
 
@@ -155,7 +213,7 @@ int selec_compararConfederacion(void* seleccionUno, void* seleccionDos)
 		selec_getConfederacion(pSeleccionUno, confederacionSelecUno);
 		selec_getConfederacion(pSeleccionDos, confederacionSelecDos);
 
-		resultadoComparacion = strcmp(confederacionSelecUno, confederacionSelecDos);	//comparo y guardo el retorno
+		resultadoComparacion = stricmp(confederacionSelecUno, confederacionSelecDos);	//comparo y guardo el retorno
 	}
 
 	return resultadoComparacion;
@@ -163,7 +221,7 @@ int selec_compararConfederacion(void* seleccionUno, void* seleccionDos)
 
 int buscarIdSeleccion(LinkedList* pArrayListSeleccion, int idAEncontrar)
 {
-	Seleccion* pSeleccion;
+	Seleccion* pSeleccion = NULL;
 	int len;
 	int idAux;
 	int retorno = -1;

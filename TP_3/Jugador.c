@@ -75,7 +75,6 @@ Jugador* crearJugador(char* idActualizado)
 	return nuevoJugador;
 }
 
-
 int jug_listar(Jugador* unJugador)
 {
 	int retorno = -1;
@@ -91,25 +90,118 @@ int jug_listar(Jugador* unJugador)
 	{
 		if(jug_getAll(unJugador, &id, nombreCompleto, &edad, posicion, nacionalidad, &idSeleccion) == 0)
 		{
-			if(idSeleccion == 0)
+			switch(idSeleccion)
 			{
-				strcpy(estadoJugador, "NO CONVOCADO");
+				case 0:
+					strcpy(estadoJugador, "NO CONVOCADO");
+				break;
+				case 1:
+					strcpy(estadoJugador, "ALEMANIA");
+				break;
+				case 2:
+					strcpy(estadoJugador, "ARABIA SAUDITA");
+				break;
+				case 3:
+					strcpy(estadoJugador, "ARGENTINA");
+				break;
+				case 4:
+					strcpy(estadoJugador, "AUSTRALIA");
+				break;
+				case 5:
+					strcpy(estadoJugador, "BELGICA");
+				break;
+				case 6:
+					strcpy(estadoJugador, "BRASIL");
+				break;
+				case 7:
+					strcpy(estadoJugador, "CAMERUN");
+				break;
+				case 8:
+					strcpy(estadoJugador, "CANADA");
+				break;
+				case 9:
+					strcpy(estadoJugador, "COREA DEL SUR");
+				break;
+				case 10:
+					strcpy(estadoJugador, "COSTA RICA");
+				break;
+				case 11:
+					strcpy(estadoJugador, "CROACIA");
+				break;
+				case 12:
+					strcpy(estadoJugador, "DINAMARCA");
+				break;
+				case 13:
+					strcpy(estadoJugador, "ECUADOR");
+				break;
+				case 14:
+					strcpy(estadoJugador, "ESPANA");
+				break;
+				case 15:
+					strcpy(estadoJugador, "ESTADOS UNIDOS");
+				break;
+				case 16:
+					strcpy(estadoJugador, "FRANCIA");
+				break;
+				case 17:
+					strcpy(estadoJugador, "GALES");
+				break;
+				case 18:
+					strcpy(estadoJugador, "GHANA");
+				break;
+				case 19:
+					strcpy(estadoJugador, "HOLANDA");
+				break;
+				case 20:
+					strcpy(estadoJugador, "INGLATERRA");
+				break;
+				case 21:
+					strcpy(estadoJugador, "IRAN");
+				break;
+				case 22:
+					strcpy(estadoJugador, "JAPON");
+				break;
+				case 23:
+					strcpy(estadoJugador, "MARRUECOS");
+				break;
+				case 24:
+					strcpy(estadoJugador, "MEXICO");
+				break;
+				case 25:
+					strcpy(estadoJugador, "POLONIA");
+				break;
+				case 26:
+					strcpy(estadoJugador, "PORTUGAL");
+				break;
+				case 27:
+					strcpy(estadoJugador, "QATAR");
+				break;
+				case 28:
+					strcpy(estadoJugador, "SENEGAL");
+				break;
+				case 29:
+					strcpy(estadoJugador, "SERBIA");
+				break;
+				case 30:
+					strcpy(estadoJugador, "SUIZA");
+				break;
+				case 31:
+					strcpy(estadoJugador, "TUNEZ");
+				break;
+				case 32:
+					strcpy(estadoJugador, "URUGUAY");
+				break;
 			}
-			else
-			{
-				strcpy(estadoJugador, "CONVOCADO");
-			}
-			printf("|%4d |%35s |%4d |%20s |%30s |%10s\n",id, nombreCompleto,edad,posicion,nacionalidad,estadoJugador);
+			printf("|%4d |%35s |%4d |%20s |%30s |%12s|\n",id, nombreCompleto,edad,posicion,nacionalidad,estadoJugador);
 			retorno = 0;
 		}
 	}
 	return retorno;
 }
 
-
 int buscarIdJugador(LinkedList* pArrayListJugador, int idAEncontrar)
 {
-	Jugador* pJugador;
+	Jugador* pJugador = NULL;
 	int len;
 	int idAux;
 	int retorno = -1;
@@ -132,7 +224,7 @@ int buscarIdJugador(LinkedList* pArrayListJugador, int idAEncontrar)
 	return retorno;
 }
 
-int jug_MostrarUno(Jugador* unJugador)
+int jug_mostrarUno(Jugador* unJugador)
 {
 	int id;
 	char nombreCompleto[100];
@@ -144,11 +236,12 @@ int jug_MostrarUno(Jugador* unJugador)
 
 	if(jug_getAll(unJugador, &id, nombreCompleto, &edad, posicion, nacionalidad, &idSeleccion) == 0)
 	{
-		printf("-----------------------------------------------------------------------------------------------------------------------\n");
+		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\n");
 		printf("|%4d|%-40s |%-5d|%-40s |%-40s |%4d|\n",id, nombreCompleto,edad,posicion,nacionalidad,idSeleccion);
-		printf("-----------------------------------------------------------------------------------------------------------------------\n");
+		printf("-----------------------------------------------------------------------------------------------------------------------------------------------\n");
 		retorno = 0;
 	}
+
 
 	return retorno;
 }
@@ -168,59 +261,10 @@ int jug_copiar(Jugador* pJugadorDestino, Jugador* pJugadorOrigen)
 	return retorno;
 }
 
-int jug_quitar(Jugador* pJugadorAConvocar, Seleccion* pSeleccionAConvocar)
-{
-	int retorno = -1;
-	int idSeleccion = 0; //tiene que ser 0 cuando arregle el setId
-	int convocados;
-
-	if(pJugadorAConvocar != NULL)
-	{
-		jug_setIdSeleccion(pJugadorAConvocar,idSeleccion);
-
-		selec_getConvocados(pSeleccionAConvocar,&convocados);
-
-		convocados--;
-
-		selec_setConvocados(pSeleccionAConvocar,convocados);
-
-		retorno = 0;
-	}
-
-	return retorno;
-}
-
-int jug_convocar(Jugador* pJugadorAConvocar, Seleccion* pSeleccionAConvocar, int idSeleccionAModificar)
-{
-	int retorno = -1;
-	int convocados = 0;
-
-	if(pJugadorAConvocar != NULL)
-	{
-		jug_setIdSeleccion(pJugadorAConvocar,idSeleccionAModificar);
-
-		selec_getConvocados(pSeleccionAConvocar,&convocados);
-
-		if(convocados < 22)
-		{
-			convocados++;
-			selec_setConvocados(pSeleccionAConvocar, convocados);
-		}
-		else
-		{
-			printf("\nNo hay mas lugar en esa seleccion.\n\n");
-		}
-
-		retorno = 0;
-	}
-	return retorno;
-}
-
-
 int jug_editarCampos(Jugador* pJugadorAModificar)
 {
 	int retorno = -1;
-	Jugador* pJugadorAux;
+	Jugador* pJugadorAux = NULL;
 	int opcionMenuModificar;
 	int flagCambios = 0;
 	char nombreCompletoAux[100];
@@ -276,21 +320,18 @@ int jug_editarCampos(Jugador* pJugadorAModificar)
 					case 5:
 						if(flagCambios == 1)
 						{
-							printf("Jugador sin cambios:\n");
-							jug_MostrarUno(pJugadorAModificar);
-							printf("Jugador con cambios:\n");
-							jug_MostrarUno(pJugadorAux);
-							printf("Desea guardar los cambios?:\n");
+							printf("\nJugador modificado:\n");
+							jug_mostrarUno(pJugadorAux);
 
-							if(confirmarRta())
+							if(confirmarRta() == 1)
 							{
 								jug_copiar(pJugadorAModificar, pJugadorAux);
-								retorno = 0;
 							}
 							else
 							{
-								jug_delete( pJugadorAux);
+								jug_delete(pJugadorAux);
 							}
+							retorno = 0;
 						}
 					break;
 				}
@@ -473,12 +514,11 @@ int jug_getIdSeleccion(Jugador* this,int* idSeleccion)
 	return retorno;
 }
 
-
 int jug_compararNacioanlidad(void* jugadorUno, void* jugadorDos)
 {
 	int resultadoComparacion = 0;
-	Jugador* pJugadorUno;
-	Jugador* pJugadorDos;
+	Jugador* pJugadorUno = NULL;
+	Jugador* pJugadorDos = NULL;
 	char nacionalidadDelJugUno[100];
 	char nacionalidadDelJugDos[100];
 
@@ -490,7 +530,7 @@ int jug_compararNacioanlidad(void* jugadorUno, void* jugadorDos)
 		jug_getNacionalidad(pJugadorUno, nacionalidadDelJugUno);
 		jug_getNacionalidad(pJugadorDos, nacionalidadDelJugDos);
 
-		resultadoComparacion = strcmp(nacionalidadDelJugUno, nacionalidadDelJugDos);	//comparo y guardo el retorno
+		resultadoComparacion = stricmp(nacionalidadDelJugUno, nacionalidadDelJugDos);	//comparo y guardo el retorno
 
 	}
 
@@ -500,8 +540,8 @@ int jug_compararNacioanlidad(void* jugadorUno, void* jugadorDos)
 int jug_compararNombre(void* jugadorUno, void* jugadorDos)
 {
 	int resultadoComparacion = 0;
-	Jugador* pJugadorUno;
-	Jugador* pJugadorDos;
+	Jugador* pJugadorUno = NULL;
+	Jugador* pJugadorDos = NULL;
 	char nombreDelJugUno[100];
 	char nombreDelJugDos[100];
 
@@ -513,7 +553,7 @@ int jug_compararNombre(void* jugadorUno, void* jugadorDos)
 		jug_getNombreCompleto(pJugadorUno, nombreDelJugUno);
 		jug_getNombreCompleto(pJugadorDos, nombreDelJugDos);
 
-		resultadoComparacion = strcmp(nombreDelJugUno, nombreDelJugDos);	//comparo y guardo el retorno
+		resultadoComparacion = stricmp(nombreDelJugUno, nombreDelJugDos);	//comparo y guardo el retorno
 	}
 
 	return resultadoComparacion;
@@ -522,8 +562,8 @@ int jug_compararNombre(void* jugadorUno, void* jugadorDos)
 int jug_compararEdad(void* jugadorUno, void* jugadorDos)
 {
 	int resultadoComparacion = 0;
-	Jugador* pJugadorUno;
-	Jugador* pJugadorDos;
+	Jugador* pJugadorUno = NULL;
+	Jugador* pJugadorDos = NULL;
 	int edadDelJugUno;
 	int edadDelJugDos;
 

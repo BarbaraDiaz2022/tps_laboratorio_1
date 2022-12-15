@@ -114,7 +114,7 @@ int tomarIntComoTexto (char *pResultado, char mensaje[], char mensajeError[], in
  */
 int esNombre(char* cadena,int longitud);
 
-short confirmarRta(void);
+int confirmarRta(void);
 
 /***
  * @fn int menuPrincipal()
@@ -170,5 +170,7 @@ int submenuFiltrar();
  *
  */
 int confirmarSalida();
+
+void pedirConfederacion(char confederacion[]);
 
 #endif /* BIBLIOTECA_INPUT_H_ */

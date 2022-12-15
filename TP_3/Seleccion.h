@@ -108,6 +108,10 @@ int selec_getAll(Seleccion* this, int* id, char* pais, char* confederacion,int* 
  */
 void selec_listar(Seleccion* unaSeleccion);
 
+int selec_incrementarConvocados(LinkedList* pArrayListSeleccion, int idSeleccion);
+
+int selec_decrementarConvocados(LinkedList* pArrayListSeleccion, int idSeleccion);
+
 /***
  * @fn int selec_compararConfederacion(void*, void*)
  * @brief compara dos selecciones por su confederacion

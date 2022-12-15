@@ -353,29 +353,13 @@ int utn_GetString(char* pResultado, int tamanio,char* mensaje, char* mensajeErro
 	return retorno;
 }
 
-/**
- * @fn short verificarRespuesta(void)
- * Esta funcion toma un caracter y solo permite "s" o "n" como respuesta.
- * @return Devuelve 0 en caso de que la respuesta sea "n" y uno si fue "s".
- */
-short confirmarRta(void)
+int confirmarRta(void)
 {
-	char letra;
+	int respuesta;
 
-	printf("\nEsta seguro?Ingrese[s/n]:\n");
-	fflush(stdin);
-	scanf("%c", &letra);
-	letra = toupper(letra);
+	utnGetNumero(&respuesta,"\nDesea guardar los cambios?[1-Si|2-No]:\n","Error, la opcion debe ser 1 o 2\n",1,2,3);
 
-	while (!((letra=='S')||(letra=='N')))
-	{
-		printf("\nOpcion no valida... ingrese solo[s/n]:\n");
-		fflush(stdin);
-		scanf("%c", &letra);
-		letra = toupper(letra);
-	}
-
-	return (letra == 'S');
+	return respuesta;
 }
 
 int confirmarSalida(void)
@@ -483,17 +467,27 @@ int submenuFiltrar(void)
 
 void pedirConfederacion(char confederacion[])
 {
-	int opcion;
-	char confederaciones[5][50] = {"AFC","CAF","CONCACAF","CONMEBOL","UEFA"};
+	int confederacionElegida;
 
-	printf("0.AFC\n1.CAF\n2.CONCACAF\n3.CONMEBOL\n4.UEFA\n");
-	utnGetNumero(&opcion,"Ingrese confederacion:\n","Error. Opcion no valida.Ingrese nuevamente:\n", 0, 4, 3);
+	utnGetNumero(&confederacionElegida,"Ingrese la confederacion a guardar:\n1.AFC\n2.CAF\n3.CONMEBOL\n4.CONCACAF\n5.UEFA\n","Error, ingrese una opcion del 1 al 5:\n",1,5,3);
 
-	for(int i = 0; i < 5; i++)
+	switch(confederacionElegida)
 	{
-		if(i == opcion)
-		{
-			strcpy(confederacion, confederaciones[i]);
-		}
+		case 1:
+			strcpy(confederacion,"AFC");
+		break;
+		case 2:
+			strcpy(confederacion,"CAF");
+		break;
+		case 3:
+			strcpy(confederacion,"CONMEBOL");
+		break;
+		case 4:
+			strcpy(confederacion,"CONCACAF");
+		break;
+		case 5:
+			strcpy(confederacion,"UEFA");
+		break;
 	}
+
 }

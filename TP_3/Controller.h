@@ -9,9 +9,9 @@ int controller_cargarJugadoresDesdeTexto(char* path , LinkedList* pArrayListJuga
 
 /** \brief Carga los datos de los jugadores desde el archivo generado en modo binario.
  *
- * \param path char*
- * \param pArrayListJugador LinkedList*
- * \return int
+ * \param path char* recibe la ruta del archivo por referencia
+ * \param pArrayListJugador LinkedList* recibe la linkedlist por referencia
+ * \return int retorn -1 si no se pudo hacer la carga
  */
 int controller_cargarJugadoresDesdeBinario(char* path , LinkedList* pArrayListJugador);
 
@@ -68,7 +68,7 @@ int controller_editarJugador(LinkedList* pArrayListJugador);
  * \param pArrayListJugador LinkedList* recibe la linkedlist por referencia
  * \return int retorna 0 si pudo remover el elemento de la lista y -1 si no
  */
-int controller_removerJugador(LinkedList* pArrayListJugador);
+int controller_removerJugador(LinkedList* pArrayListJugador,LinkedList* pArrayListSeleccion);
 
 /** \brief Listar jugadores
  *
@@ -232,4 +232,4 @@ int controller_guardarJugadoresModoBinario(char* path , LinkedList* pArrayListJu
  * @param pArrayListConvocados
  * @return
  */
-int controller_juntarConvocados(LinkedList* pArrayListJugador, LinkedList* pArrayListConvocados);
+int controller_juntarConvocados(LinkedList* pArrayListJugador, LinkedList* pArrayListSeleccion, LinkedList* pArrayListConvocados);

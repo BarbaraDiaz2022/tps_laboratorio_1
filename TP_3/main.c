@@ -78,7 +78,7 @@ int main()
             case 4:
             	if(flagCarga == 1 || flagAlta == 1)
             	{
-					if(!controller_removerJugador(listaJugadores))
+					if(!controller_removerJugador(listaJugadores,listaSelecciones))
 					{
 						printf("\nEl jugadores se elimino con exito.\n\n");
 					}
@@ -134,7 +134,7 @@ int main()
             case 8:
             	if(flagCarga == 1 || flagAlta == 1)
             	{
-            		controller_juntarConvocados(listaJugadores, listaConvocados);
+            		controller_juntarConvocados(listaJugadores, listaSelecciones,listaConvocados);
             		if(controller_guardarJugadoresModoBinario("convocados.bin", listaConvocados) == 0)
             		{
             			printf("\nEl archivo binario se generó correctamente\n");
@@ -152,7 +152,7 @@ int main()
             	{
             		if(controller_cargarJugadoresDesdeBinario("convocados.bin", listaConvocados) == 0)
             		{
-            			controller_listarConvocados(listaConvocados);
+            			controller_listarJugadores(listaConvocados);
       				}
             	}
             	else
@@ -181,25 +181,19 @@ int main()
 				{
             		optionExit = confirmarSalida();
 
-					if(optionExit == 2)
-					{
-						option = -1;
-					}
-					else
-					{
-						ll_deleteLinkedList(listaJugadores);
-						ll_deleteLinkedList(listaSelecciones);
-					}
+            		if(optionExit == 1)
+            		{
+            			ll_deleteLinkedList(listaJugadores);
+            			ll_deleteLinkedList(listaSelecciones);
+            		}
             	}
             	else
             	{
-            		printf("\nDebe guardar antes de salir\n\n");
-            		option = -1;
+            		printf("\nDebe guardar antes de salir.\n\n");
             	}
-                break;
             break;
        }
-    }while(option != 11);
+    }while(optionExit != 1);
 
     return 0;
 }
